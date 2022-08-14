@@ -32,7 +32,8 @@ const zip               = require('gulp-zip');
 // Flags
 // -----------------------------------------------------------------------------
 let watching = false;
-let fast = process.argv.includes('--fast');
+let dist = process.argv.includes('--dist');
+let fast = !dist;
 
 // -----------------------------------------------------------------------------
 // JS Build
@@ -68,7 +69,7 @@ function minifyBuild() {
     let cache = {};
 
     return gulp.src('dist/temp/app.js')
-        //.pipe(sourcemaps.init())
+        .pipe(sourcemaps.init())
         // Phase 1: Mangle all props except DOM & built-ins. (Reserved props are built-ins
         // that terser doesn't know about yet, but which will break the game if they get mangled.)
         .pipe(terser({
@@ -103,7 +104,7 @@ function minifyBuild() {
                 }
             }
         }))
-        //.pipe(sourcemaps.write('.'))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist/temp'));
 }
 
@@ -217,9 +218,6 @@ function buildHtml() {
 function buildZip() {
     let s;
 
-    // Fast Mode Shortcut
-    if (fast) return Promise.resolve();
-
     return gulp.src(['dist/build/*', '!dist/build/*.map'])
         .pipe(size())
         .pipe(zip('js13k-2020-wizard-with-a-shotgun.zip'))
@@ -239,20 +237,29 @@ function buildZip() {
 // -----------------------------------------------------------------------------
 // Build
 // -----------------------------------------------------------------------------
-async function ready() {
-    if (watching) {
-        childProcess.exec('say OK');
-    }
-}
-
 const build = gulp.series(
     buildAssets,
     buildJs,
     buildCss,
     buildHtml,
+    ...(dist ? [buildZip] : [async () => log.info('Skipping buildZip (not --dist).')]),
     ready,
-    buildZip
 );
+
+async function ready() {
+    if (!watching) return;
+
+    // This function doesn't affect the build at all, it's something I use as the
+    // build gets longer and slower in watch mode -- it flashes and dings the terminal
+    // when it's safe to refresh my browser.
+    const BELL = '\u0007';
+    const REVERSE = '\x1B[?5h';
+    const NORMAL = '\x1B[?5l';
+
+    process.stdout.write(`${BELL}${REVERSE}`);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    process.stdout.write(`${NORMAL}\n`);
+}
 
 // -----------------------------------------------------------------------------
 // Watch

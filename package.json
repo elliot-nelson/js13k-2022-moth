@@ -4,7 +4,10 @@
   "description": "My 2022 entry for the js13kgames compo, '???'.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "exit 0",
+    "serve": "serve -p 3000 dist/build",
+    "proxy": "ngrok http 3000",
+    "qrcode": "curl -Ss http://localhost:4040/api/tunnels | jq '.tunnels[0].public_url' -r | qrcode --small"
   },
   "author": "Elliot Nelson",
   "devDependencies": {
@@ -26,6 +29,8 @@
     "gulp-zip": "^4.2.0",
     "image-to-base64": "^2.1.1",
     "imagemin-advpng": "^6.0.0",
-    "rollup": "^2.26.4"
+    "qrcode": "^1.5.1",
+    "rollup": "^2.26.4",
+    "serve": "^14.0.1"
   }
 }
