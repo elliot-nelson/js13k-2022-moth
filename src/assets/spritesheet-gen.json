@@ -1,0 +1,317 @@
+{ "frames": [
+   {
+    "filename": "dialog 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 15, "h": 15 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 15 },
+    "sourceSize": { "w": 15, "h": 15 },
+    "duration": 100
+   },
+   {
+    "filename": "dialog 1.aseprite",
+    "frame": { "x": 15, "y": 0, "w": 15, "h": 15 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 15 },
+    "sourceSize": { "w": 15, "h": 15 },
+    "duration": 100
+   },
+   {
+    "filename": "dialog 2.aseprite",
+    "frame": { "x": 30, "y": 0, "w": 15, "h": 15 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 15, "h": 15 },
+    "sourceSize": { "w": 15, "h": 15 },
+    "duration": 100
+   },
+   {
+    "filename": "font.aseprite",
+    "frame": { "x": 0, "y": 15, "w": 180, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 180, "h": 12 },
+    "sourceSize": { "w": 180, "h": 12 },
+    "duration": 100
+   },
+   {
+    "filename": "gore 0.aseprite",
+    "frame": { "x": 0, "y": 27, "w": 5, "h": 5 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 5 },
+    "sourceSize": { "w": 5, "h": 5 },
+    "duration": 100
+   },
+   {
+    "filename": "gore 1.aseprite",
+    "frame": { "x": 5, "y": 27, "w": 5, "h": 5 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 5 },
+    "sourceSize": { "w": 5, "h": 5 },
+    "duration": 100
+   },
+   {
+    "filename": "gore 2.aseprite",
+    "frame": { "x": 10, "y": 27, "w": 5, "h": 5 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 5 },
+    "sourceSize": { "w": 5, "h": 5 },
+    "duration": 100
+   },
+   {
+    "filename": "gore 3.aseprite",
+    "frame": { "x": 15, "y": 27, "w": 5, "h": 5 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 5 },
+    "sourceSize": { "w": 5, "h": 5 },
+    "duration": 100
+   },
+   {
+    "filename": "hud_crosshair.aseprite",
+    "frame": { "x": 0, "y": 32, "w": 9, "h": 9 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 9, "h": 9 },
+    "sourceSize": { "w": 9, "h": 9 },
+    "duration": 100
+   },
+   {
+    "filename": "hud_healthbar 0.aseprite",
+    "frame": { "x": 0, "y": 41, "w": 109, "h": 9 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 109, "h": 9 },
+    "sourceSize": { "w": 109, "h": 9 },
+    "duration": 100
+   },
+   {
+    "filename": "hud_healthbar 1.aseprite",
+    "frame": { "x": 109, "y": 41, "w": 109, "h": 9 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 109, "h": 9 },
+    "sourceSize": { "w": 109, "h": 9 },
+    "duration": 100
+   },
+   {
+    "filename": "hud_shells 0.aseprite",
+    "frame": { "x": 0, "y": 50, "w": 6, "h": 7 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 6, "h": 7 },
+    "sourceSize": { "w": 6, "h": 7 },
+    "duration": 100
+   },
+   {
+    "filename": "hud_shells 1.aseprite",
+    "frame": { "x": 6, "y": 50, "w": 6, "h": 7 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 6, "h": 7 },
+    "sourceSize": { "w": 6, "h": 7 },
+    "duration": 100
+   },
+   {
+    "filename": "icon_mouse 0.aseprite",
+    "frame": { "x": 0, "y": 57, "w": 7, "h": 9 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 7, "h": 9 },
+    "sourceSize": { "w": 7, "h": 9 },
+    "duration": 100
+   },
+   {
+    "filename": "icon_mouse 1.aseprite",
+    "frame": { "x": 7, "y": 57, "w": 7, "h": 9 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 7, "h": 9 },
+    "sourceSize": { "w": 7, "h": 9 },
+    "duration": 100
+   },
+   {
+    "filename": "page 0.aseprite",
+    "frame": { "x": 0, "y": 66, "w": 12, "h": 14 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 14 },
+    "sourceSize": { "w": 12, "h": 14 },
+    "duration": 100
+   },
+   {
+    "filename": "page 1.aseprite",
+    "frame": { "x": 12, "y": 66, "w": 12, "h": 14 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 14 },
+    "sourceSize": { "w": 12, "h": 14 },
+    "duration": 100
+   },
+   {
+    "filename": "page 2.aseprite",
+    "frame": { "x": 24, "y": 66, "w": 12, "h": 14 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 14 },
+    "sourceSize": { "w": 12, "h": 14 },
+    "duration": 100
+   },
+   {
+    "filename": "player 0.aseprite",
+    "frame": { "x": 0, "y": 80, "w": 21, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 32 },
+    "sourceSize": { "w": 21, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "player 1.aseprite",
+    "frame": { "x": 21, "y": 80, "w": 21, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 32 },
+    "sourceSize": { "w": 21, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "player 2.aseprite",
+    "frame": { "x": 42, "y": 80, "w": 21, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 21, "h": 32 },
+    "sourceSize": { "w": 21, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "shotgun_blast 0.aseprite",
+    "frame": { "x": 0, "y": 112, "w": 23, "h": 18 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 18 },
+    "sourceSize": { "w": 23, "h": 18 },
+    "duration": 100
+   },
+   {
+    "filename": "shotgun_blast 1.aseprite",
+    "frame": { "x": 23, "y": 112, "w": 23, "h": 18 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 18 },
+    "sourceSize": { "w": 23, "h": 18 },
+    "duration": 100
+   },
+   {
+    "filename": "shotgun_blast 2.aseprite",
+    "frame": { "x": 46, "y": 112, "w": 23, "h": 18 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 18 },
+    "sourceSize": { "w": 23, "h": 18 },
+    "duration": 100
+   },
+   {
+    "filename": "shotgun_blast 3.aseprite",
+    "frame": { "x": 69, "y": 112, "w": 23, "h": 18 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 18 },
+    "sourceSize": { "w": 23, "h": 18 },
+    "duration": 100
+   },
+   {
+    "filename": "spindoctor 0.aseprite",
+    "frame": { "x": 0, "y": 130, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 100
+   },
+   {
+    "filename": "spindoctor 1.aseprite",
+    "frame": { "x": 17, "y": 130, "w": 17, "h": 17 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 17, "h": 17 },
+    "sourceSize": { "w": 17, "h": 17 },
+    "duration": 100
+   },
+   {
+    "filename": "stabguts 0.aseprite",
+    "frame": { "x": 0, "y": 147, "w": 14, "h": 22 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
+    "sourceSize": { "w": 14, "h": 22 },
+    "duration": 100
+   },
+   {
+    "filename": "stabguts 1.aseprite",
+    "frame": { "x": 14, "y": 147, "w": 14, "h": 22 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
+    "sourceSize": { "w": 14, "h": 22 },
+    "duration": 100
+   },
+   {
+    "filename": "stabguts 2.aseprite",
+    "frame": { "x": 28, "y": 147, "w": 14, "h": 22 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
+    "sourceSize": { "w": 14, "h": 22 },
+    "duration": 100
+   },
+   {
+    "filename": "stabguts 3.aseprite",
+    "frame": { "x": 42, "y": 147, "w": 14, "h": 22 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 14, "h": 22 },
+    "sourceSize": { "w": 14, "h": 22 },
+    "duration": 100
+   },
+   {
+    "filename": "tiles.aseprite",
+    "frame": { "x": 0, "y": 169, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "walls 0.aseprite",
+    "frame": { "x": 0, "y": 201, "w": 4, "h": 4 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 4 },
+    "sourceSize": { "w": 4, "h": 4 },
+    "duration": 100
+   },
+   {
+    "filename": "walls 1.aseprite",
+    "frame": { "x": 4, "y": 201, "w": 4, "h": 4 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 4 },
+    "sourceSize": { "w": 4, "h": 4 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.18",
+  "image": "spritesheet-gen.png",
+  "format": "RGBA8888",
+  "size": { "w": 218, "h": 205 },
+  "scale": "1"
+ }
+}
