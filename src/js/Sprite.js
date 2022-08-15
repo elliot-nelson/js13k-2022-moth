@@ -55,8 +55,8 @@ export const Sprite = {
         Sprite.page = SpriteSheet.page.map(initBasicSprite);
 
         // Tiles
-        Sprite.tiles = SpriteSheet.tiles.map(initBasicSprite);
-        Sprite.tiles[1] = initDynamicSprite(createSecondTile(Sprite.tiles[0].img));
+        Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);
+
         Sprite.tilebg = initDynamicSprite(createTileBg(Sprite.tiles[0].img));
         Sprite.shadow = initDynamicSprite(createShadow());
 

@@ -24,6 +24,9 @@ export const Hud = {
           Text.drawText(Viewport.ctx, game.frogger, 30, 60, 2, Text.blue, Text.blue_shadow);
         }
 
+        Viewport.ctx.drawImage(Sprite.tiles[0].img, 30, 30);
+        Viewport.ctx.drawImage(Sprite.tiles[1].img, 40, 40);
+
         // Health
         let hp = clamp(game.player.hp, 0, 100);
         Viewport.ctx.drawImage(Sprite.hud_healthbar[0].img, 2, 2);

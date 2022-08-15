@@ -288,8 +288,26 @@
     "duration": 100
    },
    {
+    "filename": "tiles2 0.aseprite",
+    "frame": { "x": 0, "y": 201, "w": 8, "h": 8 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 8 },
+    "sourceSize": { "w": 8, "h": 8 },
+    "duration": 100
+   },
+   {
+    "filename": "tiles2 1.aseprite",
+    "frame": { "x": 8, "y": 201, "w": 8, "h": 8 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 8 },
+    "sourceSize": { "w": 8, "h": 8 },
+    "duration": 100
+   },
+   {
     "filename": "walls 0.aseprite",
-    "frame": { "x": 0, "y": 201, "w": 4, "h": 4 },
+    "frame": { "x": 0, "y": 209, "w": 4, "h": 4 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 4 },
@@ -298,7 +316,7 @@
    },
    {
     "filename": "walls 1.aseprite",
-    "frame": { "x": 4, "y": 201, "w": 4, "h": 4 },
+    "frame": { "x": 4, "y": 209, "w": 4, "h": 4 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 4 },
@@ -311,7 +329,7 @@
   "version": "1.2.18",
   "image": "spritesheet-gen.png",
   "format": "RGBA8888",
-  "size": { "w": 218, "h": 205 },
+  "size": { "w": 218, "h": 213 },
   "scale": "1"
  }
 }

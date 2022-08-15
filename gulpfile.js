@@ -152,6 +152,21 @@ async function generateSpriteSheetData() {
     await ImageDataParser.parse(data, image, output);
 }
 
+async function exportTileSheet() {
+    // The tile sheet is not actually used in the game, but makes it nice and neat to edit
+    // levels in Tiled. (TBD!)
+
+    let src = 'src/assets/tiles2.aseprite';
+    let png = 'src/assets/tiles-gen.png';
+
+    try {
+        await AsepriteCli.exec(`--batch ${src} --sheet-type rows --sheet ${png}`);
+    } catch (e) {
+        log.error(e);
+        log.warn(chalk.red('Failed to update tile sheet, but building anyway...'));
+    }
+}
+
 function copyAssets() {
     let pipeline = gulp.src('src/assets/spritesheet-gen.png')
         .pipe(size({ title: 'spritesheet  pre' }));
@@ -191,6 +206,7 @@ function copyFinalSprites() {
 
 const buildAssets = gulp.series(
     exportSpriteSheet,
+    exportTileSheet,
     copyAssets,
     pngoutAssets,
     generateSpriteSheetData,
