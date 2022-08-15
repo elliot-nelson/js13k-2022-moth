@@ -28,6 +28,8 @@ export const Audio = {
     },
 
     update() {
+        return;
+
         if (!Audio.readyToPlay) return;
 
         if (!Audio.musicPlaying) {
@@ -38,6 +40,8 @@ export const Audio = {
     },
 
     play(sound) {
+        return;
+
         if (!Audio.readyToPlay) return;
         zzfx(...sound);
     },
@@ -48,10 +52,14 @@ export const Audio = {
     // that's not helpful if it won't work because you aren't looking at the page!)
 
     pause() {
+        return;
+
         Audio.gain_.gain.linearRampToValueAtTime(0, Audio.ctx.currentTime + 1);
     },
 
     unpause() {
+        return;
+
         Audio.gain_.gain.linearRampToValueAtTime(1, Audio.ctx.currentTime + 1);
     }
 };

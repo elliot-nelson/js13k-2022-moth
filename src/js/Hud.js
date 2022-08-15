@@ -17,6 +17,13 @@ import { Victory } from './systems/Victory';
  */
 export const Hud = {
     draw() {
+
+        // Glyphs
+        if (game.frogger) {
+            console.log(game.frogger);
+          Text.drawText(Viewport.ctx, game.frogger, 30, 60, 2, Text.blue, Text.blue_shadow);
+        }
+
         // Health
         let hp = clamp(game.player.hp, 0, 100);
         Viewport.ctx.drawImage(Sprite.hud_healthbar[0].img, 2, 2);
