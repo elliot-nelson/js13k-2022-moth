@@ -18,6 +18,11 @@ import { Hud } from './Hud';
 import { ScreenShake } from './ScreenShake';
 import { Maze } from './Maze';
 
+import { World } from './World';
+import { Camera } from './Camera';
+
+
+
 /**
  * Game state.
  */
@@ -30,6 +35,9 @@ export class Game {
             Input.init();
             Audio.init();
 
+            Camera.init();
+            World.init();
+
             this.maze = MapLoader.loadMap();
             this.entities = [];
             this.dialogPending = {};
@@ -40,6 +48,9 @@ export class Game {
             this.player = new Player();
             this.entities.push(this.player);
             this.camera = { pos: { ...this.player.pos } };
+
+            Camera.pos = { x: World.spawn[0] * 8, y: World.spawn[1] * 8 };
+            console.log(Camera.pos);
 
             window.addEventListener('blur', () => this.pause());
             window.addEventListener('focus', () => this.unpause());
@@ -96,6 +107,8 @@ export class Game {
         // Victory condtions
         Victory.perform();
 
+        Camera.update();
+
         // Culling (typically when an entity dies)
         this.entities = this.entities.filter(entity => !entity.cull);
 
@@ -149,6 +162,8 @@ export class Game {
             Viewport.width + this.shadowOffset * 2,
             Viewport.height + this.shadowOffset * 2
         );
+
+        World.draw();
 
         Hud.draw();
 

@@ -3,6 +3,7 @@
 import { R90, R270, R360, TILE_SIZE } from './Constants';
 import { game } from './Game';
 import { Viewport } from './Viewport';
+import { Camera } from './Camera';
 
 export function normalizeVector(p) {
     let m = Math.sqrt(p.x * p.x + p.y * p.y);
@@ -89,8 +90,8 @@ export function qr2xy(pos) {
 
 export function xy2uv(pos) {
     return {
-        u: pos.x + Viewport.center.u - game.camera.pos.x,
-        v: pos.y + Viewport.center.v - game.camera.pos.y
+        u: pos.x + Viewport.center.u - Camera.pos.x,
+        v: pos.y + Viewport.center.v - Camera.pos.y
     };
 }
 

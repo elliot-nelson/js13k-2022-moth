@@ -32,5 +32,8 @@
     "qrcode": "^1.5.1",
     "rollup": "^2.26.4",
     "serve": "^14.0.1"
+  },
+  "dependencies": {
+    "xml2js": "^0.4.23"
   }
 }

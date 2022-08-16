@@ -1,6 +1,6 @@
-'use strict';
+// Viewport
 
-import { GAME_WIDTH, GAME_HEIGHT } from './Constants';
+import { TARGET_GAME_WIDTH, TARGET_GAME_HEIGHT } from './Constants';
 
 /**
  * Viewport
@@ -45,7 +45,7 @@ export const Viewport = {
             Viewport.canvas.width = dpiWidth;
             Viewport.canvas.height = dpiHeight;
 
-            Viewport.scale = ((Math.max(dpiWidth / GAME_WIDTH, dpiHeight / GAME_HEIGHT) * 10) | 0) / 10;
+            Viewport.scale = ((Math.max(dpiWidth / TARGET_GAME_WIDTH, dpiHeight / TARGET_GAME_HEIGHT) * 10) | 0) / 10;
             Viewport.width = Math.ceil(dpiWidth / Viewport.scale);
             Viewport.height = Math.ceil(dpiHeight / Viewport.scale);
             Viewport.center = {

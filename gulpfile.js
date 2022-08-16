@@ -11,7 +11,7 @@ const rollup            = require('rollup');
 
 const AsepriteCli       = require('./tools/aseprite-cli');
 const ImageDataParser   = require('./tools/image-data-parser');
-const MapDataParser     = require('./tools/map-data-parser');
+const WorldBuilder      = require('./tools/world-builder');
 
 // -----------------------------------------------------------------------------
 // Gulp Plugins
@@ -57,7 +57,7 @@ async function compileBuild() {
         });
     } catch (error) {
         // Use rollup's error output
-        require('rollup/dist/shared/loadConfigFile').handleError(error, true);
+        require('./node_modules/rollup/dist/shared/loadConfigFile').handleError(error, true);
         throw error;
     }
 }
@@ -192,11 +192,11 @@ async function pngoutAssets() {
     childProcess.execSync('pngout dist/temp/sprites.png');
 }
 
-async function generateMapData() {
-    let data = 'src/maps/map.aseprite';
-    let output = 'src/js/Map-gen.js';
+async function generateWorld() {
+    const mapFile = 'src/assets/world.tmx';
+    const worldFile = 'src/js/WorldData-gen.js';
 
-    await MapDataParser.parse(data, output);
+    await WorldBuilder.build(mapFile, worldFile);
 }
 
 function copyFinalSprites() {
@@ -210,7 +210,7 @@ const buildAssets = gulp.series(
     copyAssets,
     pngoutAssets,
     generateSpriteSheetData,
-    generateMapData,
+    generateWorld,
     copyFinalSprites
 );
 
