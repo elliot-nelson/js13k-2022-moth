@@ -99,10 +99,10 @@ export class Game {
         Movement.perform(this.entities);
 
         // Dialog scheduling
-        DialogScheduling.perform();
+        //DialogScheduling.perform();
 
         // Brawl system (aka "room battles")
-        Brawl.perform();
+        //Brawl.perform();
 
         // Victory condtions
         Victory.perform();
@@ -140,20 +140,26 @@ export class Game {
         Viewport.ctx.setTransform(1, 0, 0, 1, 0, 0);
         Viewport.ctx.scale(Viewport.scale, Viewport.scale);
 
+        Viewport.ctx.fillStyle = 'rgba(40, 30, 20)';
+        Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
+
         // Render screenshakes (canvas translation)
+        /*
         let shakeX = 0, shakeY = 0;
         this.screenshakes.forEach(shake => {
             shakeX += shake.x;
             shakeY += shake.y;
         });
         Viewport.ctx.translate(shakeX, shakeY);
+        */
 
-        Maze.draw();
+        //Maze.draw();
 
         for (let entity of this.entities) {
             if (!entity.z || entity.z < 100) entity.draw();
         }
 
+        /*
         Viewport.ctx.drawImage(
             Sprite.shadow.img,
             0, 0,
@@ -162,10 +168,15 @@ export class Game {
             Viewport.width + this.shadowOffset * 2,
             Viewport.height + this.shadowOffset * 2
         );
+        */
 
         World.draw();
 
         Hud.draw();
+
+        Viewport.ctx.fillStyle = 'rgba(200, 10, 10, 0.2)';
+        Viewport.ctx.fillRect(0, Viewport.height / 2, Viewport.width, 1);
+        Viewport.ctx.fillRect(Viewport.width / 2, 0, 1, Viewport.height);
 
         for (let entity of this.entities) {
             if (entity.z && entity.z > 100) entity.draw();
@@ -176,6 +187,7 @@ export class Game {
             Viewport.fillViewportRect();
         }
 
+        /*
         if (game.frame >= 30 && !game.started) {
             //let width = Text.measureWidth(TITLE, 3);
             Text.drawText(
@@ -184,6 +196,7 @@ export class Game {
                 Text.red
             );
         }
+        */
 
         if (game.victory) {
             Viewport.ctx.fillStyle = rgba(240, 0, 0, clamp(Victory.frame / 1800, 0, 0.7));
