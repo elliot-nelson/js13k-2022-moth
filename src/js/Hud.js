@@ -86,6 +86,11 @@ export const Hud = {
 
         Hud.drawPageArrow();
 
+        Viewport.ctx.fillStyle = 'rgba(0, 0, 255, 0.5)';
+        Viewport.ctx.fillRect(0, 100, Viewport.width, 20);
+
+        Viewport.ctx.drawImage(Sprite.tiles[1].img, 25, 110);
+
         // Debugging - viewport width/height
         /*
         Text.drawRightText(

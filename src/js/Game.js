@@ -7,7 +7,7 @@ import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
 import { TITLE } from './Constants';
-import { rgba, createCanvas, clamp, partialText, uv2xy } from './Util';
+import { rgba, createCanvas, clamp, partialText, uv2xy, xy2qr, xy2uv } from './Util';
 import { Audio } from './Audio';
 import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
@@ -49,6 +49,8 @@ export class Game {
             this.player = new Player();
             this.entities.push(this.player);
 
+            this.selectedTile = undefined;
+
             Camera.pos = { x: World.spawn[0] * 8, y: World.spawn[1] * 8 };
             console.log(Camera.pos);
 
@@ -80,6 +82,8 @@ export class Game {
         if (Input.pressed[Input.Action.TAP]) {
             game.entities.push(new Moth(uv2xy(Input.pointer)));
             console.log('new month');
+
+            this.selectedTile = xy2qr(uv2xy(Input.pointer));
         }
 
         //if (Input.pressed[Input.Action.MENU]) {
@@ -199,6 +203,12 @@ export class Game {
 
         if (Input.pointer) {
             Viewport.ctx.fillRect(Input.pointer.u, Input.pointer.v, 10, 10);
+        }
+
+        if (this.selectedTile) {
+            Viewport.ctx.fillStyle = rgba(255, 255, 0, 0.2);
+            let uv = xy2uv({ x: this.selectedTile.q * 8, y: this.selectedTile.r * 8 });
+            Viewport.ctx.fillRect(uv.u, uv.v, 9, 9);
         }
 
         /*
