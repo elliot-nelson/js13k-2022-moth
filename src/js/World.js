@@ -16,10 +16,10 @@ export const World = {
 
     draw() {
         let tiles = this.floors[0].tiles;
-        console.log(Camera.pos);
+        //console.log(Camera.pos);
         //Camera.pos.x++;
         let offset = xy2uv({ x: 0, y: 0 });
-        console.log(offset);
+        //console.log(offset);
 
         for (let y = 0; y < tiles.length; y++) {
             for (let x = 0; x < tiles[y].length; x++) {

@@ -97,8 +97,8 @@ export function xy2uv(pos) {
 
 export function uv2xy(pos) {
     return {
-        x: pos.u - Viewport.center.u + game.camera.pos.x,
-        y: pos.v - Viewport.center.v + game.camera.pos.y
+        x: pos.u - Viewport.center.u + Camera.pos.x,
+        y: pos.v - Viewport.center.v + Camera.pos.y
     };
 }
 

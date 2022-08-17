@@ -4,6 +4,7 @@ import { game } from './Game';
 import { rgba, createCanvas } from './Util';
 import { SpriteSheet } from './SpriteSheet-gen';
 import { Viewport } from './Viewport';
+import { Camera } from './Camera';
 
 /**
  * Sprite
@@ -40,6 +41,8 @@ export const Sprite = {
         // Enemies
         Sprite.stabguts = SpriteSheet.stabguts.map(initBasicSprite);
         Sprite.spindoctor = SpriteSheet.spindoctor.map(initBasicSprite);
+
+        Sprite.moth = SpriteSheet.moth.map(initBasicSprite);
 
         // Gore/blood
         Sprite.gore = SpriteSheet.gore.map(initBasicSprite);
@@ -102,8 +105,8 @@ export const Sprite = {
 
     viewportSprite2uv(sprite, pos) {
         return {
-            u: pos.x - sprite.anchor.x - game.camera.pos.x + Viewport.center.u,
-            v: pos.y - sprite.anchor.y - game.camera.pos.y + Viewport.center.v
+            u: pos.x - sprite.anchor.x - Camera.pos.x + Viewport.center.u,
+            v: pos.y - sprite.anchor.y - Camera.pos.y + Viewport.center.v
         };
     }
 };

@@ -50,11 +50,15 @@ export class Player {
 
             if (!(game.dialog && game.dialog.blockFire)) {
                 if (Input.pressed[Input.Action.ATTACK]) {
+
+                    this.clickThing();
+
+                    /*
                     if (this.shellsLeft === 0) {
                         this.reload();
                     } else {
                         this.fire();
-                    }
+                    }*/
                 }
             }
 
@@ -170,6 +174,10 @@ export class Player {
 
         // player knockback
         this.vel = vector2point({ ...normalizeVector(this.facing), m: -1 });
+    }
+
+    clickThing() {
+
     }
 
     reload(forced) {

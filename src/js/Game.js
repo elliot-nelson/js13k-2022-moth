@@ -7,7 +7,7 @@ import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
 import { TITLE } from './Constants';
-import { rgba, createCanvas, clamp, partialText } from './Util';
+import { rgba, createCanvas, clamp, partialText, uv2xy } from './Util';
 import { Audio } from './Audio';
 import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
@@ -20,6 +20,7 @@ import { Maze } from './Maze';
 
 import { World } from './World';
 import { Camera } from './Camera';
+import { Moth } from './Moth';
 
 
 
@@ -47,7 +48,6 @@ export class Game {
             this.screenshakes = [];
             this.player = new Player();
             this.entities.push(this.player);
-            this.camera = { pos: { ...this.player.pos } };
 
             Camera.pos = { x: World.spawn[0] * 8, y: World.spawn[1] * 8 };
             console.log(Camera.pos);
@@ -77,6 +77,10 @@ export class Game {
         // Pull in frame by frame button pushes / keypresses / mouse clicks
         Input.update();
 
+        if (Input.pressed[Input.Action.TAP]) {
+            game.entities.push(new Moth(uv2xy(Input.pointer)));
+            console.log('new month');
+        }
 
         //if (Input.pressed[Input.Action.MENU]) {
         //    this.paused ? this.unpause() : this.pause();
@@ -85,11 +89,6 @@ export class Game {
         if (this.paused) return;
 
         // Handle Input
-
-        if (Input.pressed[Input.Action.CLICK]) {
-
-            console.log('click');
-        }
 
         // End Handle Input
 
@@ -123,12 +122,12 @@ export class Game {
         this.entities = this.entities.filter(entity => !entity.cull);
 
         // Camera logic
-        let diff = {
+        /*let diff = {
             x: this.player.pos.x - this.camera.pos.x,
             y: this.player.pos.y - this.camera.pos.y
         };
         this.camera.pos.x += diff.x * 0.2;
-        this.camera.pos.y += diff.y * 0.2;
+        this.camera.pos.y += diff.y * 0.2;*/
 
         // Tick screenshakes and cull finished screenshakes
         this.screenshakes = this.screenshakes.filter(screenshake =>
@@ -165,9 +164,6 @@ export class Game {
 
         //Maze.draw();
 
-        for (let entity of this.entities) {
-            if (!entity.z || entity.z < 100) entity.draw();
-        }
 
         /*
         Viewport.ctx.drawImage(
@@ -189,12 +185,20 @@ export class Game {
         Viewport.ctx.fillRect(Viewport.width / 2, 0, 1, Viewport.height);
 
         for (let entity of this.entities) {
+            if (!entity.z || entity.z < 100) entity.draw();
+        }
+
+        for (let entity of this.entities) {
             if (entity.z && entity.z > 100) entity.draw();
         }
 
         if (game.frame < 120) {
             Viewport.ctx.fillStyle = rgba(0, 0, 0, 1 - game.frame / 120);
             Viewport.fillViewportRect();
+        }
+
+        if (Input.pointer) {
+            Viewport.ctx.fillRect(Input.pointer.u, Input.pointer.v, 10, 10);
         }
 
         /*

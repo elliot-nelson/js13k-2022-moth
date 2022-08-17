@@ -111,7 +111,7 @@ export const Input = {
             }
         }
 
-        if (this.dragging) {
+        if (this.dragging && pointerAdapter.pointer) {
             this.dragVector = {
                 x: pointerAdapter.pointer.u - pointerAdapter.pointerDragStart.u,
                 y: pointerAdapter.pointer.v - pointerAdapter.pointerDragStart.v
