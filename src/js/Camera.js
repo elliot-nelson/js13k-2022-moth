@@ -5,6 +5,7 @@
 // and "what the map camera is looking at" is useful in other files.
 
 import { Game } from './Game';
+import { Input } from './input/Input';
 
 export const Camera = {
     init() {
@@ -12,6 +13,17 @@ export const Camera = {
     },
 
     update() {
+        if (Input.pressed[Input.Action.RAW_TOUCH]) {
+            this.dragStart = { ...this.pos };
+        }
+
+        if (Input.dragging) {
+            this.pos = {
+                x: this.dragStart.x - Input.dragVector.x,
+                y: this.dragStart.y - Input.dragVector.y
+            }
+        }
+
         //this.pos = Game.player.pos;
         //this.pos = { x: 0, y: 0, z: 0 };
     }

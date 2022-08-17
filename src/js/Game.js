@@ -77,11 +77,21 @@ export class Game {
         // Pull in frame by frame button pushes / keypresses / mouse clicks
         Input.update();
 
+
         //if (Input.pressed[Input.Action.MENU]) {
         //    this.paused ? this.unpause() : this.pause();
         //}
 
         if (this.paused) return;
+
+        // Handle Input
+
+        if (Input.pressed[Input.Action.CLICK]) {
+
+            console.log('click');
+        }
+
+        // End Handle Input
 
         // perform any per-frame audio updates
         Audio.update();

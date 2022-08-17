@@ -1,10 +1,9 @@
-'use strict';
+// Input
 
+import { INPUT_MODE_MOUSE, INPUT_MODE_TOUCH } from '../Constants';
 import { KeyboardAdapter } from './KeyboardAdapter';
 import { MouseAdapter } from './MouseAdapter';
-
-//import { GamepadAdapter } from './GamepadAdapter';
-//import { NormalVector } from './Geometry';
+import { TouchAdapter } from './TouchAdapter';
 
 /**
  * This is our abstract game input handler.
@@ -37,7 +36,10 @@ export const Input = {
         RELOAD: 30,
         MENU: 96,
         MUTE: 97,
-        FREEZE: 98
+        FREEZE: 98,
+        RAW_TOUCH: 40,
+        DRAG: 41,
+        TAP: 42
     },
 
     init() {
@@ -62,7 +64,11 @@ export const Input = {
 
         KeyboardAdapter.init();
         MouseAdapter.init();
-        //GamepadAdapter.init();
+        TouchAdapter.init();
+
+        this.mode = INPUT_MODE_TOUCH;
+
+        this.dragging = false;
     },
 
     update() {
@@ -72,12 +78,11 @@ export const Input = {
         // and we use it if there is -- otherwise we try to extract movement from the keyboard instead.
 
         KeyboardAdapter.update();
-        MouseAdapter.update();
-        //GamepadAdapter.update();
+
+        let pointerAdapter = this.mode === INPUT_MODE_MOUSE ? MouseAdapter : TouchAdapter;
 
         for (let action of Object.values(Input.Action)) {
-            let held = MouseAdapter.held[action] || KeyboardAdapter.held[action];
-            //let held = GamepadAdapter.held[action] || KeyboardAdapter.held[action];
+            let held = pointerAdapter.held[action] || KeyboardAdapter.held[action];
             this.pressed[action] = !this.held[action] && held;
             this.released[action] = this.held[action] && !held;
 
@@ -90,9 +95,39 @@ export const Input = {
             this.held[action] = held;
         }
 
-        this.pointer = MouseAdapter.pointer;
+        this.pointer = pointerAdapter.pointer;
         this.direction = KeyboardAdapter.direction;
         //this.direction = this.gamepad.direction.m > 0 ? this.gamepad.direction : this.keyboard.direction;
+
+        if (this.held[Input.Action.RAW_TOUCH]) {
+            if (this.framesHeld[Input.Action.RAW_TOUCH] > 20) {
+                this.dragging = true;
+            }
+
+            console.log(pointerAdapter.pointerDragStart, pointerAdapter.pointer);
+            let diffPixels = Math.abs(pointerAdapter.pointerDragStart.u - pointerAdapter.pointer.u) + Math.abs(pointerAdapter.pointerDragStart.v - pointerAdapter.pointer.v);
+            if (diffPixels > 5) {
+                this.dragging = true;
+            }
+        }
+
+        if (this.dragging) {
+            this.dragVector = {
+                x: pointerAdapter.pointer.u - pointerAdapter.pointerDragStart.u,
+                y: pointerAdapter.pointer.v - pointerAdapter.pointerDragStart.v
+            };
+        }
+
+        if (this.released[Input.Action.RAW_TOUCH]) {
+            if (this.dragging) {
+                this.dragging = false;
+            } else {
+                this.pressed[Input.Action.TAP] = true;
+                this.framesHeld[Input.Action.TAP] = 1;
+                console.log('tap');
+                console.log('touch held: ' + this.framesHeld[Input.Action.RAW_TOUCH]);
+            }
+        }
     },
 
     onDown(action) {},
