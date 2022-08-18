@@ -16,8 +16,11 @@ import { Victory } from './systems/Victory';
  * Health bars, ammo, etc.
  */
 export const Hud = {
-    draw() {
+    update() {
+        this.trayHeight = 29;
+    },
 
+    draw() {
         // Glyphs
         if (game.frogger) {
             console.log(game.frogger);
@@ -91,6 +94,9 @@ export const Hud = {
 
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 25, 110);
 
+        Viewport.ctx.drawImage(Sprite.buttons[0].img, 25, Viewport.height - 20);
+        Viewport.ctx.drawImage(Sprite.buttons[2].img, 50, Viewport.height - 20);
+
         // Debugging - viewport width/height
         /*
         Text.drawRightText(
@@ -134,5 +140,14 @@ export const Hud = {
             return dist;
         });
         return pages[0];
+    },
+
+    tap(uv) {
+        if (uv.v > Viewport.height - this.trayHeight) {
+            console.log('in tray');
+            return true;
+        }
+
+        return false;
     }
 };

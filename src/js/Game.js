@@ -79,11 +79,10 @@ export class Game {
         // Pull in frame by frame button pushes / keypresses / mouse clicks
         Input.update();
 
-        if (Input.pressed[Input.Action.TAP]) {
-            game.entities.push(new Moth(uv2xy(Input.pointer)));
-            console.log('new month');
+        Hud.update();
 
-            this.selectedTile = xy2qr(uv2xy(Input.pointer));
+        if (Input.pressed[Input.Action.TAP]) {
+            this.tap(Input.pointer);
         }
 
         //if (Input.pressed[Input.Action.MENU]) {
@@ -250,6 +249,12 @@ export class Game {
         if (!this.paused) return;
         this.paused = false;
         Audio.unpause();
+    }
+
+    tap(uv) {
+        for (let ui of [Hud, World]) {
+            if (ui.tap(uv)) break;
+        }
     }
 }
 

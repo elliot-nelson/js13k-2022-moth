@@ -3,11 +3,13 @@
 import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN } from './Constants';
 //import { FieldOfView } from './FieldOfView';
 import { Game } from './Game';
+import { game } from './Game';
 import { Viewport } from './Viewport';
 import { WorldData } from './WorldData-gen';
 import { Sprite } from './Sprite';
-import { xy2uv } from './Util';
+import { xy2uv, xy2qr, uv2xy } from './Util';
 import { Camera } from './Camera';
+import { Moth } from './Moth';
 
 export const World = {
     init() {
@@ -94,5 +96,11 @@ export const World = {
         const floor = this.floors[pos.z];
         //FieldOfView.resetVisible(floor.visible);
         //FieldOfView.refreshVisible(pos, floor.visible, floor.seen);
+    },
+
+    tap(uv) {
+        this.selectedTile = xy2qr(uv2xy(uv));
+        console.log('new moth');
+        game.entities.push(new Moth(uv2xy(uv)));
     }
 };
