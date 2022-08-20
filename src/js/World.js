@@ -10,6 +10,7 @@ import { Sprite } from './Sprite';
 import { xy2uv, xy2qr, uv2xy } from './Util';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
+import { Building } from './Building';
 
 export const World = {
     init() {
@@ -48,6 +49,10 @@ export const World = {
             }
         }
         */
+
+        for (let building of this.buildings) {
+            building.draw();
+        }
     },
 
     reset() {
@@ -64,6 +69,8 @@ export const World = {
         });
         this.bounds = WorldData.bounds;
         this.spawn = WorldData.spawn;
+
+        this.buildings = [];
     },
 
     tileAt(pos) {
@@ -101,6 +108,7 @@ export const World = {
     tap(uv) {
         this.selectedTile = xy2qr(uv2xy(uv));
         console.log('new moth');
-        game.entities.push(new Moth(uv2xy(uv)));
+        //game.entities.push(new Moth(uv2xy(uv)));
+        this.buildings.push(new Building(this.selectedTile));
     }
 };

@@ -60,6 +60,9 @@ export const Sprite = {
         // Tiles
         Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);
 
+        // Buildins
+        Sprite.buildings = SpriteSheet.buildings.map(data => initBasicSprite(data, { x: 0, y: 0 }));
+
         // Buttons
         Sprite.buttons = SpriteSheet.buttons.map(initBasicSprite);
 
