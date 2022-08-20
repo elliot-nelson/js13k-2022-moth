@@ -54,6 +54,10 @@ export class Game {
             Camera.pos = { x: World.spawn[0] * 8, y: World.spawn[1] * 8 };
             console.log(Camera.pos);
 
+            this.entities.push(new Moth(Camera.pos));
+            this.entities.push(new Moth(Camera.pos));
+            this.entities.push(new Moth(Camera.pos));
+
             window.addEventListener('blur', () => this.pause());
             window.addEventListener('focus', () => this.unpause());
 
@@ -105,7 +109,7 @@ export class Game {
         }
 
         // perform any queued damage
-        Damage.perform(this.entities);
+        //Damage.perform(this.entities);
 
         // Movement (perform entity velocities to position)
         Movement.perform(this.entities);

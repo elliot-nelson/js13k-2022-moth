@@ -71,6 +71,8 @@ export const World = {
         this.spawn = WorldData.spawn;
 
         this.buildings = [];
+
+        this.selected = undefined;
     },
 
     tileAt(pos) {
@@ -106,9 +108,22 @@ export const World = {
     },
 
     tap(uv) {
-        this.selectedTile = xy2qr(uv2xy(uv));
+        this.selected = xy2qr(uv2xy(uv));
+
+        let tile = this.selectedTile();
+        if (!tile || tile === 2) {
+            this.selected = undefined;
+            console.log('nah, no good man');
+        }
+
         console.log('new moth');
         //game.entities.push(new Moth(uv2xy(uv)));
-        this.buildings.push(new Building(this.selectedTile));
+        //this.buildings.push(new Building(this.selectedTile));
+    },
+
+    selectedTile() {
+        if (this.selected) {
+            return this.floors[0].tiles[this.selected.r]?.[this.selected.q];
+        }
     }
 };

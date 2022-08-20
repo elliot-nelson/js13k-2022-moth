@@ -2,13 +2,15 @@
 
 import { game } from './Game';
 import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90 } from './Constants';
-import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy } from './Util';
+import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv } from './Util';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
 import { Viewport } from './Viewport';
 import { ScreenShake } from './ScreenShake';
 import { Victory } from './systems/Victory';
+import { World } from './World';
+import { Building } from './Building';
 
 /**
  * Hud
@@ -18,6 +20,44 @@ import { Victory } from './systems/Victory';
 export const Hud = {
     update() {
         this.trayHeight = 29;
+
+        if (World.selected) {
+            if (World.selectedTile() === 3) {
+                this.buttons = [];
+            } else {
+                this.buttons = [
+                    [
+                        Sprite.buttons[4],
+                        25,
+                        Viewport.height - 20,
+                        () => {
+                            World.buildings.push(new Building(World.selected));
+                        }
+                    ],
+                    [
+                        Sprite.buttons[5],
+                        50,
+                        Viewport.height - 20,
+                        () => {
+                            World.buildings.push(new Building(World.selected));
+                        }
+                    ]
+                ];
+            }
+        } else {
+            this.buttons = [
+                [
+                    Sprite.buttons[0],
+                    25,
+                    Viewport.height - 20
+                ],
+                [
+                    Sprite.buttons[2],
+                    50,
+                    Viewport.height - 20
+                ]
+            ];
+        }
     },
 
     draw() {
@@ -94,8 +134,15 @@ export const Hud = {
 
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 25, 110);
 
-        Viewport.ctx.drawImage(Sprite.buttons[0].img, 25, Viewport.height - 20);
-        Viewport.ctx.drawImage(Sprite.buttons[2].img, 50, Viewport.height - 20);
+        for (let button of this.buttons) {
+            Viewport.ctx.drawImage(button[0].img, button[1], button[2]);
+        }
+
+        if (World.selected) {
+            Viewport.ctx.fillStyle = rgba(255, 255, 0, 0.2);
+            let uv = xy2uv({ x: World.selected.q * 8, y: World.selected.r * 8 });
+            Viewport.ctx.fillRect(uv.u, uv.v, 9, 9);
+        }
 
         // Debugging - viewport width/height
         /*
@@ -145,6 +192,12 @@ export const Hud = {
     tap(uv) {
         if (uv.v > Viewport.height - this.trayHeight) {
             console.log('in tray');
+
+            for (let button of this.buttons) {
+                if (uv.u >= button[1] && uv.u <= button[1] + 8 && uv.v >= button[2] && uv.v <= button[2] + 8) {
+                    button[3]();
+                }
+            }
             return true;
         }
 
