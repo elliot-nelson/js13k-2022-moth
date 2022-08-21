@@ -10,7 +10,7 @@ import { Viewport } from './Viewport';
 import { ScreenShake } from './ScreenShake';
 import { Victory } from './systems/Victory';
 import { World } from './World';
-import { Building } from './Building';
+import { Tower } from './buildings/Tower';
 
 /**
  * Hud
@@ -31,7 +31,7 @@ export const Hud = {
                         25,
                         Viewport.height - 16,
                         () => {
-                            World.buildings.push(new Building(World.selected));
+                            World.buildings.push(new Tower(World.selected));
                         }
                     ],
                     [
@@ -39,7 +39,7 @@ export const Hud = {
                         50,
                         Viewport.height - 16,
                         () => {
-                            World.buildings.push(new Building(World.selected));
+                            World.buildings.push(new Tower(World.selected));
                         }
                     ]
                 ];

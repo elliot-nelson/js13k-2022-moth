@@ -57,7 +57,7 @@ export class Moth {
                 this.carrying++;
                 console.log(this.carrying);
                 if (this.carrying > 100) {
-                    this.tasks.push({ task: RETURN, qr: World.spawn });
+                    this.tasks.push({ task: RETURN, qr: { q: World.spawn.q - 1, r: World.spawn.r - 1 } });
                 }
             }
         } else if (task.task === RETURN) {
@@ -85,6 +85,12 @@ export class Moth {
             x: (this.vel.x + newVelocity.x) / 2,
             y: (this.vel.y + newVelocity.y) / 2
         };
+
+        this.vel = { x: 0, y: 0 };
+
+        if (this.target) {
+            this.pos = { x: this.target.x, y: this.target.y };
+        }
     }
 
     draw() {
