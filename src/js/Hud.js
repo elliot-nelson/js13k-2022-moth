@@ -19,17 +19,17 @@ import { Building } from './Building';
  */
 export const Hud = {
     update() {
-        this.trayHeight = 29;
+        this.trayHeight = 20;
 
         if (World.selected) {
-            if (World.selectedTile() === 3) {
+            if (World.tileAt(World.selected) === 3) {
                 this.buttons = [];
             } else {
                 this.buttons = [
                     [
                         Sprite.buttons[4],
                         25,
-                        Viewport.height - 20,
+                        Viewport.height - 16,
                         () => {
                             World.buildings.push(new Building(World.selected));
                         }
@@ -37,7 +37,7 @@ export const Hud = {
                     [
                         Sprite.buttons[5],
                         50,
-                        Viewport.height - 20,
+                        Viewport.height - 16,
                         () => {
                             World.buildings.push(new Building(World.selected));
                         }
@@ -49,12 +49,12 @@ export const Hud = {
                 [
                     Sprite.buttons[0],
                     25,
-                    Viewport.height - 20
+                    Viewport.height - 16
                 ],
                 [
                     Sprite.buttons[2],
                     50,
-                    Viewport.height - 20
+                    Viewport.height - 16
                 ]
             ];
         }
@@ -71,6 +71,7 @@ export const Hud = {
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 40, 40);
 
         // Health
+        /*
         let hp = clamp(game.player.hp, 0, 100);
         Viewport.ctx.drawImage(Sprite.hud_healthbar[0].img, 2, 2);
         Viewport.ctx.drawImage(
@@ -84,14 +85,15 @@ export const Hud = {
             hp + 8,
             8
         );
+        */
 
         // Shells
-        let sprite = Sprite.hud_shells_full;
+        /*let sprite = Sprite.hud_shells_full;
         for (let i = 0; i < game.player.shellsMax; i++) {
             if (i + 1 > game.player.shellsLeft)
                 sprite = Sprite.hud_shells_empty;
             Viewport.ctx.drawImage(sprite.img, 15 + 6 * i, 10);
-        }
+        }*/
 
         // Glyphs
         // Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
@@ -130,7 +132,7 @@ export const Hud = {
         Hud.drawPageArrow();
 
         Viewport.ctx.fillStyle = 'rgba(0, 0, 255, 0.5)';
-        Viewport.ctx.fillRect(0, 100, Viewport.width, 20);
+        Viewport.ctx.fillRect(0, Viewport.height - this.trayHeight, Viewport.width, this.trayHeight);
 
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 25, 110);
 

@@ -263,6 +263,7 @@ const build = gulp.series(
 );
 
 async function ready() {
+    return;
     if (!watching) return;
 
     // This function doesn't affect the build at all, it's something I use as the

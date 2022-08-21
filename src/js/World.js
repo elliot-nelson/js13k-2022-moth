@@ -68,17 +68,11 @@ export const World = {
             };
         });
         this.bounds = WorldData.bounds;
-        this.spawn = WorldData.spawn;
+        this.spawn = { q: WorldData.spawn[0], r: WorldData.spawn[1] };
 
         this.buildings = [];
 
         this.selected = undefined;
-    },
-
-    tileAt(pos) {
-        let tiles = this.floors[pos.z].tiles;
-        if (pos.x < 0 || pos.y < 0 || pos.x >= tiles[0].length || pos.y >= tiles.length) return ' ';
-        return tiles[pos.y][pos.x];
     },
 
     canMoveInto(pos) {
@@ -108,22 +102,44 @@ export const World = {
     },
 
     tap(uv) {
-        this.selected = xy2qr(uv2xy(uv));
+        let qr = xy2qr(uv2xy(uv));
+        let tile = this.tileAt(qr);
 
-        let tile = this.selectedTile();
         if (!tile || tile === 2) {
             this.selected = undefined;
             console.log('nah, no good man');
+        } else {
+            if (this.selected && this.selected.q === qr.q && this.selected.r === qr.r) {
+                console.log('double tap! do something cool');
+                this.assignJob(this.selected);
+            } else {
+                console.log('single tap, reselect!');
+                this.selected = qr;
+            }
         }
-
-        console.log('new moth');
-        //game.entities.push(new Moth(uv2xy(uv)));
-        //this.buildings.push(new Building(this.selectedTile));
     },
 
-    selectedTile() {
-        if (this.selected) {
-            return this.floors[0].tiles[this.selected.r]?.[this.selected.q];
+    tileAt(qr) {
+        if (qr) {
+            return this.floors[0].tiles[qr.r]?.[qr.q];
+        }
+    },
+
+    buildingAt(qr) {
+        if (qr) {
+            for (let building of this.buildings) {
+                if (building.qr.q === qr.q && building.qr.r === qr.r) return building;
+            }
+        }
+    },
+
+    assignJob(qr) {
+        console.log('i am assigning the moths a job');
+
+        for (let entity of game.entities) {
+            if (entity instanceof Moth) {
+                entity.gather(qr);
+            }
         }
     }
 };
