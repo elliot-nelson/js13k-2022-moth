@@ -10,8 +10,8 @@ import { Sprite } from './Sprite';
 import { xy2uv, xy2qr, uv2xy } from './Util';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
-import { Tower } from './buildings/Tower';
-import { Coffin } from './buildings/Coffin';
+import { TowerBuilding } from './buildings/TowerBuilding';
+import { CoffinBuilding } from './buildings/CoffinBuilding';
 
 export const World = {
     init() {
@@ -72,7 +72,7 @@ export const World = {
         this.spawn = { q: WorldData.spawn[0], r: WorldData.spawn[1] };
 
         this.buildings = [];
-        this.buildings.push(new Coffin(this.spawn));
+        this.buildings.push(new CoffinBuilding(this.spawn));
 
         this.selected = undefined;
     },

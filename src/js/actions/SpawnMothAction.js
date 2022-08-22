@@ -24,22 +24,12 @@ const IDLE = 3;
 /**
  * Monster
  */
-export class Coffin {
-    constructor(qr) {
-        this.qr = { ...qr };
+export const SpawnMothAction = {
+    buttonSprite() {
+        return Sprite.buttons[6];
+    },
+
+    tap() {
+        console.log('i fuck up a mouse baton');
     }
-
-    think() {
-    }
-
-    draw() {
-        let xy = qr2xy(this.qr);
-        xy.x -= 4;
-
-        //Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * 8 + offset.u, y * 8 + offset.v);
-        Sprite.drawViewportSprite(Sprite.buildings[1], xy);
-
-        //Sprite.drawViewportSprite(Sprite.spindoctor[0], this.pos, game.frame / 5);
-        //Sprite.drawViewportSprite(Sprite.spindoctor[1], this.pos);
-    }
-}
+};

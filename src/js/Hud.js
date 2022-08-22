@@ -10,7 +10,8 @@ import { Viewport } from './Viewport';
 import { ScreenShake } from './ScreenShake';
 import { Victory } from './systems/Victory';
 import { World } from './World';
-import { Tower } from './buildings/Tower';
+import { TowerBuilding } from './buildings/TowerBuilding';
+import { BuildTowerAction } from './actions/BuildTowerAction';
 
 /**
  * Hud
@@ -23,40 +24,18 @@ export const Hud = {
 
         if (World.selected) {
             if (World.tileAt(World.selected) === 3) {
-                this.buttons = [];
+                this.actions = [];
             } else {
-                this.buttons = [
-                    [
-                        Sprite.buttons[4],
-                        25,
-                        Viewport.height - 16,
-                        () => {
-                            World.buildings.push(new Tower(World.selected));
-                        }
-                    ],
-                    [
-                        Sprite.buttons[5],
-                        50,
-                        Viewport.height - 16,
-                        () => {
-                            World.buildings.push(new Tower(World.selected));
-                        }
-                    ]
-                ];
+                let building = World.buildingAt(World.selected);
+                if (building) {
+                console.log('BUILDING!');
+                    this.actions = building.hudActions();
+                } else {
+                    this.actions = [BuildTowerAction];
+                }
             }
         } else {
-            this.buttons = [
-                [
-                    Sprite.buttons[0],
-                    25,
-                    Viewport.height - 16
-                ],
-                [
-                    Sprite.buttons[2],
-                    50,
-                    Viewport.height - 16
-                ]
-            ];
+            this.actions = [];
         }
     },
 
@@ -69,6 +48,8 @@ export const Hud = {
 
         Viewport.ctx.drawImage(Sprite.tiles[0].img, 30, 30);
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 40, 40);
+
+        Text.drawText(Viewport.ctx, 'EARTH ' + game.earth, Viewport.width - 100, 10);
 
         // Health
         /*
@@ -136,8 +117,10 @@ export const Hud = {
 
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 25, 110);
 
-        for (let button of this.buttons) {
-            Viewport.ctx.drawImage(button[0].img, button[1], button[2]);
+        for (let i = 0; i < this.actions.length; i++) {
+            let action = this.actions[i];
+            let uvAction = this.uvTrayAction(i);
+            Viewport.ctx.drawImage(action.buttonSprite().img, uvAction.u, uvAction.v);
         }
 
         if (World.selected) {
@@ -191,15 +174,22 @@ export const Hud = {
         return pages[0];
     },
 
+    uvTrayAction(i) {
+        return { u: 20 + i * 20, v: Viewport.height - 16 };
+    },
+
     tap(uv) {
         if (uv.v > Viewport.height - this.trayHeight) {
             console.log('in tray');
 
-            for (let button of this.buttons) {
-                if (uv.u >= button[1] && uv.u <= button[1] + 8 && uv.v >= button[2] && uv.v <= button[2] + 8) {
-                    button[3]();
+            for (let i = 0; i < this.actions.length; i++) {
+                let uvAction = this.uvTrayAction(i);
+                if (uv.u >= uvAction.u && uv.u <= uvAction.u + 8 && uv.v >= uvAction.v && uv.v <= uvAction.v + 8) {
+                    this.actions[i].tap();
+                    break;
                 }
             }
+
             return true;
         }
 

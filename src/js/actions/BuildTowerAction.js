@@ -16,6 +16,8 @@ import { Page } from '../Page';
 import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
+import { World } from '../World';
+import { TowerBuilding } from '../buildings/TowerBuilding';
 
 const MOVE = 1;
 const CIRCLE = 2;
@@ -24,22 +26,12 @@ const IDLE = 3;
 /**
  * Monster
  */
-export class Tower {
-    constructor(qr) {
-        this.qr = { ...qr };
+export const BuildTowerAction = {
+    buttonSprite() {
+        return Sprite.buttons[4];
+    },
+
+    tap() {
+        World.buildings.push(new TowerBuilding(World.selected));
     }
-
-    think() {
-    }
-
-    draw() {
-        let xy = qr2xy(this.qr);
-        xy.x -= 4;
-
-        //Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * 8 + offset.u, y * 8 + offset.v);
-        Sprite.drawViewportSprite(Sprite.buildings[0], xy);
-
-        //Sprite.drawViewportSprite(Sprite.spindoctor[0], this.pos, game.frame / 5);
-        //Sprite.drawViewportSprite(Sprite.spindoctor[1], this.pos);
-    }
-}
+};

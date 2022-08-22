@@ -66,9 +66,7 @@ export class Moth {
 
             if (dist.m < 8) {
                 this.carrying--;
-                game.resources = game.resources || 0;
-                game.resources++;
-                console.log('my resources:' + game.resources);
+                game.earth++;
 
                 if (this.carrying <= 0) {
                     this.tasks.pop();

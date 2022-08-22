@@ -72,6 +72,15 @@
     "duration": 100
    },
    {
+    "filename": "buttons 6.aseprite",
+    "frame": { "x": 72, "y": 16, "w": 12, "h": 11 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 11 },
+    "sourceSize": { "w": 12, "h": 11 },
+    "duration": 100
+   },
+   {
     "filename": "dialog 0.aseprite",
     "frame": { "x": 0, "y": 27, "w": 15, "h": 15 },
     "rotated": false,
