@@ -8,7 +8,7 @@ import {
     vector2point,
     uv2xy,
     xy2uv,
-    qr2xy
+    qr2xy,
 } from '../Util';
 import { Sprite } from '../Sprite';
 import { CHASE, DEAD } from '../systems/Behavior';
@@ -16,6 +16,8 @@ import { Page } from '../Page';
 import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
+import { World } from '../World';
+import { Moth } from '../Moth';
 
 const MOVE = 1;
 const CIRCLE = 2;
@@ -31,5 +33,9 @@ export const SpawnMothAction = {
 
     tap() {
         console.log('i fuck up a mouse baton');
+
+        let xy = qr2xy(World.selected);
+
+        game.entities.push(new Moth({ x: xy.x + 4, y: xy.y + 4 }));
     }
 };
