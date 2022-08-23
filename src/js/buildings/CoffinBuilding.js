@@ -35,7 +35,6 @@ export class CoffinBuilding {
 
     draw() {
         let xy = qr2xy(this.qr);
-        xy.x -= 4;
 
         //Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * 8 + offset.u, y * 8 + offset.v);
         Sprite.drawViewportSprite(Sprite.buildings[1], xy);

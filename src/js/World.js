@@ -1,6 +1,6 @@
 // World
 
-import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN } from './Constants';
+import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN, TILE_SIZE } from './Constants';
 //import { FieldOfView } from './FieldOfView';
 import { Game } from './Game';
 import { game } from './Game';
@@ -23,12 +23,13 @@ export const World = {
         //console.log(Camera.pos);
         //Camera.pos.x++;
         let offset = xy2uv({ x: 0, y: 0 });
+
         //console.log(offset);
 
         for (let y = 0; y < tiles.length; y++) {
             for (let x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x] > 0) {
-                    Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * 8 + offset.u, y * 8 + offset.v);
+                   Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
                 }
             }
         }

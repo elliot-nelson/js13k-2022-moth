@@ -2,7 +2,7 @@
 
 import { game } from './Game';
 import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90 } from './Constants';
-import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv } from './Util';
+import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv, xy2qr } from './Util';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
@@ -50,6 +50,18 @@ export const Hud = {
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 40, 40);
 
         Text.drawText(Viewport.ctx, 'EARTH ' + game.earth, Viewport.width - 100, 10);
+
+        if (Input.pointer) {
+            let u = Input.pointer.u;
+            let v = Input.pointer.v;
+            let xy = uv2xy(Input.pointer);
+            let qr = xy2qr(xy);
+
+            Text.drawText(Viewport.ctx, '' + u + ',' + v + '. ' + xy.x + ',' + xy.y + '. ' + qr.q + ',' + qr.r + '.', Viewport.width - 100, 20);
+            if (World.selected) {
+                Text.drawText(Viewport.ctx, '' + World.selected.q + ',' + World.selected.r + '.', Viewport.width - 100, 29);
+            }
+        }
 
         // Health
         /*

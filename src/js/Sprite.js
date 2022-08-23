@@ -61,7 +61,7 @@ export const Sprite = {
         Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);
 
         // Buildins
-        Sprite.buildings = SpriteSheet.buildings.map(data => initBasicSprite(data, { x: 0, y: 0 }));
+        Sprite.buildings = SpriteSheet.buildings.map(data => initBasicSprite(data, { x: 0, y: 8 }));
 
         // Buttons
         Sprite.buttons = SpriteSheet.buttons.map(initBasicSprite);
@@ -134,7 +134,7 @@ function initDynamicSprite(source, anchor) {
         // here is "typeof anchor === 'object' ?", but to save bytes I avoid using
         // the typeof and instanceof keywords anywhere in the codebase. Hence,
         // "anchor && anchor.x".
-        anchor: (anchor && anchor.x) ? anchor : { x: (w / 2) | 0, y: (h / 2) | 0 }
+        anchor: (typeof anchor === 'object') ? anchor : { x: (w / 2) | 0, y: (h / 2) | 0 }
     };
 }
 
