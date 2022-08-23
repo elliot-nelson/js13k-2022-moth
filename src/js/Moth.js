@@ -8,7 +8,8 @@ import {
     vector2point,
     uv2xy,
     xy2uv,
-    qr2xy
+    qr2xy,
+    centerxy
 } from './Util';
 import { Sprite } from './Sprite';
 import { CHASE, DEAD } from './systems/Behavior';
@@ -50,7 +51,7 @@ export class Moth {
         let task = this.tasks[this.tasks.length - 1] || { task: IDLE };
 
         if (task.task === GATHER) {
-            this.target = qr2xy(task.qr);
+            this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
             if (dist.m < 8) {
@@ -61,7 +62,7 @@ export class Moth {
                 }
             }
         } else if (task.task === RETURN) {
-            this.target = qr2xy(task.qr);
+            this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
             if (dist.m < 8) {

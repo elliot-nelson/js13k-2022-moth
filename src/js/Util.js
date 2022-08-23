@@ -102,6 +102,13 @@ export function uv2xy(pos) {
     };
 }
 
+export function centerxy(pos) {
+    return {
+        x: pos.x + TILE_SIZE / 2,
+        y: pos.y + TILE_SIZE / 2
+    };
+}
+
 export function clamp(value, min, max) {
     return value < min ? min : value > max ? max : value;
 }

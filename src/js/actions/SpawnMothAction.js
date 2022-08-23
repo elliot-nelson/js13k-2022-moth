@@ -9,6 +9,7 @@ import {
     uv2xy,
     xy2uv,
     qr2xy,
+    centerxy
 } from '../Util';
 import { Sprite } from '../Sprite';
 import { CHASE, DEAD } from '../systems/Behavior';
@@ -32,10 +33,6 @@ export const SpawnMothAction = {
     },
 
     tap() {
-        console.log('i fuck up a mouse baton');
-
-        let xy = qr2xy(World.selected);
-
-        game.entities.push(new Moth({ x: xy.x + 4, y: xy.y + 4 }));
+        game.entities.push(new Moth(centerxy(qr2xy(World.selected))));
     }
 };
