@@ -1,4 +1,4 @@
-'use strict';
+// Hud
 
 import { game } from './Game';
 import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90 } from './Constants';
@@ -12,6 +12,8 @@ import { Victory } from './systems/Victory';
 import { World } from './World';
 import { TowerBuilding } from './buildings/TowerBuilding';
 import { BuildTowerAction } from './actions/BuildTowerAction';
+
+const TRAY_HEIGHT = 20;
 
 /**
  * Hud
@@ -151,6 +153,15 @@ export const Hud = {
         );
         */
 
+        Viewport.ctx.fillStyle = '#ffd4a3';
+        Viewport.ctx.fillRect(0, Viewport.height - TRAY_HEIGHT, Viewport.width, 1);
+
+        Viewport.ctx.fillStyle = '#8d697a';
+        Viewport.ctx.fillRect(0, Viewport.height - TRAY_HEIGHT + 1, Viewport.width, 1);
+
+        Viewport.ctx.fillStyle = '#203c56';
+        Viewport.ctx.fillRect(0, Viewport.height - TRAY_HEIGHT + 2, Viewport.width, TRAY_HEIGHT - 2);
+
         if (Input.pointer) {
             if (game.dialog) {
                 Viewport.ctx.globalAlpha = 0.5;
@@ -158,6 +169,9 @@ export const Hud = {
             Sprite.drawViewportSprite(Sprite.hud_crosshair[0], uv2xy(Input.pointer), game.frame / 72);
             Viewport.ctx.globalAlpha = 1;
         }
+
+
+
     },
 
     drawPageArrow() {
