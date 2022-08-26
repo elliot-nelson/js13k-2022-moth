@@ -59,6 +59,9 @@ export const Sprite = {
         // Tiles
         Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);
 
+        // Ghost enemy
+        Sprite.ghost = SpriteSheet.ghost.map(initBasicSprite);
+
         // Buildins
         Sprite.buildings = SpriteSheet.buildings.map(data => initBasicSprite(data, { x: 0, y: 8 }));
 

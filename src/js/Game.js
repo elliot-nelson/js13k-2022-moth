@@ -21,6 +21,7 @@ import { Maze } from './Maze';
 import { World } from './World';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
+import { Ghost } from './Ghost';
 
 
 
@@ -232,6 +233,16 @@ export class Game {
                 Text.red
             );
         }
+
+        /*
+        if (game.frame % 100 === 0) {
+            let pos = {
+                x: Math.random() * 100 - 50,
+                y: Math.random() * 100 - 50
+            };
+            game.entities.push(new Ghost(pos));
+        }
+        */
     }
 
     pause() {

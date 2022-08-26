@@ -20,6 +20,7 @@ import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
 import { World } from '../World';
 import { Moth } from '../Moth';
+import { Ghost } from '../Ghost';
 
 const MOVE = 1;
 const CIRCLE = 2;
@@ -46,10 +47,19 @@ export const GatherEarthAction = {
     },
 
     tap() {
+        let moth;
+
         for (let entity of game.entities) {
             if (entity instanceof Moth) {
+                moth = entity;
                 entity.gather(World.selected);
             }
         }
+
+        let pos = {
+            x: moth.pos.x - 30,
+            y: moth.pos.y
+        };
+        game.entities.push(new Ghost(pos));
     }
 };
