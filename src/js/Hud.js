@@ -131,11 +131,6 @@ export const Hud = {
 
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 25, 110);
 
-        for (let i = 0; i < this.actions.length; i++) {
-            let action = this.actions[i];
-            let uvAction = this.uvTrayAction(i);
-            Viewport.ctx.drawImage(action.buttonSprite().img, uvAction.u, uvAction.v);
-        }
 
         if (World.selected) {
             Viewport.ctx.fillStyle = rgba(255, 255, 0, 0.2);
@@ -162,11 +157,34 @@ export const Hud = {
         Viewport.ctx.fillStyle = '#203c56';
         Viewport.ctx.fillRect(0, Viewport.height - TRAY_HEIGHT + 2, Viewport.width, TRAY_HEIGHT - 2);
 
+        let selectedActionIndex;
+
+        for (let i = 0; i < this.actions.length; i++) {
+            let action = this.actions[i];
+            let uvAction = this.uvTrayAction(i);
+            Viewport.ctx.drawImage(action.buttonSprite().img, uvAction.u, uvAction.v);
+
+            if (this.selectedAction === action) selectedActionIndex = i;
+        }
+
+        if (selectedActionIndex >= 0) {
+            let uvAction = this.uvTrayAction(selectedActionIndex);
+            Viewport.ctx.drawImage(this.selectedAction.buttonSelectedSprite().img, uvAction.u, uvAction.v);
+
+            Text.drawText(
+                Viewport.ctx,
+                this.selectedAction.selectedText(),
+                uvAction.u + 14,
+                uvAction.v
+            );
+        }
+
         if (Input.pointer) {
             if (game.dialog) {
                 Viewport.ctx.globalAlpha = 0.5;
             }
-            Sprite.drawViewportSprite(Sprite.hud_crosshair[0], uv2xy(Input.pointer), game.frame / 72);
+            //Sprite.drawViewportSprite(Sprite.hud_crosshair[0], uv2xy(Input.pointer), game.frame / 72);
+            Sprite.drawViewportSprite(Sprite.hud_mouse, uv2xy(Input.pointer));
             Viewport.ctx.globalAlpha = 1;
         }
 
@@ -205,20 +223,25 @@ export const Hud = {
     },
 
     tap(uv) {
-        if (uv.v > Viewport.height - this.trayHeight) {
-            console.log('in tray');
-
+        if (uv.v > Viewport.height - TRAY_HEIGHT) {
             for (let i = 0; i < this.actions.length; i++) {
                 let uvAction = this.uvTrayAction(i);
-                if (uv.u >= uvAction.u && uv.u <= uvAction.u + 8 && uv.v >= uvAction.v && uv.v <= uvAction.v + 8) {
-                    this.actions[i].tap();
-                    break;
+                if (uv.u >= uvAction.u && uv.u <= uvAction.u + 12 && uv.v >= uvAction.v && uv.v <= uvAction.v + 12) {
+                    if (this.actions[i] === this.selectedAction) {
+                        this.selectedAction.tap();
+                        this.selectedAction = undefined;
+                    } else {
+                        this.selectedAction = this.actions[i];
+                    }
+                    return true;
                 }
             }
 
+            this.selectedAction = undefined;
             return true;
         }
 
+        this.selectedAction = undefined;
         return false;
     }
 };

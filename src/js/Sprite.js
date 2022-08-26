@@ -54,6 +54,8 @@ export const Sprite = {
         Sprite.hud_healthbar.push(initDynamicSprite(createHealthChunk(Sprite.hud_healthbar[1].img)));
         Sprite.hud_crosshair = SpriteSheet.hud_crosshair.map(initBasicSprite);
 
+        Sprite.hud_mouse = SpriteSheet.cursor.map(data => initBasicSprite(data, { x: 0, y: 0 }))[0];
+
         // Pages
         Sprite.page = SpriteSheet.page.map(initBasicSprite);
 
@@ -65,6 +67,7 @@ export const Sprite = {
 
         // Buttons
         Sprite.buttons = SpriteSheet.buttons.map(initBasicSprite);
+        Sprite.buttons2 = SpriteSheet.buttons2.map(initBasicSprite);
 
         Sprite.tilebg = initDynamicSprite(createTileBg(Sprite.tiles[0].img));
         Sprite.shadow = initDynamicSprite(createShadow());

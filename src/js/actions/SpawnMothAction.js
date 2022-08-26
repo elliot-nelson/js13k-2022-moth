@@ -29,7 +29,15 @@ const IDLE = 3;
  */
 export const SpawnMothAction = {
     buttonSprite() {
-        return Sprite.buttons[6];
+        return Sprite.buttons2[0];
+    },
+
+    buttonSelectedSprite() {
+        return Sprite.buttons2[1];
+    },
+
+    selectedText() {
+        return 'MOTH xyz';
     },
 
     tap() {
