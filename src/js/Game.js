@@ -205,11 +205,6 @@ export class Game {
             Viewport.fillViewportRect();
         }
 
-        if (Input.pointer) {
-            Viewport.ctx.fillRect(Input.pointer.u, Input.pointer.v, 10, 10);
-        }
-
-
         /*
         if (game.frame >= 30 && !game.started) {
             //let width = Text.measureWidth(TITLE, 3);

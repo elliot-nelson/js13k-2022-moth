@@ -12,7 +12,6 @@ import {
 } from '../Util';
 import { Sprite } from '../Sprite';
 import { CHASE, DEAD } from '../systems/Behavior';
-import { Page } from '../Page';
 import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';

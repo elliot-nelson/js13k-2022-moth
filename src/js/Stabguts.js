@@ -6,7 +6,6 @@ import { vectorBetween, clamp, vector2angle } from './Util';
 import { Sprite } from './Sprite';
 import { CHASE, DEAD, ATTACK, RELOAD } from './systems/Behavior';
 import { Gore } from './Gore';
-import { Page } from './Page';
 
 /**
  * Monster
@@ -62,8 +61,6 @@ export class Stabguts {
         } else if (this.state === DEAD) {
             this.cull = true;
             Gore.kill(this);
-            game.entities.push(new Page(this.pos, 1));
-            game.entities.push(new Page(this.pos, 2));
         }
     }
 

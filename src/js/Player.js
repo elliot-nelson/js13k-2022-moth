@@ -12,7 +12,6 @@ import { Audio } from './Audio';
 import { Gore } from './Gore';
 import { Viewport } from './Viewport';
 import { SpawnAnimation } from './SpawnAnimation';
-import { Page } from './Page';
 import { ScreenShake } from './ScreenShake';
 
 /**
@@ -105,7 +104,6 @@ export class Player {
             } else {
                 this.state = SPAWN;
                 this.frames = 120;
-                this.releasePages();
             }
             this.hp = 100;
             this.deaths++;
@@ -244,17 +242,5 @@ export class Player {
             }
             Viewport.ctx.restore();
         }
-    }
-
-    releasePages() {
-        let number = Math.min(this.pages, 7);
-        let amount = this.pages / number | 0;
-        let remainder = this.pages - amount * number;
-
-        for (let i = 0; i < number; i++) {
-            game.entities.push(new Page(this.pos, amount + remainder));
-            remainder = 0;
-        }
-        this.pages = 0;
     }
 }

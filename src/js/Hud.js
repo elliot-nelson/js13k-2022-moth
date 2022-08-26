@@ -93,39 +93,6 @@ export const Hud = {
         // Glyphs
         // Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
 
-        // Pages
-        let pages = game.player.pages;
-        if (game.victory) pages = Victory.frame > 240 ? 666 : 404;
-        if (pages > 0 || game.player.deaths > 0) {
-            if (Hud.pageGlow > 0 && Hud.pageGlow < 30) {
-                Viewport.ctx.globalAlpha = 1 - (Hud.pageGlow++ / 60);
-            } else {
-                Viewport.ctx.globalAlpha = 0.5;
-            }
-            Viewport.ctx.drawImage(
-                Sprite.page[1].img,
-                Viewport.width - HUD_PAGE_U,
-                HUD_PAGE_V
-            );
-            Viewport.ctx.globalAlpha = 1;
-            Viewport.ctx.drawImage(
-                Sprite.page[0].img,
-                Viewport.width - HUD_PAGE_U,
-                HUD_PAGE_V
-            );
-            Text.drawText(
-                Viewport.ctx,
-                'x' + ('' + pages).padStart(3, '0'),
-                Viewport.width - HUD_PAGE_TEXT_U,
-                4,
-                2,
-                pages === 666 ? Text.red : Text.blue,
-                Text.blue_shadow
-            );
-        }
-
-        Hud.drawPageArrow();
-
         Viewport.ctx.fillStyle = 'rgba(0, 0, 255, 0.5)';
         Viewport.ctx.fillRect(0, Viewport.height - this.trayHeight, Viewport.width, this.trayHeight);
 
@@ -188,34 +155,6 @@ export const Hud = {
             Viewport.ctx.globalAlpha = 1;
         }
 
-
-
-    },
-
-    drawPageArrow() {
-        let page = Hud.closestPage();
-        if (page) {
-            let vector = vectorBetween(game.player.pos, page.pos);
-            let angle = vector2angle(vector);
-            vector.m = clamp(vector.m / 2, 16, Viewport.height / 2 - 5);
-            if (vector.m > 64) {
-                let xy = vectorAdd(game.player.pos, vector);
-                let a = Math.sin(game.frame / 60)
-                Viewport.ctx.globalAlpha = Math.sin(game.frame / 20) * 0.2 + 0.8;
-                Sprite.drawViewportSprite(Sprite.page[2], xy, angle + R90);
-                Viewport.ctx.globalAlpha = 1;
-            }
-        }
-    },
-
-    closestPage() {
-        let pages = game.entities.filter(entity => entity.page);
-        let pos = game.player.pos;
-        pages.sort((a, b) => {
-            let dist = ((a.pos.x - pos.x) ** 2 + (a.pos.y - pos.y) ** 2) - ((b.pos.x - pos.x) ** 2 + (b.pos.y - pos.y) ** 2);
-            return dist;
-        });
-        return pages[0];
     },
 
     uvTrayAction(i) {

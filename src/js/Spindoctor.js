@@ -9,7 +9,6 @@ import {
 } from './Util';
 import { Sprite } from './Sprite';
 import { CHASE, DEAD } from './systems/Behavior';
-import { Page } from './Page';
 import { Gore } from './Gore';
 import { Viewport } from './Viewport';
 
@@ -54,8 +53,6 @@ export class Spindoctor {
         } else if (this.state === DEAD) {
             this.cull = true;
             Gore.kill(this);
-            game.entities.push(new Page(this.pos, 1));
-            game.entities.push(new Page(this.pos, 2));
         }
     }
 

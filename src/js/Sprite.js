@@ -56,9 +56,6 @@ export const Sprite = {
 
         Sprite.hud_mouse = SpriteSheet.cursor.map(data => initBasicSprite(data, { x: 0, y: 0 }))[0];
 
-        // Pages
-        Sprite.page = SpriteSheet.page.map(initBasicSprite);
-
         // Tiles
         Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);
 

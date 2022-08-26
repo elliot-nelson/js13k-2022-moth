@@ -13,7 +13,6 @@ import {
 } from './Util';
 import { Sprite } from './Sprite';
 import { CHASE, DEAD } from './systems/Behavior';
-import { Page } from './Page';
 import { Gore } from './Gore';
 import { World } from './World';
 import { Viewport } from './Viewport';
