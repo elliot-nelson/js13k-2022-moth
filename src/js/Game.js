@@ -251,6 +251,10 @@ export class Game {
             if (ui.tap(uv)) break;
         }
     }
+
+    activeMoths() {
+        return this.entities.filter(x => x instanceof Moth).length;
+    }
 }
 
 export const game = new Game();

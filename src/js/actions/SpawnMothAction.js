@@ -23,6 +23,11 @@ const MOVE = 1;
 const CIRCLE = 2;
 const IDLE = 3;
 
+const SPAWN_COST_EARTH = [0, 4];
+for (let i = 2; i <= 20; i++) {
+    SPAWN_COST_EARTH[i] = Math.ceil(SPAWN_COST_EARTH[i - 1] * 1.3 + 4);
+}
+
 /**
  * Monster
  */
@@ -36,10 +41,12 @@ export const SpawnMothAction = {
     },
 
     selectedText() {
-        return 'MOTH xyz';
+        let cost = SPAWN_COST_EARTH[game.activeMoths()];
+        return 'MOTH xyz ' + cost;
     },
 
     tap() {
+        game.earth -= SPAWN_COST_EARTH[game.activeMoths()];
         game.entities.push(new Moth(centerxy(qr2xy(World.selected))));
     }
 };
