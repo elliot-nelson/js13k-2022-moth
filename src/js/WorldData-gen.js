@@ -290,7 +290,7 @@ export const WorldData =
                     1,
                     1,
                     1,
-                    3,
+                    1,
                     1,
                     1,
                     2
@@ -484,6 +484,21 @@ export const WorldData =
                     "name": "SPAWN",
                     "x": 21,
                     "y": 13
+                },
+                {
+                    "name": "EARTH",
+                    "x": 20,
+                    "y": 10
+                },
+                {
+                    "name": "EARTH",
+                    "x": 16,
+                    "y": 12
+                },
+                {
+                    "name": "EARTH",
+                    "x": 17,
+                    "y": 2
                 }
             ],
             "triggers": [],

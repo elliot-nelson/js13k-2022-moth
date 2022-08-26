@@ -12,6 +12,8 @@ import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { TowerBuilding } from './buildings/TowerBuilding';
 import { CoffinBuilding } from './buildings/CoffinBuilding';
+import { EarthBuilding } from './buildings/EarthBuilding';
+import { Hud } from './Hud';
 
 export const World = {
     init() {
@@ -64,7 +66,8 @@ export const World = {
         this.floors = WorldData.floors.map(floor => {
             return {
                 tiles: floor.tiles.map(row => [...row]),
-                objects: floor.objects.map(object => ({ id: object[0], x: object[1], y: object[2], type: object[3] })),
+                objects: floor.objects.map(object => ({ ...object })),
+                //objects: floor.objects.map(object => ({ id: object[0], x: object[1], y: object[2], type: object[3] })),
                 // *COMBAT*
                 //triggers: floor.triggers.map(trigger => ({ ...trigger }))
             };
@@ -74,6 +77,13 @@ export const World = {
 
         this.buildings = [];
         this.buildings.push(new CoffinBuilding(this.spawn));
+
+        for (let b of this.floors[0].objects) {
+            console.log(b);
+            if (b.name === 'EARTH') {
+                this.buildings.push(new EarthBuilding({ q: b.x, r: b.y }));
+            }
+        }
 
         this.selected = undefined;
     },
@@ -113,11 +123,23 @@ export const World = {
             console.log('nah, no good man');
         } else {
             if (this.selected && this.selected.q === qr.q && this.selected.r === qr.r) {
-                console.log('double tap! do something cool');
-                this.assignJob(this.selected);
+                let building = this.buildingAt(this.selected);
+                if (building) {
+                    let actions = building.hudActions();
+                    if (actions[0].defaultTapAction) {
+                        actions[0].tap();
+                    }
+                }
             } else {
                 console.log('single tap, reselect!');
                 this.selected = qr;
+                let building = this.buildingAt(this.selected);
+                if (building) {
+                    let actions = building.hudActions();
+                    if (actions[0].defaultTapAction) {
+                        Hud.selectedAction = actions[0];
+                    }
+                }
             }
         }
     },
