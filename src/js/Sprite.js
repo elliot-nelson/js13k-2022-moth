@@ -30,17 +30,9 @@ export const Sprite = {
         Sprite.icon_mouse_lmb = initBasicSprite(SpriteSheet.icon_mouse[0]);
         Sprite.icon_mouse_rmb = initBasicSprite(SpriteSheet.icon_mouse[1]);
 
-        // Player
-        Sprite.player = SpriteSheet.player.map(data =>
-            initBasicSprite(data, { x: 10, y: 21 })
-        );
-        Sprite.shotgun_blast = SpriteSheet.shotgun_blast.map(data =>
-            initBasicSprite(data, { x: 11, y: 14 })
-        );
-
         // Enemies
         Sprite.stabguts = SpriteSheet.stabguts.map(initBasicSprite);
-        Sprite.spindoctor = SpriteSheet.spindoctor.map(initBasicSprite);
+        //Sprite.spindoctor = SpriteSheet.spindoctor.map(initBasicSprite);
 
         Sprite.moth = SpriteSheet.moth.map(initBasicSprite);
 
@@ -48,10 +40,8 @@ export const Sprite = {
         Sprite.gore = SpriteSheet.gore.map(initBasicSprite);
 
         // GUI
-        Sprite.hud_shells_empty = initBasicSprite(SpriteSheet.hud_shells[0]);
-        Sprite.hud_shells_full = initBasicSprite(SpriteSheet.hud_shells[1]);
-        Sprite.hud_healthbar = SpriteSheet.hud_healthbar.map(initBasicSprite);
-        Sprite.hud_healthbar.push(initDynamicSprite(createHealthChunk(Sprite.hud_healthbar[1].img)));
+        //Sprite.hud_healthbar = SpriteSheet.hud_healthbar.map(initBasicSprite);
+        //Sprite.hud_healthbar.push(initDynamicSprite(createHealthChunk(Sprite.hud_healthbar[1].img)));
         Sprite.hud_crosshair = SpriteSheet.hud_crosshair.map(initBasicSprite);
 
         Sprite.hud_mouse = SpriteSheet.cursor.map(data => initBasicSprite(data, { x: 0, y: 0 }))[0];

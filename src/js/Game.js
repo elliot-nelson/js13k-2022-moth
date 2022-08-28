@@ -9,7 +9,7 @@ import { Viewport } from './Viewport';
 import { TITLE } from './Constants';
 import { rgba, createCanvas, clamp, partialText, uv2xy, xy2qr, xy2uv, qr2xy } from './Util';
 import { Audio } from './Audio';
-import { Brawl } from './systems/Brawl';
+//import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
 import { DialogScheduling } from './systems/DialogScheduling';

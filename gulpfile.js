@@ -189,7 +189,7 @@ function copyAssets() {
 async function pngoutAssets() {
     // This step relies on a new tool "pngout", comment out if not available.
     // This saves me an extra 20 bytes on the spritesheet.
-    childProcess.execSync('pngout dist/temp/sprites.png');
+    // childProcess.execSync('pngout dist/temp/sprites.png');
 }
 
 async function generateWorld() {
