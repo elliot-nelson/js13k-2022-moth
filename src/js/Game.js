@@ -69,13 +69,15 @@ export class Game {
 
     start() {
         this.frame = 0;
-        this.framestamps = [];
+        this.framestamps = [0];
         this.update();
         window.requestAnimationFrame((xyz) => this.onFrame(xyz));
     }
 
     onFrame(currentms) {
-        this.framestamps.push(currentms);
+        let startTime= new Date().getTime();
+
+        /*this.framestamps.push(currentms);*/
         if (this.framestamps.length >= 40) {
             this.framestamps.shift();
         }
@@ -86,6 +88,9 @@ export class Game {
         this.update();
         this.draw(Viewport.ctx);
         window.requestAnimationFrame((xyz) => this.onFrame(xyz));
+
+        let endTime = new Date().getTime();
+        this.framestamps.push(this.framestamps[this.framestamps.length - 1] + endTime - startTime);
     }
 
     update() {
