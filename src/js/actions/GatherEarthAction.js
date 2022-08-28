@@ -56,10 +56,21 @@ export const GatherEarthAction = {
             }
         }
 
-        let pos = {
-            x: moth.pos.x - 30,
-            y: moth.pos.y
-        };
-        game.entities.push(new Ghost(pos));
+        this.spawnGhost();
+    },
+
+    spawnGhost() {
+        // 100 attempts
+        for (let i = 0; i < 100; i++) {
+            let q = Math.floor(Math.random() * World.floors[0].tiles[0].length);
+            let r = Math.floor(Math.random() * World.floors[0].tiles.length);
+            if (World.floors[0].tiles[r][q] !== 1) {
+                continue;
+            }
+
+            game.entities.push(new Ghost(qr2xy({ q, r })));
+            console.log('NEW GHOST ' + q + ',' + r);
+            break;
+        }
     }
 };

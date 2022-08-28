@@ -4,6 +4,7 @@ import { R90, R270, R360, TILE_SIZE } from './Constants';
 import { game } from './Game';
 import { Viewport } from './Viewport';
 import { Camera } from './Camera';
+import { World } from './World';
 
 export function normalizeVector(p) {
     let m = Math.sqrt(p.x * p.x + p.y * p.y);
@@ -419,6 +420,30 @@ export function intersectCircleCircle(p1, r1, v1, p2, r2, v2) {
     }
 }
 
+export function floodTarget(maze, from, to) {
+    let result = array2d(maze[0].length, maze.length, () => Infinity);
+    let stack = [{ ...to, cost: 0 }];
+    while (stack.length > 0) {
+        let { q, r, cost } = stack.shift();
+        if (q === from.q && r === from.r) {
+            result[r][q] = cost++;
+            return result;
+        }
+        if (result[r][q] <= cost) continue;
+        result[r][q] = cost++;
+        //if (result[r][q] >= maxDistance) continue;
+        if (tileIsPassable(q + 1, r) && result[r][q + 1] > cost)
+            stack.push({ q: q + 1, r, cost });
+        if (tileIsPassable(q - 1, r) && result[r][q - 1] > cost)
+            stack.push({ q: q - 1, r, cost });
+        if (tileIsPassable(q, r + 1) && result[r + 1][q] > cost)
+            stack.push({ q, r: r + 1, cost });
+        if (tileIsPassable(q, r - 1) && result[r - 1][q] > cost)
+            stack.push({ q, r: r - 1, cost });
+    }
+    return result;
+}
+
 export function flood(maze, pos, maxDistance = Infinity) {
     let result = array2d(maze[0].length, maze.length, () => Infinity);
     let stack = [{ ...pos, cost: 0 }];
@@ -427,13 +452,13 @@ export function flood(maze, pos, maxDistance = Infinity) {
         if (result[r][q] <= cost) continue;
         result[r][q] = cost++;
         if (result[r][q] >= maxDistance) continue;
-        if (maze[r][q + 1] && result[r][q + 1] > cost)
+        if (tileIsPassable(q + 1, r) && result[r][q + 1] > cost)
             stack.push({ q: q + 1, r, cost });
-        if (maze[r][q - 1] && result[r][q - 1] > cost)
+        if (tileIsPassable(q - 1, r) && result[r][q - 1] > cost)
             stack.push({ q: q - 1, r, cost });
-        if (maze[r + 1][q] && result[r + 1][q] > cost)
+        if (tileIsPassable(q, r + 1) && result[r + 1][q] > cost)
             stack.push({ q, r: r + 1, cost });
-        if (maze[r - 1][q] && result[r - 1][q] > cost)
+        if (tileIsPassable(q, r - 1) && result[r - 1][q] > cost)
             stack.push({ q, r: r - 1, cost });
     }
     return result;
@@ -446,6 +471,18 @@ export function array2d(width, height, fn) {
 }
 
 export function tileIsPassable(q, r) {
+    let tiles = World.floors[0].tiles;
+    if (q < 0 || r < 0 || r >= tiles.length || q >= tiles[r].length) {
+        return false;
+    }
+    if (tiles[r][q] === 1) {
+        return true;
+    }
+
+    return false;
+
+    // 1
+
     if (game.brawl) {
         let room = game.brawl.room;
         if (

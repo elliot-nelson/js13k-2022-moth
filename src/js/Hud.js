@@ -30,7 +30,6 @@ export const Hud = {
             } else {
                 let building = World.buildingAt(World.selected);
                 if (building) {
-                console.log('BUILDING!');
                     this.actions = building.hudActions();
                 } else {
                     this.actions = [BuildTowerAction];
@@ -43,13 +42,15 @@ export const Hud = {
 
     draw() {
         // Glyphs
-        if (game.frogger) {
-            console.log(game.frogger);
-          Text.drawText(Viewport.ctx, game.frogger, 30, 60, 2, Text.blue, Text.blue_shadow);
-        }
 
         Viewport.ctx.drawImage(Sprite.tiles[0].img, 30, 30);
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 40, 40);
+
+        let cornerText = 'EARTH ' + game.earth;
+        let cornerWidth = Text.measureWidth(cornerText, 1);
+
+        Viewport.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        //Viewport.ctx.fillRect(
 
         Text.drawText(Viewport.ctx, 'EARTH ' + game.earth, Viewport.width - 100, 10);
 
