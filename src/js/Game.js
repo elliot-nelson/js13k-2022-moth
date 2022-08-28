@@ -143,6 +143,8 @@ export class Game {
             screenshake.update()
         );
 
+        World.update();
+
         // Flickering shadows
         if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
 

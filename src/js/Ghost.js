@@ -2,12 +2,13 @@
 
 import { game } from './Game';
 import { R90, DIALOG_HINT_E1 } from './Constants';
-import { vectorBetween, clamp, vector2angle, xy2qr, floodTarget, qr2xy, xy2uv, rgba } from './Util';
+import { vectorBetween, clamp, vector2angle, xy2qr, floodTarget, qr2xy, xy2uv, rgba, centerxy } from './Util';
 import { Sprite } from './Sprite';
 import { CHASE, DEAD, ATTACK, RELOAD } from './systems/Behavior';
 import { Gore } from './Gore';
 import { World } from './World';
 import { Viewport } from './Viewport';
+import { Text } from './Text';
 
 import { Moth } from './Moth';
 
@@ -51,20 +52,21 @@ export class Ghost {
             [qrthis.q, qrthis.r - 1]
         ];
         for (let option of options) {
-            option.push(this.targetField[option[1], option[0]]);
+            option.push(this.targetField[option[1]][option[0]]);
         }
         options.sort((a, b) => a[2] - b[2]);
 
         this.lastQR = qrthis;
         this.nextQR = { q: options[0][0], r: options[0][1] };
 
-        let realTarget = qr2xy({ q: options[0][0], r: options[0][1] });
+        console.log('option', options[0]);
+        let realTarget = centerxy(qr2xy({ q: options[0][0], r: options[0][1] }));
 
         let diff = vectorBetween(this.pos, realTarget);
 
 
         if (this.state === CHASE) {
-           diff.m = clamp(diff.m, 0, 0.75);
+           diff.m = clamp(diff.m, 0, 0.4);
            this.vel = {
                 x: (this.vel.x + diff.x * diff.m) / 2,
                 y: (this.vel.y + diff.y * diff.m) / 2
@@ -78,6 +80,18 @@ export class Ghost {
 
     draw() {
         let sprite = Sprite.ghost[0];
+
+        /*for (let r = 0; r < this.targetField.length; r++) {
+            for (let q = 0; q < this.targetField[0].length; q++) {
+                let uv = xy2uv(qr2xy({ q, r }));
+                Text.drawText(
+                    Viewport.ctx,
+                    '' + this.targetField[r][q] || '',
+                    uv.u,
+                    uv.v
+                );
+            }
+        }*/
 
         let uv = xy2uv(qr2xy(this.lastQR));
         Viewport.ctx.fillStyle = rgba(255, 0, 0, 0.2);

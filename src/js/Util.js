@@ -441,7 +441,7 @@ export function floodTarget(maze, from, to) {
         if (tileIsPassable(q, r - 1) && result[r - 1][q] > cost)
             stack.push({ q, r: r - 1, cost });
     }
-    return result;
+    throw new Error('fuck');
 }
 
 export function flood(maze, pos, maxDistance = Infinity) {

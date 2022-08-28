@@ -7,7 +7,7 @@ import { game } from './Game';
 import { Viewport } from './Viewport';
 import { WorldData } from './WorldData-gen';
 import { Sprite } from './Sprite';
-import { xy2uv, xy2qr, uv2xy } from './Util';
+import { xy2uv, xy2qr, uv2xy, array2d, clamp } from './Util';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { TowerBuilding } from './buildings/TowerBuilding';
@@ -30,11 +30,14 @@ export const World = {
 
         for (let y = 0; y < tiles.length; y++) {
             for (let x = 0; x < tiles[y].length; x++) {
+                Viewport.ctx.globalAlpha = clamp(this.lightmap[y][x] / 5, 0, 1);
                 if (tiles[y][x] > 0) {
                    Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
                 }
             }
         }
+
+        Viewport.ctx.globalAlpha = 1;
 
         /*
         if (Game.frame % 133 === 0) {
@@ -86,6 +89,16 @@ export const World = {
         }
 
         this.selected = undefined;
+
+        this.tiles = this.floors[0].tiles;
+        this.width = this.tiles[0].length;
+        this.height = this.tiles.length;
+
+        this.lightmap = array2d(this.width, this.height, () => 0);
+    },
+
+    update() {
+        this.updateLightmap();
     },
 
     canMoveInto(pos) {
@@ -164,6 +177,48 @@ export const World = {
         for (let entity of game.entities) {
             if (entity instanceof Moth) {
                 entity.gather(qr);
+            }
+        }
+    },
+
+    updateLightmap() {
+        for (let r = 0; r < this.height; r++) {
+            for (let q = 0; q < this.width; q++) {
+                this.lightmap[r][q] = 0;
+            }
+        }
+
+        for (let b of this.buildings) {
+            for (let r = -3; r <= 3; r++) {
+                for (let q = -3; q <= 3; q++) {
+                    let diff = 5 - Math.abs(r) - Math.abs(q);
+                    if (diff <= 0) continue;
+
+                    let tq = b.qr.q + q, tr = b.qr.r + r;
+                    if (tq >= 0 && tr >= 0 && tq < this.width && tr < this.height) {
+                        if (this.lightmap[tr][tq] < diff) {
+                            this.lightmap[tr][tq] = diff;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (let e of game.entities) {
+            if (!(e instanceof Moth)) continue;
+            let qr = xy2qr(e.pos);
+            for (let r = -4; r <= 4; r++) {
+                for (let q = -4; q <= 4; q++) {
+                    let diff = 9 - Math.abs(r) - Math.abs(q);
+                    if (diff <= 0) continue;
+
+                    let tq = qr.q + q, tr = qr.r + r;
+                    if (tq >= 0 && tr >= 0 && tq < this.width && tr < this.height) {
+                        if (this.lightmap[tr][tq] < diff) {
+                            this.lightmap[tr][tq] = diff;
+                        }
+                    }
+                }
             }
         }
     }
