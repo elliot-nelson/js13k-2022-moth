@@ -69,16 +69,23 @@ export class Game {
 
     start() {
         this.frame = 0;
+        this.framestamps = [];
         this.update();
-        window.requestAnimationFrame(() => this.onFrame(1));
+        window.requestAnimationFrame((xyz) => this.onFrame(xyz));
     }
 
     onFrame(currentms) {
+        this.framestamps.push(currentms);
+        if (this.framestamps.length >= 40) {
+            this.framestamps.shift();
+        }
+        this.fps = 1000 / ((this.framestamps[this.framestamps.length - 1] - this.framestamps[0]) / this.framestamps.length);
+
         this.frame++;
         Viewport.resize();
         this.update();
         this.draw(Viewport.ctx);
-        window.requestAnimationFrame(() => this.onFrame(currentms));
+        window.requestAnimationFrame((xyz) => this.onFrame(xyz));
     }
 
     update() {

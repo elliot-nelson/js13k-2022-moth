@@ -54,6 +54,8 @@ export const Hud = {
 
         Text.drawText(Viewport.ctx, 'EARTH ' + game.earth, Viewport.width - 100, 10);
 
+        Text.drawText(Viewport.ctx, '' + game.fps, Viewport.width - 20, 3);
+
         if (Input.pointer) {
             let u = Input.pointer.u;
             let v = Input.pointer.v;
