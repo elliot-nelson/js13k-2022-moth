@@ -2,11 +2,12 @@
 
 import { game } from './Game';
 import { R90, DIALOG_HINT_E1 } from './Constants';
-import { vectorBetween, clamp, vector2angle, xy2qr, floodTarget, qr2xy } from './Util';
+import { vectorBetween, clamp, vector2angle, xy2qr, floodTarget, qr2xy, xy2uv, rgba } from './Util';
 import { Sprite } from './Sprite';
 import { CHASE, DEAD, ATTACK, RELOAD } from './systems/Behavior';
 import { Gore } from './Gore';
 import { World } from './World';
+import { Viewport } from './Viewport';
 
 import { Moth } from './Moth';
 
@@ -19,8 +20,8 @@ export class Ghost {
         this.hp = 200;
         this.damage = [];
         this.vel = { x: 0, y: 0 };
-        this.radius = 8;
-        this.mass = 0.5;
+        this.radius = 2;
+        this.mass = 0.2;
         this.lastAttack = 0;
         this.state = CHASE;
         this.enemy = true;
@@ -53,9 +54,14 @@ export class Ghost {
             option.push(this.targetField[option[1], option[0]]);
         }
         options.sort((a, b) => a[2] - b[2]);
+
+        this.lastQR = qrthis;
+        this.nextQR = { q: options[0][0], r: options[0][1] };
+
         let realTarget = qr2xy({ q: options[0][0], r: options[0][1] });
 
         let diff = vectorBetween(this.pos, realTarget);
+
 
         if (this.state === CHASE) {
            diff.m = clamp(diff.m, 0, 0.75);
@@ -63,6 +69,7 @@ export class Ghost {
                 x: (this.vel.x + diff.x * diff.m) / 2,
                 y: (this.vel.y + diff.y * diff.m) / 2
            };
+            console.log('ghost', 'vel', this.vel);
         } else if (this.state === DEAD) {
             this.cull = true;
             Gore.kill(this);
@@ -71,6 +78,14 @@ export class Ghost {
 
     draw() {
         let sprite = Sprite.ghost[0];
+
+        let uv = xy2uv(qr2xy(this.lastQR));
+        Viewport.ctx.fillStyle = rgba(255, 0, 0, 0.2);
+        Viewport.ctx.fillRect(uv.u + 1, uv.v + 1, 7, 7);
+
+        uv = xy2uv(qr2xy(this.nextQR));
+        Viewport.ctx.fillStyle = rgba(0, 255, 0, 0.2);
+        Viewport.ctx.fillRect(uv.u + 1, uv.v + 1, 7, 7);
 
         /*let sprite = Sprite.stabguts[((game.frame / 12) | 0) % 2];
         this.state === RELOAD && (sprite = Sprite.stabguts[2]);
