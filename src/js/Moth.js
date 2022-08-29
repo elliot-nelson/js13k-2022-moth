@@ -44,6 +44,11 @@ export class Moth {
         this.carrying = 0;
 
         this.offset = { x: 0, y: 0 };
+
+        this.carryAmount = 0;
+        this.carryCapacity = 500;
+        this.carryPerFrame = 3;
+        this.transferAmount = 0;
     }
 
     think() {
@@ -54,9 +59,8 @@ export class Moth {
             let dist = vectorBetween(this.pos, this.target);
 
             if (dist.m < 8) {
-                this.carrying++;
-                console.log(this.carrying);
-                if (this.carrying > 100) {
+                this.carryAmount += this.carryPerFrame;
+                if (this.carryAmount >= this.carryCapacity) {
                     this.tasks.push({ task: RETURN, qr: { q: World.spawn.q, r: World.spawn.r } });
                 }
             }
@@ -65,10 +69,14 @@ export class Moth {
             let dist = vectorBetween(this.pos, this.target);
 
             if (dist.m < 8) {
-                this.carrying--;
-                game.earth++;
+                this.carryAmount -= this.carryPerFrame;
+                this.transferAmount += this.carryPerFrame;
+                if (this.transferAmount >= 100) {
+                    game.earth++;
+                    this.transferAmount -= 100;
+                }
 
-                if (this.carrying <= 0) {
+                if (this.carryAmount <= 0) {
                     this.tasks.pop();
                 }
             }

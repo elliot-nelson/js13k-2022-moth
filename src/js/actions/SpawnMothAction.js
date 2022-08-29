@@ -23,14 +23,14 @@ const MOVE = 1;
 const CIRCLE = 2;
 const IDLE = 3;
 
-const SPAWN_COST_EARTH = [0, 4];
-for (let i = 2; i <= 20; i++) {
-    SPAWN_COST_EARTH[i] = Math.ceil(SPAWN_COST_EARTH[i - 1] * 1.3 + 4);
+const SPAWN_COST_EARTH = [0, 2];
+for (let i = 2; i <= 19; i++) {
+    SPAWN_COST_EARTH[i] = Math.floor(SPAWN_COST_EARTH[i - 1] * 1.5 + 1);
+}
+for (let i = 0; i < 20; i++) {
+    SPAWN_COST_EARTH[i] = SPAWN_COST_EARTH[i] * 5;
 }
 
-/**
- * Monster
- */
 export const SpawnMothAction = {
     buttonSprite() {
         return Sprite.buttons2[0];
@@ -42,11 +42,20 @@ export const SpawnMothAction = {
 
     selectedText() {
         let cost = SPAWN_COST_EARTH[game.activeMoths()];
-        return 'MOTH xyz ' + cost;
+
+        if (game.canAfford(cost)) {
+            return 'MOTH ' + cost;
+        } else {
+            return 'MOTH RED ' + cost;
+        }
     },
 
     tap() {
-        game.earth -= SPAWN_COST_EARTH[game.activeMoths()];
-        game.entities.push(new Moth(centerxy(qr2xy(World.selected))));
+        let cost = SPAWN_COST_EARTH[game.activeMoths()];
+
+        if (game.canAfford(cost)) {
+            game.payCost(cost);
+            game.entities.push(new Moth(centerxy(qr2xy(World.selected))));
+        }
     }
 };

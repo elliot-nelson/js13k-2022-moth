@@ -280,6 +280,16 @@ export class Game {
     activeMoths() {
         return this.entities.filter(x => x instanceof Moth).length;
     }
+
+    canAfford(earth) {
+        if (this.earth >= earth) {
+            return true;
+        }
+    }
+
+    payCost(earth) {
+        this.earth -= earth;
+    }
 }
 
 export const game = new Game();
