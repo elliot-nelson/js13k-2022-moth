@@ -71,7 +71,7 @@ export class Ghost {
                 x: (this.vel.x + diff.x * diff.m) / 2,
                 y: (this.vel.y + diff.y * diff.m) / 2
            };
-            console.log('ghost', 'vel', this.vel);
+            //console.log('ghost', 'vel', this.vel);
         } else if (this.state === DEAD) {
             this.cull = true;
             Gore.kill(this);

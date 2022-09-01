@@ -30,7 +30,26 @@ export const BuildTowerAction = {
         return Sprite.buttons[4];
     },
 
+    buttonSelectedSprite() {
+        return Sprite.buttons[4];
+    },
+
+    selectedText() {
+        let cost = 1;
+
+        if (game.canAfford(cost)) {
+            return 'TOWER e' + cost;
+        } else {
+            return 'TOWER RED e' + cost;
+        }
+    },
+
     tap() {
-        World.buildings.push(new TowerBuilding(World.selected));
+        let cost = 0;
+
+        if (game.canAfford(cost)) {
+            game.payCost(cost);
+            World.buildings.push(new TowerBuilding(World.selected));
+        }
     }
 };

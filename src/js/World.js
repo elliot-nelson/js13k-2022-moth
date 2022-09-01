@@ -98,6 +98,10 @@ export const World = {
     },
 
     update() {
+        for (let building of this.buildings) {
+            building.think();
+        }
+
         this.updateLightmap();
     },
 
@@ -139,7 +143,7 @@ export const World = {
                 let building = this.buildingAt(this.selected);
                 if (building) {
                     let actions = building.hudActions();
-                    if (actions[0].defaultTapAction) {
+                    if (actions[0] && actions[0].defaultTapAction) {
                         actions[0].tap();
                     }
                 }

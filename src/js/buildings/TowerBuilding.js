@@ -8,13 +8,16 @@ import {
     vector2point,
     uv2xy,
     xy2uv,
-    qr2xy
+    qr2xy,
+    xy2qr,
+    centerxy
 } from '../Util';
 import { Sprite } from '../Sprite';
 import { CHASE, DEAD } from '../systems/Behavior';
 import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
+import { TowerGunk } from '../TowerGunk';
 
 const MOVE = 1;
 const CIRCLE = 2;
@@ -26,9 +29,39 @@ const IDLE = 3;
 export class TowerBuilding {
     constructor(qr) {
         this.qr = { ...qr };
+        this.framesToNextShot = 10;
     }
 
     think() {
+        let xy = centerxy(qr2xy(this.qr));
+
+        let closestTarget, closestVector;
+
+        if (!this.target || this.target.cull) {
+            for (let entity of game.entities) {
+                if (!entity.enemy) continue;
+
+                //let qr = xy2qr(entity.pos);
+                let v = vectorBetween(xy, entity.pos);
+                if (v.m < 32 && (!closestVector || v.m < closestVector.m)) {
+                    closestTarget = entity;
+                    closestVector = v;
+                }
+            }
+
+            console.log('ATTEMPTED to pick target for building', closestTarget);
+            this.target = closestTarget;
+        }
+
+        if (this.framesToNextShot > 0) {
+            this.framesToNextShot--;
+        }
+
+        if (this.target && this.framesToNextShot === 0) {
+            let v = vectorBetween(xy, this.target);
+            game.entities.push(new TowerGunk(xy, this.target));
+            this.framesToNextShot = 100;
+        }
     }
 
     draw() {

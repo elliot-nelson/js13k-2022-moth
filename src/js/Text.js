@@ -32,6 +32,7 @@ export const Text = {
         Text.white = Sprite.font.img;
 
         let icons = [
+            [101, Sprite.buildings[2]],
             [108, Sprite.icon_mouse_lmb],  // l
             [114, Sprite.icon_mouse_rmb],  // r
         ];
@@ -55,7 +56,7 @@ export const Text = {
                 ctx.drawImage(
                     C_ICONS[c].img,
                     u,
-                    v - (C_ICONS[c].img.height - 5) / 2
+                    v - (C_ICONS[c].img.height + 4) / 2
                 );
             } else {
                 let k = (c - 32) * (C_WIDTH + 1);

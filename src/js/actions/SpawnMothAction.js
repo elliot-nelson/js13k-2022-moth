@@ -46,7 +46,7 @@ export const SpawnMothAction = {
         if (game.canAfford(cost)) {
             return 'MOTH ' + cost;
         } else {
-            return 'MOTH RED ' + cost;
+            return 'MOTH RED e' + cost;
         }
     },
 
