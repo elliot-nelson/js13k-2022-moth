@@ -6,24 +6,30 @@ import { Viewport } from './Viewport';
 import { Player } from './Player';
 
 export class TowerGunk {
-    constructor(pos, target) {
+    constructor(pos, target, damage) {
         this.pos = { ...pos };
         this.target = target;
         this.vel = { x: 0, y: 0 };
+        this.damage = damage || 70;
     }
 
     think() {
         let diff = vectorBetween(this.pos, this.target.pos);
-        diff.m = clamp(diff.m, 0, 3);
+        diff.m = clamp(diff.m, 0, 2);
         this.vel = {
             x: (this.vel.x + diff.x * diff.m) / 2,
             y: (this.vel.y + diff.y * diff.m) / 2
         };
+
+        if (diff.m < 1) {
+            this.cull = true;
+            console.log('HIT');
+        }
     }
 
     draw() {
         Sprite.drawViewportSprite(
-            Sprite.gore[0],
+            Sprite.bullet1[0],
             this.pos,
             this.r
         );

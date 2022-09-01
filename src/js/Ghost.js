@@ -18,7 +18,7 @@ import { Moth } from './Moth';
 export class Ghost {
     constructor(pos) {
         this.pos = { ...pos };
-        this.hp = 200;
+        this.hp = 100;
         this.damage = [];
         this.vel = { x: 0, y: 0 };
         this.radius = 2;
@@ -59,7 +59,7 @@ export class Ghost {
         this.lastQR = qrthis;
         this.nextQR = { q: options[0][0], r: options[0][1] };
 
-        console.log('option', options[0]);
+        //console.log('option', options[0]);
         let realTarget = centerxy(qr2xy({ q: options[0][0], r: options[0][1] }));
 
         let diff = vectorBetween(this.pos, realTarget);

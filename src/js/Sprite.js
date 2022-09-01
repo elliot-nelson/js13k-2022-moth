@@ -46,6 +46,8 @@ export const Sprite = {
 
         Sprite.hud_mouse = SpriteSheet.cursor.map(data => initBasicSprite(data, { x: 0, y: 0 }))[0];
 
+        Sprite.bullet1 = SpriteSheet.bullet1.map(initBasicSprite);
+
         // Tiles
         Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);
 
