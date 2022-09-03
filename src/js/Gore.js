@@ -20,6 +20,9 @@ export class Gore {
         this.r = 0;
         this.t = -1;
         this.d = this.f === 0 ? 45 : 70;
+
+        // TEMPORARY
+        this.noClipWall = true;
     }
 
     think() {

@@ -423,6 +423,14 @@ export function intersectCircleCircle(p1, r1, v1, p2, r2, v2) {
 export function floodTarget(maze, from, to) {
     let result = array2d(maze[0].length, maze.length, () => Infinity);
     let stack = [{ ...to, cost: 0 }];
+
+    if (!tileIsPassable(to.q, to.r)) {
+        throw new Error('fuck first');
+    }
+    if (!tileIsPassable(from.q, from.r)) {
+        throw new Error('fuck bhencho');
+    }
+
     while (stack.length > 0) {
         let { q, r, cost } = stack.shift();
         if (q === from.q && r === from.r) {

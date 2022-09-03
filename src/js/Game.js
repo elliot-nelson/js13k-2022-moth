@@ -123,11 +123,12 @@ export class Game {
         }
 
         // perform any queued damage
-        //Damage.perform(this.entities);
+        Damage.perform(this.entities);
 
         // Movement (perform entity velocities to position)
         Movement.perform(this.entities);
 
+        console.log('entities', this.entities.length);
         // Dialog scheduling
         //DialogScheduling.perform();
 

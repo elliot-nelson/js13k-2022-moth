@@ -22,6 +22,7 @@ export class TowerGunk {
         };
 
         if (diff.m < 1) {
+            this.target.damage.push({ amount: this.damage, vector: diff, knockback: 0 });
             this.cull = true;
             console.log('HIT');
         }

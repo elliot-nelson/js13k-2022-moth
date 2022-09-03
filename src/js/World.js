@@ -153,7 +153,7 @@ export const World = {
                 let building = this.buildingAt(this.selected);
                 if (building) {
                     let actions = building.hudActions();
-                    if (actions[0].defaultTapAction) {
+                    if (actions[0] && actions[0].defaultTapAction) {
                         Hud.selectedAction = actions[0];
                     }
                 }
