@@ -12,6 +12,7 @@ import { Victory } from './systems/Victory';
 import { World } from './World';
 import { TowerBuilding } from './buildings/TowerBuilding';
 import { BuildTowerAction } from './actions/BuildTowerAction';
+import { Moth } from './Moth';
 
 const TRAY_HEIGHT = 20;
 
@@ -43,8 +44,10 @@ export const Hud = {
     draw() {
         // Glyphs
 
-        Viewport.ctx.drawImage(Sprite.tiles[0].img, 30, 30);
-        Viewport.ctx.drawImage(Sprite.tiles[1].img, 40, 40);
+        let moths = game.entities.filter(x => x instanceof Moth);
+        for (let i = 0; i < moths.length; i++) {
+            Viewport.ctx.drawImage(Sprite.moth[1].img, 1 + i * 4, 1);
+        }
 
         let cornerText = 'EARTH ' + game.earth;
         let cornerWidth = Text.measureWidth(cornerText, 1);
