@@ -6,6 +6,7 @@
 
 import { Game } from './Game';
 import { Input } from './input/Input';
+import { Hud } from './Hud';
 
 export const Camera = {
     init() {

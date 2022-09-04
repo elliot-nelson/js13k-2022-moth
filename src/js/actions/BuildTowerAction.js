@@ -40,7 +40,7 @@ export const BuildTowerAction = {
         if (game.canAfford(cost)) {
             return 'BUILD TOWER \ne' + cost;
         } else {
-            return 'BUILD TOWER \ne RED' + cost;
+            return 'BUILD TOWER \ne' + cost;
         }
     },
 

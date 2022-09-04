@@ -34,6 +34,10 @@ export const Hud = {
         } else {
             this.actions = [];
         }
+
+        if (Input.dragging) {
+            this.selectedAction = undefined;
+        }
     },
 
     draw() {
