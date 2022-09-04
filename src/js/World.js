@@ -13,6 +13,7 @@ import { Moth } from './Moth';
 import { TowerBuilding } from './buildings/TowerBuilding';
 import { CoffinBuilding } from './buildings/CoffinBuilding';
 import { EarthBuilding } from './buildings/EarthBuilding';
+import { ExitBuilding } from './buildings/ExitBuilding';
 import { Hud } from './Hud';
 
 export const World = {
@@ -85,6 +86,8 @@ export const World = {
             console.log(b);
             if (b.name === 'EARTH') {
                 this.buildings.push(new EarthBuilding({ q: b.x, r: b.y }));
+            } else if (b.name === 'EXIT') {
+                this.buildings.push(new ExitBuilding({ q: b.x, r: b.y }));
             }
         }
 

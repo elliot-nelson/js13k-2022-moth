@@ -24,11 +24,11 @@ const IDLE = 3;
 /**
  * Monster
  */
-export class EarthBuilding {
+export class ExitBuilding {
     constructor(qr) {
         this.qr = { ...qr };
 
-        this.title = 'EARTH DEPOSIT';
+        this.title = 'EXIT';
     }
 
     think() {
@@ -38,13 +38,13 @@ export class EarthBuilding {
         let xy = qr2xy(this.qr);
 
         //Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * 8 + offset.u, y * 8 + offset.v);
-        Sprite.drawViewportSprite(Sprite.buildings[2], xy);
+        Sprite.drawViewportSprite(Sprite.buildings[3], xy);
 
         //Sprite.drawViewportSprite(Sprite.spindoctor[0], this.pos, game.frame / 5);
         //Sprite.drawViewportSprite(Sprite.spindoctor[1], this.pos);
     }
 
     hudActions() {
-        return [GatherEarthAction];
+        return [];
     }
 }

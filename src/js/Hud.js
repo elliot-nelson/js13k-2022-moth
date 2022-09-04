@@ -14,7 +14,7 @@ import { TowerBuilding } from './buildings/TowerBuilding';
 import { BuildTowerAction } from './actions/BuildTowerAction';
 import { Moth } from './Moth';
 
-const TRAY_HEIGHT = 20;
+const TRAY_HEIGHT = 18;
 
 /**
  * Hud
@@ -23,8 +23,6 @@ const TRAY_HEIGHT = 20;
  */
 export const Hud = {
     update() {
-        this.trayHeight = 20;
-
         if (World.selected) {
             if (World.tileAt(World.selected) === 3) {
                 this.actions = [];
@@ -100,7 +98,7 @@ export const Hud = {
         // Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
 
         Viewport.ctx.fillStyle = 'rgba(0, 0, 255, 0.5)';
-        Viewport.ctx.fillRect(0, Viewport.height - this.trayHeight, Viewport.width, this.trayHeight);
+        Viewport.ctx.fillRect(0, Viewport.height - TRAY_HEIGHT, Viewport.width, TRAY_HEIGHT);
 
         Viewport.ctx.drawImage(Sprite.tiles[1].img, 25, 110);
 
@@ -129,6 +127,22 @@ export const Hud = {
 
         Viewport.ctx.fillStyle = '#203c56';
         Viewport.ctx.fillRect(0, Viewport.height - TRAY_HEIGHT + 2, Viewport.width, TRAY_HEIGHT - 2);
+
+        Viewport.ctx.drawImage(Sprite.hud_tray_building[0].img, 0, Viewport.height - TRAY_HEIGHT + 1);
+
+        if (World.selected) {
+            let building = World.buildingAt(World.selected);
+            if (building) {
+                Viewport.ctx.drawImage(Sprite.buildings[3].img, 2, Viewport.height - TRAY_HEIGHT - 1);
+            }
+
+            Text.drawText(
+                Viewport.ctx,
+                building.title,
+                20,
+                Viewport.height - TRAY_HEIGHT + 4,
+            );
+        }
 
         let selectedActionIndex;
 
