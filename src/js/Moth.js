@@ -56,7 +56,10 @@ export class Moth {
     }
 
     think() {
-        let task = this.tasks[this.tasks.length - 1] || { task: IDLE };
+        if (this.tasks.length === 0) {
+            this.tasks.push({ task: IDLE });
+        }
+        let task = this.tasks[this.tasks.length - 1];
 
         this.frame = (Math.floor(game.frame / 8) % 2) + 1;
 
@@ -65,7 +68,14 @@ export class Moth {
             return;
         }
 
-        if (task.task === GATHER) {
+        if (task.task === MOVE) {
+            this.target = centerxy(qr2xy(task.qr));
+            let dist = vectorBetween(this.pos, this.target);
+
+            if (dist.m < 8) {
+                this.tasks.pop();
+            }
+        } else if (task.task === GATHER) {
             this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 

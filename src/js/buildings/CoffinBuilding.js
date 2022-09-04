@@ -27,6 +27,9 @@ const IDLE = 3;
 export class CoffinBuilding {
     constructor(qr) {
         this.qr = { ...qr };
+
+        this.title = 'COFFIN';
+        this.portraitSprite = Sprite.buildings[1];
     }
 
     think() {

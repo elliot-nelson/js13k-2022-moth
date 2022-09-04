@@ -16,6 +16,7 @@ import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
 import { GatherEarthAction } from '../actions/GatherEarthAction';
+import { MoveAction } from '../actions/MoveAction';
 
 const MOVE = 1;
 const CIRCLE = 2;
@@ -29,6 +30,7 @@ export class ExitBuilding {
         this.qr = { ...qr };
 
         this.title = 'EXIT';
+        this.portraitSprite = Sprite.buildings[3];
     }
 
     think() {
@@ -45,6 +47,6 @@ export class ExitBuilding {
     }
 
     hudActions() {
-        return [];
+        return [MoveAction];
     }
 }

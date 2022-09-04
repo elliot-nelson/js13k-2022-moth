@@ -30,6 +30,9 @@ export class TowerBuilding {
     constructor(qr) {
         this.qr = { ...qr };
         this.framesToNextShot = 10;
+
+        this.title = 'TOWER';
+        this.portraitSprite = Sprite.buildings[0];
     }
 
     think() {

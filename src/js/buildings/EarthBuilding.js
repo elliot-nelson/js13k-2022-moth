@@ -29,6 +29,7 @@ export class EarthBuilding {
         this.qr = { ...qr };
 
         this.title = 'EARTH DEPOSIT';
+        this.portraitSprite = Sprite.buildings[2];
     }
 
     think() {

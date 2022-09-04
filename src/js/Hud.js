@@ -12,6 +12,7 @@ import { Victory } from './systems/Victory';
 import { World } from './World';
 import { TowerBuilding } from './buildings/TowerBuilding';
 import { BuildTowerAction } from './actions/BuildTowerAction';
+import { MoveAction } from './actions/MoveAction';
 import { Moth } from './Moth';
 
 const TRAY_HEIGHT = 18;
@@ -24,8 +25,8 @@ const TRAY_HEIGHT = 18;
 export const Hud = {
     update() {
         if (World.selected) {
-            if (World.tileAt(World.selected) === 3) {
-                this.actions = [];
+            if (World.tileAt(World.selected) === 1) {
+                this.actions = [MoveAction];
             } else {
                 let building = World.buildingAt(World.selected);
                 if (building) {
@@ -133,15 +134,15 @@ export const Hud = {
         if (World.selected) {
             let building = World.buildingAt(World.selected);
             if (building) {
-                Viewport.ctx.drawImage(Sprite.buildings[3].img, 2, Viewport.height - TRAY_HEIGHT - 1);
-            }
+                Viewport.ctx.drawImage(building.portraitSprite.img, 2, Viewport.height - TRAY_HEIGHT - 1);
 
-            Text.drawText(
-                Viewport.ctx,
-                building.title,
-                20,
-                Viewport.height - TRAY_HEIGHT + 4,
-            );
+                Text.drawText(
+                    Viewport.ctx,
+                    building.title,
+                    20,
+                    Viewport.height - TRAY_HEIGHT + 4,
+                );
+            }
         }
 
         let selectedActionIndex;

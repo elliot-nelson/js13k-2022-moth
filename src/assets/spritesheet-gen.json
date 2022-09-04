@@ -162,6 +162,24 @@
     "duration": 100
    },
    {
+    "filename": "buttons2 4.aseprite",
+    "frame": { "x": 48, "y": 42, "w": 12, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 12 },
+    "sourceSize": { "w": 12, "h": 12 },
+    "duration": 100
+   },
+   {
+    "filename": "buttons2 5.aseprite",
+    "frame": { "x": 60, "y": 42, "w": 12, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 12 },
+    "sourceSize": { "w": 12, "h": 12 },
+    "duration": 100
+   },
+   {
     "filename": "cursor.aseprite",
     "frame": { "x": 0, "y": 54, "w": 10, "h": 8 },
     "rotated": false,
