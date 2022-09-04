@@ -98,7 +98,7 @@ export const Text = {
     },
     */
 
-    drawParagraph(ctx, text, u, v, w, h, scale = 1, font = Text.white, shadow) {
+    drawParagraph(ctx, text, u, v, w, h, scale = 1, font = Text.duotone, shadow) {
         let cu = u,
             cv = v,
             phrases = text.split(' ');

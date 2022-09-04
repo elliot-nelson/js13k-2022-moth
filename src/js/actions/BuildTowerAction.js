@@ -27,11 +27,11 @@ const IDLE = 3;
  */
 export const BuildTowerAction = {
     buttonSprite() {
-        return Sprite.buttons[4];
+        return Sprite.buttons2[6];
     },
 
     buttonSelectedSprite() {
-        return Sprite.buttons[4];
+        return Sprite.buttons2[7];
     },
 
     selectedText() {

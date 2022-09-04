@@ -28,7 +28,7 @@ export class EarthBuilding {
     constructor(qr) {
         this.qr = { ...qr };
 
-        this.title = 'EARTH DEPOSIT';
+        this.title = 'EARTH \n500 REMAINING';
         this.portraitSprite = Sprite.buildings[2];
     }
 

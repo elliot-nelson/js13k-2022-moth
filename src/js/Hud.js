@@ -25,15 +25,11 @@ const TRAY_HEIGHT = 18;
 export const Hud = {
     update() {
         if (World.selected) {
-            if (World.tileAt(World.selected) === 1) {
-                this.actions = [MoveAction];
+            let building = World.buildingAt(World.selected);
+            if (building) {
+                this.actions = building.hudActions();
             } else {
-                let building = World.buildingAt(World.selected);
-                if (building) {
-                    this.actions = building.hudActions();
-                } else {
-                    this.actions = [BuildTowerAction];
-                }
+                this.actions = [MoveAction, BuildTowerAction];
             }
         } else {
             this.actions = [];
@@ -129,27 +125,37 @@ export const Hud = {
         Viewport.ctx.fillStyle = '#203c56';
         Viewport.ctx.fillRect(0, Viewport.height - TRAY_HEIGHT + 2, Viewport.width, TRAY_HEIGHT - 2);
 
-        Viewport.ctx.drawImage(Sprite.hud_tray_building[0].img, 0, Viewport.height - TRAY_HEIGHT + 1);
+        Viewport.ctx.fillStyle = '#8d697a';
+        Viewport.ctx.fillRect(0, Viewport.height - 2, Viewport.width, 2);
+
+        //Viewport.ctx.drawImage(Sprite.hud_tray_building[0].img, 0, Viewport.height - TRAY_HEIGHT + 1);
 
         if (World.selected) {
             let building = World.buildingAt(World.selected);
             if (building) {
                 Viewport.ctx.drawImage(building.portraitSprite.img, 2, Viewport.height - TRAY_HEIGHT - 1);
 
-                Text.drawText(
+                Text.drawParagraph(
                     Viewport.ctx,
                     building.title,
-                    20,
-                    Viewport.height - TRAY_HEIGHT + 4,
+                    13,
+                    Viewport.height - TRAY_HEIGHT + 3,
+                    Viewport.width
                 );
             }
         }
+
+        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, -2, Viewport.height - TRAY_HEIGHT + 1);
+        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, 64, Viewport.height - TRAY_HEIGHT + 1);
+        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, Viewport.width - 3, Viewport.height - TRAY_HEIGHT + 1);
+
 
         let selectedActionIndex;
 
         for (let i = 0; i < this.actions.length; i++) {
             let action = this.actions[i];
             let uvAction = this.uvTrayAction(i);
+            Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, uvAction.u + 11, Viewport.height - TRAY_HEIGHT + 1);
             Viewport.ctx.drawImage(action.buttonSprite().img, uvAction.u, uvAction.v);
 
             if (this.selectedAction === action) selectedActionIndex = i;
@@ -179,7 +185,7 @@ export const Hud = {
     },
 
     uvTrayAction(i) {
-        return { u: 20 + i * 20, v: Viewport.height - 16 };
+        return { u: 68 + i * 15, v: Viewport.height - 15 };
     },
 
     tap(uv) {

@@ -49,6 +49,7 @@ export const Sprite = {
         Sprite.bullet1 = SpriteSheet.bullet1.map(initBasicSprite);
 
         Sprite.hud_tray_building = SpriteSheet.hud_tray_building.map(initBasicSprite);
+        Sprite.hud_tray_divider = SpriteSheet.hud_tray_divider.map(initBasicSprite);
 
         // Tiles
         Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);

@@ -29,7 +29,7 @@ export class ExitBuilding {
     constructor(qr) {
         this.qr = { ...qr };
 
-        this.title = 'EXIT';
+        this.title = 'REACH THE EXIT \nTO SURVIVE';
         this.portraitSprite = Sprite.buildings[3];
     }
 

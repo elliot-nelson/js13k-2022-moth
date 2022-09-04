@@ -28,7 +28,7 @@ export class CoffinBuilding {
     constructor(qr) {
         this.qr = { ...qr };
 
-        this.title = 'COFFIN';
+        this.title = 'YOUR CORPSE \nLAST CHANCE';
         this.portraitSprite = Sprite.buildings[1];
     }
 
