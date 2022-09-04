@@ -30,7 +30,7 @@ export const World = {
 
         for (let y = 0; y < tiles.length; y++) {
             for (let x = 0; x < tiles[y].length; x++) {
-                Viewport.ctx.globalAlpha = clamp(this.lightmap[y][x] / 5, 0, 1);
+                Viewport.ctx.globalAlpha = clamp(this.lightmap[y][x] / 5, 0.1, 1);
                 if (tiles[y][x] > 0) {
                    Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
                 }

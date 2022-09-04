@@ -270,8 +270,26 @@
     "duration": 100
    },
    {
-    "filename": "moth.aseprite",
+    "filename": "moth 0.aseprite",
     "frame": { "x": 0, "y": 117, "w": 3, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 3, "h": 3 },
+    "sourceSize": { "w": 3, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "moth 1.aseprite",
+    "frame": { "x": 3, "y": 117, "w": 3, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 3, "h": 3 },
+    "sourceSize": { "w": 3, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "moth 2.aseprite",
+    "frame": { "x": 6, "y": 117, "w": 3, "h": 3 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 3, "h": 3 },

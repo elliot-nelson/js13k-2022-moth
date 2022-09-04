@@ -425,10 +425,10 @@ export function floodTarget(maze, from, to) {
     let stack = [{ ...to, cost: 0 }];
 
     if (!tileIsPassable(to.q, to.r)) {
-        throw new Error('fuck first');
+        throw new Error(['fuck first', to.q, to.r, World.tiles[to.r][to.q]].join(' '));
     }
     if (!tileIsPassable(from.q, from.r)) {
-        throw new Error('fuck bhencho');
+        throw new Error('fuck bhencho', from, World.tiles[from.r][from.q]);
     }
 
     while (stack.length > 0) {

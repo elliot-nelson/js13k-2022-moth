@@ -9,7 +9,8 @@ import {
     uv2xy,
     xy2uv,
     qr2xy,
-    centerxy
+    centerxy,
+    clamp
 } from './Util';
 import { Sprite } from './Sprite';
 import { CHASE, DEAD } from './systems/Behavior';
@@ -49,16 +50,27 @@ export class Moth {
         this.carryCapacity = 500;
         this.carryPerFrame = 3;
         this.transferAmount = 0;
+
+        this.frame = 0;
+        this.circleOffset = Math.floor(Math.random() * 16);
     }
 
     think() {
         let task = this.tasks[this.tasks.length - 1] || { task: IDLE };
+
+        this.frame = (Math.floor(game.frame / 8) % 2) + 1;
+
+        if (this.state === DEAD) {
+            this.cull = true;
+            return;
+        }
 
         if (task.task === GATHER) {
             this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
             if (dist.m < 8) {
+                this.frame = 0;
                 this.carryAmount += this.carryPerFrame;
                 if (this.carryAmount >= this.carryCapacity) {
                     this.tasks.push({ task: RETURN, qr: { q: World.spawn.q, r: World.spawn.r } });
@@ -69,6 +81,8 @@ export class Moth {
             let dist = vectorBetween(this.pos, this.target);
 
             if (dist.m < 8) {
+                this.frame = 0;
+
                 this.carryAmount -= this.carryPerFrame;
                 this.transferAmount += this.carryPerFrame;
                 if (this.transferAmount >= 100) {
@@ -83,7 +97,7 @@ export class Moth {
         }
 
         let dist = vectorBetween(this.pos, this.target);
-        dist.m = Math.min(dist.m, 1);
+        dist.m = clamp(dist.m, 0, 0.5);
 
         let newVelocity = vector2point(dist);
 
@@ -94,11 +108,14 @@ export class Moth {
     }
 
     draw() {
+
+        let r = 4;
         let uv = {
-            u: ((Math.random() * 3) | 0) - 1,
-            v: ((Math.random() * 3) | 0) - 1
-        };
-        Sprite.drawViewportSprite(Sprite.moth[0], { x: this.pos.x + uv.u, y: this.pos.y + uv.v });
+            u: Math.cos((game.frame + this.circleOffset) / 16) * r,
+            v: Math.sin((game.frame + this.circleOffset) / 16) * r
+        }
+
+        Sprite.drawViewportSprite(Sprite.moth[this.frame], { x: this.pos.x + uv.u, y: this.pos.y + uv.v });
 
         //Sprite.drawViewportSprite(Sprite.spindoctor[0], this.pos, game.frame / 5);
         //Sprite.drawViewportSprite(Sprite.spindoctor[1], this.pos);

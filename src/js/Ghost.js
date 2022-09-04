@@ -31,6 +31,11 @@ export class Ghost {
     think() {
         let targets = game.entities.filter(x => x instanceof Moth);
         let bestTarget = targets[0];
+
+        console.log(targets.map(target => target.pos));
+
+        if (!bestTarget) return;
+
         let bestDiff = vectorBetween(this.pos, bestTarget.pos);
         for (let i = 1; i < targets.length; i++) {
             let diff = vectorBetween(this.pos, targets[i].pos);
@@ -42,6 +47,8 @@ export class Ghost {
 
         let qrthis = xy2qr(this.pos);
         let qrthat = xy2qr(bestTarget.pos);
+
+        console.log('qrthat ghost', bestTarget.pos, qrthat);
 
         this.targetField = floodTarget(World.floors[0].tiles, qrthis, qrthat);
 
@@ -64,14 +71,18 @@ export class Ghost {
 
         let diff = vectorBetween(this.pos, realTarget);
 
-
         if (this.state === CHASE) {
-           diff.m = clamp(diff.m, 0, 0.4);
-           this.vel = {
-                x: (this.vel.x + diff.x * diff.m) / 2,
-                y: (this.vel.y + diff.y * diff.m) / 2
-           };
-            //console.log('ghost', 'vel', this.vel);
+            if (bestDiff.m < 8) {
+                console.log('KILL');
+                bestTarget.damage.push({ amount: 10, vector: diff, knockback: 0 });
+                this.cull = true;
+            } else {
+                diff.m = clamp(diff.m, 0, 0.4);
+                this.vel = {
+                    x: (this.vel.x + diff.x * diff.m) / 2,
+                    y: (this.vel.y + diff.y * diff.m) / 2
+                };
+            }
         } else if (this.state === DEAD) {
             this.cull = true;
             Gore.kill(this);

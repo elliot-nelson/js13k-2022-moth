@@ -129,6 +129,8 @@ export class Game {
         Movement.perform(this.entities);
 
         console.log('entities', this.entities.length);
+        let moths = this.entities.filter(x => x instanceof Moth);
+        console.log(moths.map(x => x.hp));
         // Dialog scheduling
         //DialogScheduling.perform();
 
@@ -158,6 +160,10 @@ export class Game {
 
         World.update();
 
+        if (this.entities.filter(e => e instanceof Moth).length === 0) {
+            game.lost = true;
+        }
+
         // Flickering shadows
         if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
 
@@ -175,6 +181,10 @@ export class Game {
 
         Viewport.ctx.fillStyle = 'rgba(40, 30, 20)';
         Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
+
+        if (game.lost) {
+
+        }
 
         // Render screenshakes (canvas translation)
         /*
@@ -231,6 +241,23 @@ export class Game {
             );
         }
         */
+
+        if (game.lost) {
+            Viewport.ctx.fillStyle = rgba(240, 0, 0, 0.5);
+            Viewport.fillViewportRect();
+
+            let text = 'YOU LOSE';
+            Text.drawParagraph(
+                Viewport.ctx,
+                text,
+                40, 40,
+                Viewport.width - 80,
+                Viewport.ctx.height - 80,
+                2,
+                Text.white,
+                Text.red
+            );
+        }
 
         if (game.victory) {
             Viewport.ctx.fillStyle = rgba(240, 0, 0, clamp(Victory.frame / 1800, 0, 0.7));
