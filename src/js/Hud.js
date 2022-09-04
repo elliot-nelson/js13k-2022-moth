@@ -163,13 +163,16 @@ export const Hud = {
 
         if (selectedActionIndex >= 0) {
             let uvAction = this.uvTrayAction(selectedActionIndex);
+
+            Viewport.ctx.drawImage(Sprite.hud_tray_popup[0].img, uvAction.u - 23, uvAction.v - 19);
+
             Viewport.ctx.drawImage(this.selectedAction.buttonSelectedSprite().img, uvAction.u, uvAction.v);
 
-            Text.drawText(
+            Text.drawParagraph(
                 Viewport.ctx,
                 this.selectedAction.selectedText(),
-                uvAction.u + 14,
-                uvAction.v
+                uvAction.u - 23 + 3,
+                uvAction.v - 19 + 3
             );
         }
 

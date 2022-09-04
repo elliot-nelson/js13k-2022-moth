@@ -154,12 +154,12 @@ export const World = {
                 console.log('single tap, reselect!');
                 this.selected = qr;
                 let building = this.buildingAt(this.selected);
-                if (building) {
+                /*if (building) {
                     let actions = building.hudActions();
                     if (actions[0] && actions[0].defaultTapAction) {
                         Hud.selectedAction = actions[0];
                     }
-                }
+                }*/
             }
         }
     },

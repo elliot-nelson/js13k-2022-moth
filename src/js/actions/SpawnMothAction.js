@@ -44,9 +44,9 @@ export const SpawnMothAction = {
         let cost = SPAWN_COST_EARTH[game.activeMoths()];
 
         if (game.canAfford(cost)) {
-            return 'MOTH ' + cost;
+            return 'LURE MOTH \ne' + cost;
         } else {
-            return 'MOTH RED e' + cost;
+            return 'LURE MOTH \ne' + cost;
         }
     },
 

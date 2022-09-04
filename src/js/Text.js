@@ -107,12 +107,12 @@ export const Text = {
             while (phrase[0] === '\n') {
                 phrase = phrase.slice(1);
                 cu = u;
-                cv += (C_HEIGHT + 2) * scale;
+                cv += (C_HEIGHT + 1) * scale;
             }
             let phraseWidth = Text.measureWidth(phrase, scale);
             if (cu + phraseWidth - u > w) {
                 cu = u;
-                cv += (C_HEIGHT + 2) * scale;
+                cv += (C_HEIGHT + 1) * scale;
             }
             Text.drawText(ctx, phrase, cu, cv, scale, font, shadow);
             cu += phraseWidth + (C_SHIFT[32] || 4);

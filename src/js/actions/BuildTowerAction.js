@@ -35,12 +35,12 @@ export const BuildTowerAction = {
     },
 
     selectedText() {
-        let cost = 1;
+        let cost = 15;
 
         if (game.canAfford(cost)) {
-            return 'TOWER e' + cost;
+            return 'BUILD TOWER \ne' + cost;
         } else {
-            return 'TOWER RED e' + cost;
+            return 'BUILD TOWER \ne RED' + cost;
         }
     },
 
