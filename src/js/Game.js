@@ -7,7 +7,7 @@ import { Text } from './Text';
 import { Player } from './Player';
 import { Viewport } from './Viewport';
 import { TITLE } from './Constants';
-import { rgba, createCanvas, clamp, partialText, uv2xy, xy2qr, xy2uv, qr2xy } from './Util';
+import { rgba, createCanvas, clamp, partialText, uv2xy, xy2qr, xy2uv, qr2xy, centerxy } from './Util';
 import { Audio } from './Audio';
 //import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
@@ -22,7 +22,7 @@ import { World } from './World';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { Ghost } from './Ghost';
-
+import { Wave } from './Wave';
 
 
 /**
@@ -49,12 +49,12 @@ export class Game {
             this.screenshakes = [];
             this.player = new Player();
             this.entities.push(this.player);
+            this.monstersPending = [];
 
-            Camera.pos = qr2xy(World.spawn);
-            console.log(Camera.pos);
+            this.waveNumber = 0;
 
-            this.entities.push(new Moth(Camera.pos));
-            this.entities.push(new Moth(Camera.pos));
+            Camera.pos = centerxy(qr2xy(World.spawn));
+
             this.entities.push(new Moth(Camera.pos));
 
             window.addEventListener('blur', () => this.pause());
@@ -94,6 +94,10 @@ export class Game {
     }
 
     update() {
+        if (!this.wave) {
+            this.wave = new Wave(this.waveNumber++);
+        }
+
         // Pull in frame by frame button pushes / keypresses / mouse clicks
         Input.update();
 
@@ -115,6 +119,10 @@ export class Game {
 
         // perform any per-frame audio updates
         Audio.update();
+
+        this.wave.update();
+
+        this.spawnMonsterIfPossible();
 
         // Behavior (AI, player input, etc.)
         //perform(this.entities); <-- cut to save space
@@ -159,6 +167,7 @@ export class Game {
         );
 
         World.update();
+
 
         if (this.entities.filter(e => e instanceof Moth).length === 0) {
             game.lost = true;
@@ -317,6 +326,30 @@ export class Game {
 
     payCost(earth) {
         this.earth -= earth;
+    }
+
+    spawnMonsterIfPossible() {
+        let entityClass = this.monstersPending[0];
+
+        if (entityClass) {
+            // A spawn is attempted up to 10 times
+            for (let i = 0; i < 10; i++) {
+                let q = Math.floor(Math.random() * World.floors[0].tiles[0].length);
+                let r = Math.floor(Math.random() * World.floors[0].tiles.length);
+                if (World.tiles[r][q] !== 1) {
+                    continue;
+                }
+                if (World.lightmap[r][q] !== 0) {
+                    continue;
+                }
+
+                let xy = qr2xy({ q, r });
+                console.log('NEW monster' + xy.x + ',' + xy.y + ',' + World.lightmap[r][q]);
+                game.entities.push(new entityClass(xy));
+                this.monstersPending.shift();
+                break;
+            }
+        }
     }
 }
 

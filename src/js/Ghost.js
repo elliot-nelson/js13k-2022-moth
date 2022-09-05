@@ -90,6 +90,8 @@ export class Ghost {
     }
 
     draw() {
+        if (!this.lastQR) return;
+
         let sprite = Sprite.ghost[0];
 
         /*for (let r = 0; r < this.targetField.length; r++) {

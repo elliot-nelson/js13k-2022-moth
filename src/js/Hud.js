@@ -43,6 +43,15 @@ export const Hud = {
     draw() {
         // Glyphs
 
+        if (game.wave) {
+            if (game.wave.incoming) {
+                Text.drawText(Viewport.ctx, 'INCOMING', 40, 3);
+            } else {
+                let seconds = Math.ceil(game.wave.countdown / 60);
+                Text.drawText(Viewport.ctx, 'COUNTDOWN ' + seconds, 40, 3);
+            }
+        }
+
         let moths = game.entities.filter(x => x instanceof Moth);
         for (let i = 0; i < moths.length; i++) {
             Viewport.ctx.drawImage(Sprite.moth[1].img, 1 + i * 4, 1);
