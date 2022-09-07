@@ -114,6 +114,10 @@ export function clamp(value, min, max) {
     return value < min ? min : value > max ? max : value;
 }
 
+export function manhattan(qr1, qr2) {
+    return Math.abs(qr1.q - qr2.q) + Math.abs(qr1.r - qr2.r);
+}
+
 // The parameters to this function are (Q, Q) or (R, R) - i.e. horizontal or
 // vertical coordinates in tile space.
 export function calculateRayIntersectionAndStep(startPos, endPos) {

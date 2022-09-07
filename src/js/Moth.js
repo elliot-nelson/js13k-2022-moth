@@ -98,7 +98,9 @@ export class Moth {
             }
         }
 
-        let dist = vectorBetween(this.pos, this.target);
+        let pathToTarget = World.pathToTarget(this.pos, this.target);
+        console.log([this.target, pathToTarget]);
+        let dist = vectorBetween(this.pos, pathToTarget);
         dist.m = clamp(dist.m, 0, 0.5);
 
         let newVelocity = vector2point(dist);

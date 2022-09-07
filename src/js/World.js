@@ -7,7 +7,7 @@ import { game } from './Game';
 import { Viewport } from './Viewport';
 import { WorldData } from './WorldData-gen';
 import { Sprite } from './Sprite';
-import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy } from './Util';
+import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy, manhattan } from './Util';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { TowerBuilding } from './buildings/TowerBuilding';
@@ -235,6 +235,13 @@ export const World = {
     pathToTarget(from, to) {
         let qrFrom = xy2qr(from);
         let qrTo = xy2qr(to);
+
+        let dist = manhattan(qrFrom, qrTo);
+        console.log('manhattan', dist);
+        if (dist <= 1) {
+            return to;
+        }
+
         let key = [qrTo.q, qrTo.r].join(',');
 
         // Our game doesn't support any kinds of doors or world destruction or
