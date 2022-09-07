@@ -452,9 +452,9 @@ export function floodTarget(maze, from, to) {
     throw new Error('fuck');
 }
 
-export function flood(maze, pos, maxDistance = Infinity) {
+export function flood(maze, to, maxDistance = Infinity) {
     let result = array2d(maze[0].length, maze.length, () => Infinity);
-    let stack = [{ ...pos, cost: 0 }];
+    let stack = [{ ...to, cost: 0 }];
     while (stack.length > 0) {
         let { q, r, cost } = stack.shift();
         if (result[r][q] <= cost) continue;

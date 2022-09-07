@@ -7,7 +7,7 @@ import { game } from './Game';
 import { Viewport } from './Viewport';
 import { WorldData } from './WorldData-gen';
 import { Sprite } from './Sprite';
-import { xy2uv, xy2qr, uv2xy, array2d, clamp } from './Util';
+import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy } from './Util';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { TowerBuilding } from './buildings/TowerBuilding';
@@ -98,6 +98,8 @@ export const World = {
         this.height = this.tiles.length;
 
         this.lightmap = array2d(this.width, this.height, () => 0);
+
+        this.cachedFields = {};
     },
 
     update() {
@@ -228,5 +230,34 @@ export const World = {
                 }
             }
         }
+    },
+
+    pathToTarget(from, to) {
+        let qrFrom = xy2qr(from);
+        let qrTo = xy2qr(to);
+        let key = [qrTo.q, qrTo.r].join(',');
+
+        // Our game doesn't support any kinds of doors or world destruction or
+        // anything like that, so once we've calculated a field we don't need to
+        // recalculate it.
+        let field = this.cachedFields[key];
+        if (!field) {
+            field = this.cachedFields[key] = flood(this.tiles, qrTo);
+        }
+        console.log(Object.keys(this.cachedFields).length);
+
+        let options = [
+            [qrFrom.q + 1, qrFrom.r],
+            [qrFrom.q - 1, qrFrom.r],
+            [qrFrom.q, qrFrom.r + 1],
+            [qrFrom.q, qrFrom.r - 1]
+        ];
+
+        for (let option of options) {
+            option.push(field[option[1]][option[0]]);
+        }
+        options.sort((a, b) => a[2] - b[2]);
+
+        return centerxy(qr2xy({ q: options[0][0], r: options[0][1] }));
     }
 };

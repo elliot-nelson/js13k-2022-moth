@@ -23,7 +23,6 @@ import { Viewport } from './Viewport';
  */
 export class Moth {
     constructor(pos) {
-        console.log(pos);
         this.pos = { ...pos };
         this.target = { ...this.pos };
         this.vel = { x: 0, y: 0 };
@@ -112,7 +111,7 @@ export class Moth {
 
     draw() {
 
-        let r = 4;
+        let r = 3;
         let uv = {
             u: Math.cos((game.frame + this.circleOffset) / 16) * r,
             v: Math.sin((game.frame + this.circleOffset) / 16) * r
@@ -127,7 +126,7 @@ export class Moth {
     gather(qr) {
         //this.target = { x: qr.q * 8, y: qr.r * 8 };
         this.tasks = [
-            { task: DROPOFF, qr: qr }
+            { task: PICKUP, qr: qr }
         ];
     }
 

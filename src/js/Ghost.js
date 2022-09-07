@@ -44,31 +44,9 @@ export class Ghost {
             }
         }
 
-        let qrthis = xy2qr(this.pos);
-        let qrthat = xy2qr(bestTarget.pos);
+        const pathToTarget = World.pathToTarget(this.pos, bestTarget.pos);
 
-        console.log('qrthat ghost', bestTarget.pos, qrthat);
-
-        this.targetField = floodTarget(World.floors[0].tiles, qrthis, qrthat);
-
-        let options = [
-            [qrthis.q + 1, qrthis.r],
-            [qrthis.q - 1, qrthis.r],
-            [qrthis.q, qrthis.r + 1],
-            [qrthis.q, qrthis.r - 1]
-        ];
-        for (let option of options) {
-            option.push(this.targetField[option[1]][option[0]]);
-        }
-        options.sort((a, b) => a[2] - b[2]);
-
-        this.lastQR = qrthis;
-        this.nextQR = { q: options[0][0], r: options[0][1] };
-
-        //console.log('option', options[0]);
-        let realTarget = centerxy(qr2xy({ q: options[0][0], r: options[0][1] }));
-
-        let diff = vectorBetween(this.pos, realTarget);
+        let diff = vectorBetween(this.pos, pathToTarget);
 
         if (this.state === CHASE) {
             if (bestDiff.m < 8) {
@@ -89,7 +67,7 @@ export class Ghost {
     }
 
     draw() {
-        if (!this.lastQR) return;
+        //if (!this.lastQR) return;
 
         let sprite = Sprite.ghost[0];
 
@@ -105,6 +83,7 @@ export class Ghost {
             }
         }*/
 
+        /*
         let uv = xy2uv(qr2xy(this.lastQR));
         Viewport.ctx.fillStyle = rgba(255, 0, 0, 0.2);
         Viewport.ctx.fillRect(uv.u + 1, uv.v + 1, 7, 7);
@@ -112,6 +91,7 @@ export class Ghost {
         uv = xy2uv(qr2xy(this.nextQR));
         Viewport.ctx.fillStyle = rgba(0, 255, 0, 0.2);
         Viewport.ctx.fillRect(uv.u + 1, uv.v + 1, 7, 7);
+        */
 
         /*let sprite = Sprite.stabguts[((game.frame / 12) | 0) % 2];
         this.state === RELOAD && (sprite = Sprite.stabguts[2]);
