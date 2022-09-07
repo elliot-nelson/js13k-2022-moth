@@ -1,6 +1,6 @@
 // World
 
-import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN, TILE_SIZE } from './Constants';
+import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN, TILE_SIZE, TILE_WALL } from './Constants';
 //import { FieldOfView } from './FieldOfView';
 import { Game } from './Game';
 import { game } from './Game';
@@ -15,6 +15,7 @@ import { CoffinBuilding } from './buildings/CoffinBuilding';
 import { EarthBuilding } from './buildings/EarthBuilding';
 import { ExitBuilding } from './buildings/ExitBuilding';
 import { Hud } from './Hud';
+import { MoveAction } from './actions/MoveAction';
 
 export const World = {
     init() {
@@ -140,7 +141,7 @@ export const World = {
         let qr = xy2qr(uv2xy(uv));
         let tile = this.tileAt(qr);
 
-        if (!tile || tile === 2) {
+        if (!tile || tile === TILE_WALL) {
             this.selected = undefined;
             console.log('nah, no good man');
         } else {
@@ -151,6 +152,8 @@ export const World = {
                     if (actions[0] && actions[0].defaultTapAction) {
                         actions[0].tap();
                     }
+                } else {
+                    MoveAction.tap();
                 }
             } else {
                 console.log('single tap, reselect!');

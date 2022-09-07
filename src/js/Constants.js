@@ -16,6 +16,10 @@ export const TILE_SIZE   = 8;
 export const INPUT_MODE_TOUCH = 1;
 export const INPUT_MODE_MOUSE = 2;
 
+// Tiles
+export const TILE_FLOOR = 1;
+export const TILE_WALL  = 2;
+
 // Bitmasks used to represent wall sides on map
 export const WALL_TOP    = 0b0000_0001;
 export const WALL_RIGHT  = 0b0000_0010;
