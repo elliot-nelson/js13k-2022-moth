@@ -181,12 +181,7 @@ export const Hud = {
 
             Viewport.ctx.drawImage(this.selectedAction.buttonSelectedSprite().img, uvAction.u, uvAction.v);
 
-            Text.drawParagraph(
-                Viewport.ctx,
-                this.selectedAction.selectedText(),
-                uvAction.u - 23 + 3,
-                uvAction.v - 19 + 3
-            );
+            this.selectedAction.drawSelectedText(uvAction.u - 23 + 3, uvAction.v - 19 + 3);
         }
 
         if (Input.pointer) {
@@ -210,8 +205,9 @@ export const Hud = {
                 let uvAction = this.uvTrayAction(i);
                 if (uv.u >= uvAction.u && uv.u <= uvAction.u + 12 && uv.v >= uvAction.v && uv.v <= uvAction.v + 12) {
                     if (this.actions[i] === this.selectedAction) {
-                        this.selectedAction.tap();
-                        this.selectedAction = undefined;
+                        if (this.selectedAction.tap()) {
+                            this.selectedAction = undefined;
+                        }
                     } else {
                         this.selectedAction = this.actions[i];
                     }

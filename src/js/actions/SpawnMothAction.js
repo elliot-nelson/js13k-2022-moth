@@ -12,16 +12,12 @@ import {
     centerxy
 } from '../Util';
 import { Sprite } from '../Sprite';
-import { CHASE, DEAD } from '../systems/Behavior';
 import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
 import { World } from '../World';
 import { Moth } from '../Moth';
-
-const MOVE = 1;
-const CIRCLE = 2;
-const IDLE = 3;
+import { Text } from '../Text';
 
 const SPAWN_COST_EARTH = [0, 2];
 for (let i = 2; i <= 19; i++) {
@@ -40,14 +36,16 @@ export const SpawnMothAction = {
         return Sprite.buttons2[1];
     },
 
-    selectedText() {
+    drawSelectedText(u, v) {
         let cost = SPAWN_COST_EARTH[game.activeMoths()];
+        let text = game.canAfford(cost) ? 'LURE MOTH \ne' + cost : 'LURE MOTH \ner' + cost;
 
-        if (game.canAfford(cost)) {
-            return 'LURE MOTH \ne' + cost;
-        } else {
-            return 'LURE MOTH \ne' + cost;
-        }
+        Text.drawParagraph(
+            Viewport.ctx,
+            text,
+            u,
+            v
+        );
     },
 
     tap() {
@@ -56,6 +54,7 @@ export const SpawnMothAction = {
         if (game.canAfford(cost)) {
             game.payCost(cost);
             game.entities.push(new Moth(centerxy(qr2xy(World.selected))));
+            return true;
         }
     }
 };

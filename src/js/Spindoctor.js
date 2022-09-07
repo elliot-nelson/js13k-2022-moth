@@ -1,5 +1,5 @@
 import { game } from './Game';
-import { R20, R70, R90, R360, DIALOG_HINT_E2 } from './Constants';
+import { R20, R70, R90, R360, DIALOG_HINT_E2, CHASE, DEAD } from './Constants';
 import {
     vector2angle,
     angle2vector,
@@ -8,7 +8,6 @@ import {
     vector2point
 } from './Util';
 import { Sprite } from './Sprite';
-import { CHASE, DEAD } from './systems/Behavior';
 import { Gore } from './Gore';
 import { Viewport } from './Viewport';
 

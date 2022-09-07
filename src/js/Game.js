@@ -4,7 +4,6 @@ import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { MapLoader } from './MapLoader';
 import { Text } from './Text';
-import { Player } from './Player';
 import { Viewport } from './Viewport';
 import { TITLE } from './Constants';
 import { rgba, createCanvas, clamp, partialText, uv2xy, xy2qr, xy2uv, qr2xy, centerxy } from './Util';
@@ -47,8 +46,6 @@ export class Game {
             this.roomsCleared = {};
             this.shadowOffset = 0;
             this.screenshakes = [];
-            this.player = new Player();
-            this.entities.push(this.player);
             this.monstersPending = [];
 
             this.waveNumber = 0;
@@ -126,6 +123,7 @@ export class Game {
 
         // Behavior (AI, player input, etc.)
         //perform(this.entities); <-- cut to save space
+        console.log(game.entities);
         for (let entity of game.entities) {
             if (entity.think) entity.think();
         }

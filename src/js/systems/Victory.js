@@ -1,15 +1,12 @@
 'use strict';
 
 import { game } from '../Game';
-import { R360, TILE_SIZE, ROOM_ENDING } from '../Constants';
+import { R360, TILE_SIZE, ROOM_ENDING, DEAD } from '../Constants';
 import { xy2qr, vectorBetween, vectorAdd, angle2vector, rgba, roomCenter } from '../Util';
-import { Player } from '../Player';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { ScreenShake } from '../ScreenShake';
-import { Stabguts } from '../Stabguts';
 import { Spindoctor } from '../Spindoctor';
 import { SpawnAnimation } from '../SpawnAnimation';
-import { DEAD } from './Behavior';
 import { Audio } from '../Audio';
 
 /**
@@ -17,6 +14,8 @@ import { Audio } from '../Audio';
  */
 export const Victory = {
     perform() {
+        return;
+
         if (game.player.pages >= 404 && !game.victory) {
             Victory.frame = 0;
             game.victory = true;
@@ -38,7 +37,7 @@ export const Victory = {
             let enemies = game.entities.filter(entity => entity.enemy);
             if (Victory.frame % 30 === 0 && enemies.length < 25) {
                 let pos = vectorAdd(game.player.pos, angle2vector(Math.random() * R360, 48));
-                let enemyType = [Stabguts, Stabguts, Spindoctor][Math.random() * 3 | 0];
+                let enemyType = [Spindoctor][Math.random() * 3 | 0];
                 let enemy = new enemyType(pos);
                 game.entities.push(enemy);
                 game.entities.push(new SpawnAnimation(pos));

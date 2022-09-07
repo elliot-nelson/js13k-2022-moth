@@ -1,5 +1,5 @@
 import { game } from './Game';
-import { R20, R70, R90, R360, DIALOG_HINT_E2 } from './Constants';
+import { R20, R70, R90, R360, DIALOG_HINT_E2, IDLE, DEAD, PICKUP, DROPOFF, MOVE } from './Constants';
 import {
     vector2angle,
     angle2vector,
@@ -13,16 +13,9 @@ import {
     clamp
 } from './Util';
 import { Sprite } from './Sprite';
-import { CHASE, DEAD } from './systems/Behavior';
 import { Gore } from './Gore';
 import { World } from './World';
 import { Viewport } from './Viewport';
-
-const MOVE = 1;
-const CIRCLE = 2;
-const IDLE = 3;
-const GATHER = 4;
-const RETURN = 5;
 
 
 /**
@@ -75,7 +68,7 @@ export class Moth {
             if (dist.m < 8) {
                 this.tasks.pop();
             }
-        } else if (task.task === GATHER) {
+        } else if (task.task === PICKUP) {
             this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
@@ -83,10 +76,10 @@ export class Moth {
                 this.frame = 0;
                 this.carryAmount += this.carryPerFrame;
                 if (this.carryAmount >= this.carryCapacity) {
-                    this.tasks.push({ task: RETURN, qr: { q: World.spawn.q, r: World.spawn.r } });
+                    this.tasks.push({ task: DROPOFF, qr: { q: World.spawn.q, r: World.spawn.r } });
                 }
             }
-        } else if (task.task === RETURN) {
+        } else if (task.task === DROPOFF) {
             this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
@@ -134,7 +127,17 @@ export class Moth {
     gather(qr) {
         //this.target = { x: qr.q * 8, y: qr.r * 8 };
         this.tasks = [
-            { task: GATHER, qr: qr }
+            { task: DROPOFF, qr: qr }
         ];
+    }
+
+    moveTo(qr) {
+        this.tasks = [
+            { task: MOVE, qr: qr }
+        ];
+    }
+
+    isBusy() {
+        return this.task && this.task.task !== IDLE;
     }
 }

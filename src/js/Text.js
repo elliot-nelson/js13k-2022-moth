@@ -32,9 +32,9 @@ export const Text = {
         Text.white = Sprite.font.img;
 
         let icons = [
-            [101, Sprite.buildings[2]],
-            [108, Sprite.icon_mouse_lmb],  // l
-            [114, Sprite.icon_mouse_rmb],  // r
+            [101, Sprite.buildings[2]],      // e = Earth
+            //[108, Sprite.icon_mouse_lmb],  // l
+            //[114, Sprite.icon_mouse_rmb],  // r
         ];
         for (let icon of icons) {
             C_ICONS[icon[0]] = icon[1];
@@ -49,11 +49,22 @@ export const Text = {
         Text.red = recolor(Text.white, rgba(240, 50, 50, 1));
 
         Text.duotone = recolorDuotone(Text.white, '#ffaa5e', '#ffd4a3');
+        Text.duotone_red = recolorDuotone(Text.white, '#ffaa5e', '#ffd4a3', rgba(255, 0, 0, 0.7));
     },
 
     drawText(ctx, text, u, v, scale = 1, font = Text.duotone, shadow) {
         for (let idx = 0; idx < text.length; idx++) {
             let c = text.charCodeAt(idx);
+            if (c === 119) {
+                // w
+                font = Text.duotone;
+                continue;
+            } else if (c === 114) {
+                // r
+                font = Text.duotone_red;
+                continue;
+            }
+
             if (C_ICONS[c]) {
                 ctx.drawImage(
                     C_ICONS[c].img,
@@ -136,7 +147,7 @@ function recolor(font, color) {
     return canvas.canvas;
 }
 
-function recolorDuotone(font, topColor, bottomColor) {
+function recolorDuotone(font, topColor, bottomColor, tint) {
     // Note: shortcut assumes that the font image is exactly 2 rows of characters.
     let canvas = createCanvas(font.width, font.height);
     canvas.ctx.fillStyle = bottomColor;
@@ -144,6 +155,10 @@ function recolorDuotone(font, topColor, bottomColor) {
     canvas.ctx.fillStyle = topColor;
     canvas.ctx.fillRect(0, 0, font.width, 1);
     canvas.ctx.fillRect(0, C_HEIGHT + 1, font.width, 1);
+    if (tint) {
+        canvas.ctx.fillStyle = tint;
+        canvas.ctx.fillRect(0, 0, font.width, font.height);
+    }
     canvas.ctx.globalCompositeOperation = 'destination-in';
     canvas.ctx.drawImage(font, 0, 0);
     return canvas.canvas;

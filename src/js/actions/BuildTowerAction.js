@@ -11,16 +11,13 @@ import {
     qr2xy
 } from '../Util';
 import { Sprite } from '../Sprite';
-import { CHASE, DEAD } from '../systems/Behavior';
 import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
 import { World } from '../World';
 import { TowerBuilding } from '../buildings/TowerBuilding';
+import { Text } from '../Text';
 
-const MOVE = 1;
-const CIRCLE = 2;
-const IDLE = 3;
 
 /**
  * Monster
@@ -34,22 +31,25 @@ export const BuildTowerAction = {
         return Sprite.buttons2[7];
     },
 
-    selectedText() {
+    drawSelectedText(u, v) {
         let cost = 15;
+        let text = game.canAfford(cost) ? 'BUILD TOWER \ne' + cost : 'BUILD TOWER \ner' + cost;
 
-        if (game.canAfford(cost)) {
-            return 'BUILD TOWER \ne' + cost;
-        } else {
-            return 'BUILD TOWER \ne' + cost;
-        }
+        Text.drawParagraph(
+            Viewport.ctx,
+            text,
+            u,
+            v
+        );
     },
 
     tap() {
-        let cost = 0;
+        let cost = 15;
 
         if (game.canAfford(cost)) {
             game.payCost(cost);
             World.buildings.push(new TowerBuilding(World.selected));
+            return true;
         }
     }
 };

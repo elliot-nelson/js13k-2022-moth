@@ -3,7 +3,6 @@ import { R45, R90, R360 } from './Constants';
 import { vector2angle, vector2point, angle2vector, vectorAdd, vectorBetween, clamp } from './Util';
 import { Sprite } from './Sprite';
 import { Viewport } from './Viewport';
-import { Player } from './Player';
 
 export class TowerGunk {
     constructor(pos, target, damage) {

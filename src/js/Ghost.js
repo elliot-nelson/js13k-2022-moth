@@ -1,10 +1,9 @@
 // ghost?
 
 import { game } from './Game';
-import { R90, DIALOG_HINT_E1 } from './Constants';
+import { R90, DIALOG_HINT_E1, CHASE, DEAD } from './Constants';
 import { vectorBetween, clamp, vector2angle, xy2qr, floodTarget, qr2xy, xy2uv, rgba, centerxy } from './Util';
 import { Sprite } from './Sprite';
-import { CHASE, DEAD, ATTACK, RELOAD } from './systems/Behavior';
 import { Gore } from './Gore';
 import { World } from './World';
 import { Viewport } from './Viewport';

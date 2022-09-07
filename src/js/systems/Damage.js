@@ -1,6 +1,6 @@
-'use strict';
+// Damage
 
-import { DEAD, SPAWN } from './Behavior';
+import { DEAD, SPAWN } from '../Constants';
 import { vectorAdd } from '../Util';
 import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';

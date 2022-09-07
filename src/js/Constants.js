@@ -65,3 +65,12 @@ export const R90         =  90 * Math.PI / 180;
 export const R180        = 180 * Math.PI / 180;
 export const R270        = 270 * Math.PI / 180;
 export const R360        = 360 * Math.PI / 180;
+
+// Entity behaviors (states)
+export const SPAWN   = 1;
+export const IDLE    = 2;
+export const MOVE    = 3;
+export const PICKUP  = 4;
+export const DROPOFF = 5;
+export const DEAD    = 9;
+export const CHASE   = 11;

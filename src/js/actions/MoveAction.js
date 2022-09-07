@@ -14,17 +14,13 @@ import {
     centerxy
 } from '../Util';
 import { Sprite } from '../Sprite';
-import { CHASE, DEAD } from '../systems/Behavior';
 import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
 import { World } from '../World';
 import { Moth } from '../Moth';
 import { Ghost } from '../Ghost';
-
-const MOVE = 1;
-const CIRCLE = 2;
-const IDLE = 3;
+import { Text } from '../Text';
 
 const SPAWN_COST_EARTH = [0, 4];
 for (let i = 2; i <= 20; i++) {
@@ -42,18 +38,26 @@ export const MoveAction = {
         return Sprite.buttons2[5];
     },
 
-    selectedText() {
-        return 'EXPLORE';
+    drawSelectedText(u, v) {
+        let text = 'EXPLORE';
+
+        Text.drawParagraph(
+            Viewport.ctx,
+            text,
+            u,
+            v
+        );
     },
 
     tap() {
         let moths = game.entities.filter(e => e instanceof Moth);
 
         for (let i = 0; i < moths.length; i++) {
-            if (moths[i].task === 3) {
-                moths[i].tasks.push({ task: 1, qr: World.selected });
-                break;
+            if (!moths[i].isBusy()) {
+                moths[i].moveTo(World.selected);
             }
         }
+
+        return true;
     }
 };
