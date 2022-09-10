@@ -7,7 +7,7 @@ import { game } from './Game';
 import { Viewport } from './Viewport';
 import { WorldData } from './WorldData-gen';
 import { Sprite } from './Sprite';
-import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy, manhattan } from './Util';
+import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy, manhattan, floodlight } from './Util';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { TowerBuilding } from './buildings/TowerBuilding';
@@ -16,6 +16,7 @@ import { EarthBuilding } from './buildings/EarthBuilding';
 import { ExitBuilding } from './buildings/ExitBuilding';
 import { Hud } from './Hud';
 import { MoveAction } from './actions/MoveAction';
+import { Text } from './Text';
 
 export const World = {
     init() {
@@ -35,6 +36,7 @@ export const World = {
                 Viewport.ctx.globalAlpha = clamp(this.lightmap[y][x] / 5, 0.1, 1);
                 if (tiles[y][x] > 0) {
                    Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
+                   Text.drawText(Viewport.ctx, '' + this.lightmap[y][x], x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
                 }
             }
         }
@@ -194,6 +196,7 @@ export const World = {
     },
 
     updateLightmap() {
+        /*
         for (let r = 0; r < this.height; r++) {
             for (let q = 0; q < this.width; q++) {
                 this.lightmap[r][q] = 0;
@@ -232,7 +235,21 @@ export const World = {
                     }
                 }
             }
+        }*/
+
+        let lights = [];
+
+        for (let building of this.buildings) {
+            lights.push({ ...building.qr, light: 9 });
         }
+
+        for (let entity of game.entities) {
+            if (entity instanceof Moth) {
+                lights.push({ ...xy2qr(entity.pos), light: 7 });
+            }
+        }
+
+        this.lightmap = floodlight(this.tiles, lights);
     },
 
     pathToTarget(from, to) {

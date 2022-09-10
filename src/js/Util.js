@@ -476,10 +476,39 @@ export function flood(maze, to, maxDistance = Infinity) {
     return result;
 }
 
+export function floodlight(maze, froms, maxDistance = Infinity) {
+    let result = array2d(maze[0].length, maze.length, () => 0);
+    let stack = [...froms];
+
+    while (stack.length > 0) {
+        let { q, r, light } = stack.shift();
+        if (result[r][q] >= light) continue;
+        result[r][q] = light--;
+        if (result[r][q] >= maxDistance) continue;
+        if (tileOnMap(q + 1, r) && result[r][q + 1] < light)
+            stack.push({ q: q + 1, r, light });
+        if (tileOnMap(q - 1, r) && result[r][q - 1] < light)
+            stack.push({ q: q - 1, r, light });
+        if (tileOnMap(q, r + 1) && result[r + 1][q] < light)
+            stack.push({ q, r: r + 1, light });
+        if (tileOnMap(q, r - 1) && result[r - 1][q] < light)
+            stack.push({ q, r: r - 1, light });
+    }
+    return result;
+}
+
 export function array2d(width, height, fn) {
     return Array.from({ length: height }, () =>
         Array.from({ length: width }, fn)
     );
+}
+
+export function tileOnMap(q, r) {
+    let tiles = World.floors[0].tiles;
+    if (q < 0 || r < 0 || r >= tiles.length || q >= tiles[r].length) {
+        return false;
+    }
+    return true;
 }
 
 export function tileIsPassable(q, r) {
