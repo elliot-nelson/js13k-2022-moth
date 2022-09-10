@@ -50,7 +50,7 @@ export const MoveAction = {
     },
 
     tap() {
-        Moth.next().moveTo(World.selected);
+        Moth.assign(moth => moth.moveTo(World.selected));
         return true;
     }
 };

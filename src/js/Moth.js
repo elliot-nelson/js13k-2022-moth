@@ -164,11 +164,12 @@ export class Moth {
     }
 
     isBusy() {
-        return this.task && this.task.task !== IDLE;
+        let task = this.tasks[this.tasks.length - 1];
+        return task && task.task !== IDLE;
     }
 }
 
-Moth.next = () => {
+Moth.sortMoths = () => {
     let moths = game.entities.filter(e => e instanceof Moth);
     moths.sort((a, b) => {
         if (a.isBusy() && !b.isBusy()) {
@@ -179,5 +180,14 @@ Moth.next = () => {
             return a.lastAssigned - b.lastAssigned;
         }
     });
-    return moths[0];
+    return moths;
+};
+
+Moth.assign = (fn) => {
+    let moths = Moth.sortMoths();
+
+    for (let i = 0; i < moths.length; i++) {
+        if (i > 0 && moths[i].isBusy()) break;
+        fn(moths[i]);
+    }
 };

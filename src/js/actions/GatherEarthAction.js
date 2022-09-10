@@ -50,7 +50,7 @@ export const GatherEarthAction = {
     },
 
     tap() {
-        Moth.next().gather(World.selected);
+        Moth.assign(moth => moth.gather(World.selected));
         return true;
     }
 };

@@ -50,7 +50,7 @@ export const BuildTowerAction = {
         if (game.canAfford(cost)) {
             game.payCost(cost);
             World.buildings.push(new TowerBuilding(World.selected));
-            Moth.next().construct(World.selected);
+            Moth.assign(moth => moth.construct(World.selected));
             return true;
         }
     }
