@@ -1,5 +1,5 @@
 import { game } from './Game';
-import { R20, R70, R90, R360, DIALOG_HINT_E2, IDLE, DEAD, PICKUP, DROPOFF, MOVE } from './Constants';
+import { R20, R70, R90, R360, DIALOG_HINT_E2, IDLE, DEAD, PICKUP, DROPOFF, MOVE, CONSTRUCT, ACTION_DISTANCE } from './Constants';
 import {
     vector2angle,
     angle2vector,
@@ -66,14 +66,26 @@ export class Moth {
             this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
-            if (dist.m < 8) {
+            if (dist.m < ACTION_DISTANCE) {
                 this.tasks.pop();
+            }
+        } else if (task.task === CONSTRUCT) {
+            this.target = centerxy(qr2xy(task.qr));
+            let dist = vectorBetween(this.pos, this.target);
+
+            if (dist.m < ACTION_DISTANCE) {
+                this.frame = 0;
+                let building = World.buildingAt(task.qr);
+                building.buildFrames++;
+                if (building.buildFrames >= building.buildFramesTotal) {
+                    this.tasks.pop();
+                }
             }
         } else if (task.task === PICKUP) {
             this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
-            if (dist.m < 8) {
+            if (dist.m < ACTION_DISTANCE) {
                 this.frame = 0;
                 this.carryAmount += this.carryPerFrame;
                 if (this.carryAmount >= this.carryCapacity) {
@@ -84,7 +96,7 @@ export class Moth {
             this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
-            if (dist.m < 8) {
+            if (dist.m < ACTION_DISTANCE) {
                 this.frame = 0;
 
                 this.carryAmount -= this.carryPerFrame;
@@ -114,11 +126,12 @@ export class Moth {
     }
 
     draw() {
-
         let r = 3;
+        if (this.frame === 0) r--;
+
         let uv = {
             u: Math.cos((game.frame + this.circleOffset) / 16) * r,
-            v: Math.sin((game.frame + this.circleOffset) / 16) * r
+            v: Math.sin((game.frame + this.circleOffset) / 16) * 1
         }
 
         Sprite.drawViewportSprite(Sprite.moth[this.frame], { x: this.pos.x + uv.u, y: this.pos.y + uv.v });
@@ -132,6 +145,14 @@ export class Moth {
         this.tasks = [
             { task: PICKUP, qr: qr }
         ];
+        this.lastAssigned = game.frame;
+    }
+
+    construct(qr) {
+        //this.target = { x: qr.q * 8, y: qr.r * 8 };
+        this.tasks.push(
+            { task: CONSTRUCT, qr: qr }
+        );
         this.lastAssigned = game.frame;
     }
 

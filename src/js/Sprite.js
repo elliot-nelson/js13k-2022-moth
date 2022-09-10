@@ -52,6 +52,8 @@ export const Sprite = {
         Sprite.hud_tray_divider = SpriteSheet.hud_tray_divider.map(initBasicSprite);
         Sprite.hud_tray_popup = SpriteSheet.hud_tray_popup.map(initBasicSprite);
 
+        Sprite.hud_wip = SpriteSheet.hud_wip.map(data => initBasicSprite(data, { x: -1, y: -1 }));
+
         // Tiles
         Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);
 

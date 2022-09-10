@@ -17,6 +17,7 @@ import { Camera } from '../Camera';
 import { World } from '../World';
 import { TowerBuilding } from '../buildings/TowerBuilding';
 import { Text } from '../Text';
+import { Moth } from '../Moth';
 
 
 /**
@@ -49,6 +50,7 @@ export const BuildTowerAction = {
         if (game.canAfford(cost)) {
             game.payCost(cost);
             World.buildings.push(new TowerBuilding(World.selected));
+            Moth.next().construct(World.selected);
             return true;
         }
     }

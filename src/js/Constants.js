@@ -70,11 +70,22 @@ export const R180        = 180 * Math.PI / 180;
 export const R270        = 270 * Math.PI / 180;
 export const R360        = 360 * Math.PI / 180;
 
+// Moths must be within this number of pixels of their target
+// to "act" (construct, gather, etc.).
+export const ACTION_DISTANCE = 6;
+
 // Entity behaviors (states)
-export const SPAWN   = 1;
-export const IDLE    = 2;
-export const MOVE    = 3;
-export const PICKUP  = 4;
-export const DROPOFF = 5;
-export const DEAD    = 9;
-export const CHASE   = 11;
+export const SPAWN     = 1;
+export const IDLE      = 2;
+export const MOVE      = 3;
+export const PICKUP    = 4;
+export const DROPOFF   = 5;
+export const CONSTRUCT = 6;
+export const DEAD      = 9;
+
+// Additional behaviors (enemies)
+export const CHASE     = 11;
+
+// Additional behaviors (buildings)
+export const WIP       = 21;
+export const ONLINE    = 22;

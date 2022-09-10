@@ -57,7 +57,7 @@ export class Game {
             window.addEventListener('blur', () => this.pause());
             window.addEventListener('focus', () => this.unpause());
 
-            this.earth = 0;
+            this.earth = 250;
             this.blood = 0;
 
             this.start();
