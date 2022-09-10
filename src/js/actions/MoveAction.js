@@ -50,14 +50,7 @@ export const MoveAction = {
     },
 
     tap() {
-        let moths = game.entities.filter(e => e instanceof Moth);
-
-        for (let i = 0; i < moths.length; i++) {
-            if (!moths[i].isBusy()) {
-                moths[i].moveTo(World.selected);
-            }
-        }
-
+        Moth.next().moveTo(World.selected);
         return true;
     }
 };

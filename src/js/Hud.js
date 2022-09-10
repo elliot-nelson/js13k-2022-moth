@@ -193,6 +193,21 @@ export const Hud = {
             Viewport.ctx.globalAlpha = 1;
         }
 
+
+        /*
+        Visual Effect Warning
+        let gorp = game.frame % 60;
+        let x = (gorp / 60) * (Viewport.width + 100) - 50;
+
+        Viewport.ctx.fillStyle = 'rgba(255, 0, 0, 0.6)';
+        Viewport.ctx.beginPath();
+        Viewport.ctx.moveTo(x + 20, 0);
+        Viewport.ctx.lineTo(x +0, Viewport.height);
+        Viewport.ctx.lineTo(x+40, Viewport.height);
+        Viewport.ctx.lineTo(x+60, 0);
+        Viewport.ctx.closePath();
+        Viewport.ctx.fill();
+        */
     },
 
     uvTrayAction(i) {

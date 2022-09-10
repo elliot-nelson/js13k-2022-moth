@@ -45,6 +45,8 @@ export class Moth {
 
         this.frame = 0;
         this.circleOffset = Math.floor(Math.random() * 16);
+
+        this.lastAssigned = game.frame;
     }
 
     think() {
@@ -130,15 +132,31 @@ export class Moth {
         this.tasks = [
             { task: PICKUP, qr: qr }
         ];
+        this.lastAssigned = game.frame;
     }
 
     moveTo(qr) {
         this.tasks = [
             { task: MOVE, qr: qr }
         ];
+        this.lastAssigned = game.frame;
     }
 
     isBusy() {
         return this.task && this.task.task !== IDLE;
     }
 }
+
+Moth.next = () => {
+    let moths = game.entities.filter(e => e instanceof Moth);
+    moths.sort((a, b) => {
+        if (a.isBusy() && !b.isBusy()) {
+            return 1;
+        } else if (!a.isBusy() && b.isBusy()) {
+            return -1;
+        } else {
+            return a.lastAssigned - b.lastAssigned;
+        }
+    });
+    return moths[0];
+};

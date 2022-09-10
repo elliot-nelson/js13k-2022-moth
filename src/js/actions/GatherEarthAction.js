@@ -50,15 +50,7 @@ export const GatherEarthAction = {
     },
 
     tap() {
-        let moth;
-
-        for (let entity of game.entities) {
-            if (entity instanceof Moth) {
-                moth = entity;
-                entity.gather(World.selected);
-            }
-        }
-
+        Moth.next().gather(World.selected);
         return true;
     }
 };
