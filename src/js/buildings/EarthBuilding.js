@@ -22,12 +22,18 @@ import { GatherEarthAction } from '../actions/GatherEarthAction';
 export class EarthBuilding {
     constructor(qr) {
         this.qr = { ...qr };
+        this.resourcesLeft = 3_00;
 
-        this.title = 'EARTH \n500 REMAINING';
+        this.title = 'EARTH';
         this.portraitSprite = Sprite.buildings[2];
     }
 
     think() {
+        this.title = 'EARTH \n' + Math.ceil(this.resourcesLeft / 100) + ' REMAINING';
+
+        if (this.resourcesLeft < 1) {
+            this.cull = true;
+        }
     }
 
     draw() {

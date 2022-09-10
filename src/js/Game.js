@@ -150,6 +150,7 @@ export class Game {
 
         // Culling (typically when an entity dies)
         this.entities = this.entities.filter(entity => !entity.cull);
+        World.buildings = World.buildings.filter(building => !building.cull);
 
         // Camera logic
         /*let diff = {

@@ -39,7 +39,7 @@ export class Moth {
         this.offset = { x: 0, y: 0 };
 
         this.carryAmount = 0;
-        this.carryCapacity = 500;
+        this.carryCapacity = 5_00;
         this.carryPerFrame = 3;
         this.transferAmount = 0;
 
@@ -85,9 +85,15 @@ export class Moth {
             this.target = centerxy(qr2xy(task.qr));
             let dist = vectorBetween(this.pos, this.target);
 
-            if (dist.m < ACTION_DISTANCE) {
+            let building = World.buildingAt(task.qr);
+
+            if (!building) {
+                this.tasks.pop();
+                this.tasks.push({ task: DROPOFF, qr: { q: World.spawn.q, r: World.spawn.r } });
+            } else if (dist.m < ACTION_DISTANCE) {
                 this.frame = 0;
                 this.carryAmount += this.carryPerFrame;
+                building.resourcesLeft -= this.carryPerFrame;
                 if (this.carryAmount >= this.carryCapacity) {
                     this.tasks.push({ task: DROPOFF, qr: { q: World.spawn.q, r: World.spawn.r } });
                 }
