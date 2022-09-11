@@ -2,7 +2,6 @@
 
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
-import { MapLoader } from './MapLoader';
 import { Text } from './Text';
 import { Viewport } from './Viewport';
 import { TITLE } from './Constants';

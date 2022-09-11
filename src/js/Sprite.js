@@ -32,7 +32,7 @@ export const Sprite = {
         Sprite.icon_mouse_rmb = initBasicSprite(SpriteSheet.icon_mouse[1]);
 
         // Enemies
-        Sprite.stabguts = SpriteSheet.stabguts.map(initBasicSprite);
+        //Sprite.stabguts = SpriteSheet.stabguts.map(initBasicSprite);
         //Sprite.spindoctor = SpriteSheet.spindoctor.map(initBasicSprite);
 
         Sprite.moth = SpriteSheet.moth.map(initBasicSprite);
