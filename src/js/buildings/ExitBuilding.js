@@ -1,5 +1,5 @@
 import { game } from '../Game';
-import { R20, R70, R90, R360, DIALOG_HINT_E2 } from '../Constants';
+import { R20, R70, R90, R360, DIALOG_HINT_E2, ACTION_DISTANCE } from '../Constants';
 import {
     vector2angle,
     angle2vector,
@@ -9,7 +9,8 @@ import {
     uv2xy,
     xy2uv,
     xy2qr,
-    qr2xy
+    qr2xy,
+    centerxy
 } from '../Util';
 import { Sprite } from '../Sprite';
 import { Gore } from '../Gore';
@@ -34,9 +35,11 @@ export class ExitBuilding {
 
     think() {
         let moths = Moth.sortMoths();
+        let pos = centerxy(qr2xy(this.qr));
+
         for (let moth of moths) {
-            let qr = xy2qr(moth.pos);
-            if (qr.q === this.qr.q && qr.r === this.qr.r) {
+            let dist = vectorBetween(moth.pos, pos);
+            if (dist.m < ACTION_DISTANCE) {
                 game.screen = new VictoryScreen();
                 return;
             }

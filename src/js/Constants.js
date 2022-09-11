@@ -29,6 +29,11 @@ export const TILE_DYNAMIC = 20;
 
 export const TILE_DESCRIPTIONS = [
     'CAVE FLOOR',
+    'CAVE FLOOR',
+    'CAVE FLOOR',
+    '',
+    '',
+    '',
     'DOOM PIT',
     'DOOM PIT'
 ];

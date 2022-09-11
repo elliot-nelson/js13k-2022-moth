@@ -161,7 +161,7 @@ export const World = {
         let qr = xy2qr(uv2xy(uv));
         let tile = this.tileAt(qr);
 
-        if (!tile || tile >= 8 || !this.fogofwar[qr.r][qr.q]) {
+        if (!tile || tile > 8 || !this.fogofwar[qr.r][qr.q]) {
             this.selected = undefined;
         } else {
             if (this.selected && this.selected.q === qr.q && this.selected.r === qr.r) {

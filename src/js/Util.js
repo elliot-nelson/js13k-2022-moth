@@ -516,7 +516,7 @@ export function tileIsPassable(q, r) {
     if (q < 0 || r < 0 || r >= tiles.length || q >= tiles[r].length) {
         return false;
     }
-    if (tiles[r][q] === 1) {
+    if (tiles[r][q] >= 1 && tiles[r][q] <= 4) {
         return true;
     }
 
