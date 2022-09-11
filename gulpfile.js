@@ -236,7 +236,7 @@ function buildZip() {
 
     return gulp.src(['dist/build/*', '!dist/build/*.map'])
         .pipe(size())
-        .pipe(zip('js13k-2020-wizard-with-a-shotgun.zip'))
+        .pipe(zip('js13k-2022-moth.zip'))
         .pipe(advzip({ optimizationLevel: 4, iterations: 200 }))
         .pipe(s = size({ title: 'zip' }))
         .pipe(gulp.dest('dist/final'))
