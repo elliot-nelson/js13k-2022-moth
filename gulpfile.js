@@ -156,7 +156,7 @@ async function exportTileSheet() {
     // The tile sheet is not actually used in the game, but makes it nice and neat to edit
     // levels in Tiled. (TBD!)
 
-    let src = 'src/assets/tiles2.aseprite';
+    let src = 'src/assets/tiles.aseprite';
     let png = 'src/assets/tiles-gen.png';
 
     try {
