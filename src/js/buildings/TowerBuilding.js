@@ -18,6 +18,7 @@ import { Gore } from '../Gore';
 import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
 import { TowerGunk } from '../TowerGunk';
+import { BuildTowerAction } from '../actions/BuildTowerAction';
 
 /**
  * Monster
@@ -104,6 +105,10 @@ export class TowerBuilding {
     }
 
     hudActions() {
-        return [];
+        if (this.buildFrames < this.buildFramesTotal) {
+            return [BuildTowerAction];
+        } else {
+            return [];
+        }
     }
 }

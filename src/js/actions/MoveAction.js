@@ -28,7 +28,9 @@ for (let i = 2; i <= 20; i++) {
 }
 
 export const MoveAction = {
-    defaultTapAction: true,
+    defaultTapAction() {
+        return true;
+    },
 
     buttonSprite() {
         return Sprite.buttons[4];

@@ -63,6 +63,7 @@ export class Game {
         this.blood = 0;
         this.entities.push(new Moth(Camera.pos));
         this.screen = undefined;
+        this.wave = undefined;
         World.reset();
     }
 

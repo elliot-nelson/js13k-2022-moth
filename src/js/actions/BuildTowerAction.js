@@ -24,6 +24,11 @@ import { Moth } from '../Moth';
  * Monster
  */
 export const BuildTowerAction = {
+    defaultTapAction() {
+        let building = World.buildingAt(World.selected);
+        return !!building;
+    },
+
     buttonSprite() {
         return Sprite.buttons[6];
     },
@@ -33,8 +38,13 @@ export const BuildTowerAction = {
     },
 
     drawSelectedText(u, v) {
+        let building = World.buildingAt(World.selected);
         let cost = 15;
         let text = game.canAfford(cost) ? 'BUILD TOWER \ne' + cost : 'BUILD TOWER \ner' + cost;
+
+        if (building) {
+            text = 'FINISH BUILDING';
+        }
 
         Text.drawParagraph(
             Viewport.ctx,
@@ -45,9 +55,12 @@ export const BuildTowerAction = {
     },
 
     tap() {
+        let building = World.buildingAt(World.selected);
         let cost = 15;
 
-        if (game.canAfford(cost)) {
+        if (building) {
+            Moth.assign(moth => moth.construct(World.selected));
+        } else if (game.canAfford(cost)) {
             game.payCost(cost);
             World.buildings.push(new TowerBuilding(World.selected));
             Moth.assign(moth => moth.construct(World.selected));

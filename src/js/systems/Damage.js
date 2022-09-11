@@ -2,7 +2,6 @@
 
 import { DEAD, SPAWN } from '../Constants';
 import { vectorAdd } from '../Util';
-import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { game } from '../Game';
 import { Gore } from '../Gore';
 import { Audio } from '../Audio';

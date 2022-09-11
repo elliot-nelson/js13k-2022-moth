@@ -3,7 +3,6 @@
 import { game } from '../Game';
 import { R360, TILE_SIZE, ROOM_ENDING, DEAD } from '../Constants';
 import { xy2qr, vectorBetween, vectorAdd, angle2vector, rgba, roomCenter } from '../Util';
-import { HealthChunkAnimation } from '../HealthChunkAnimation';
 import { ScreenShake } from '../ScreenShake';
 import { Spindoctor } from '../Spindoctor';
 import { SpawnAnimation } from '../SpawnAnimation';

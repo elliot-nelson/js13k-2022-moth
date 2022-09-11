@@ -228,16 +228,6 @@ function createSecondTile(source) {
     return canvas.canvas;
 }
 
-// Given the red health bar, make a secondary yellow health bar
-function createHealthChunk(source) {
-    let canvas = createCanvas(source.width, source.height);
-    canvas.ctx.drawImage(source, 0, 0);
-    canvas.ctx.globalCompositeOperation = 'source-atop';
-    canvas.ctx.fillStyle = rgba(255, 255, 0, 0.6);
-    canvas.ctx.fillRect(0, 0, source.width, source.height);
-    return canvas.canvas;
-}
-
 function createDynamicTile(tiles, bitmask) {
     let canvas = createCanvas(TILE_SIZE, TILE_SIZE);
 

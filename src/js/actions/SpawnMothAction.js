@@ -28,6 +28,10 @@ for (let i = 0; i < 20; i++) {
 }
 
 export const SpawnMothAction = {
+    defaultTapAction() {
+        return false;
+    },
+
     buttonSprite() {
         return Sprite.buttons[0];
     },
