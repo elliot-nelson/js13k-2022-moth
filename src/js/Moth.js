@@ -10,7 +10,8 @@ import {
     xy2uv,
     qr2xy,
     centerxy,
-    clamp
+    clamp,
+    xy2qr
 } from './Util';
 import { Sprite } from './Sprite';
 import { Gore } from './Gore';
@@ -49,6 +50,9 @@ export class Moth {
         this.circleOffset = Math.floor(Math.random() * 16);
 
         this.lastAssigned = game.frame;
+
+        let qr = xy2qr(this.pos);
+        this.moveTo({ q: qr.q, r: qr.r - 1 });
     }
 
     think() {
