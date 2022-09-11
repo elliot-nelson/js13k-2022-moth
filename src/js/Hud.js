@@ -140,6 +140,10 @@ export const Hud = {
 
         //Viewport.ctx.drawImage(Sprite.hud_tray_building[0].img, 0, Viewport.height - TRAY_HEIGHT + 1);
 
+        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, -2, Viewport.height - TRAY_HEIGHT + 1);
+        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, 64, Viewport.height - TRAY_HEIGHT + 1);
+        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, Viewport.width - 3, Viewport.height - TRAY_HEIGHT + 1);
+
         if (World.selected) {
             let building = World.buildingAt(World.selected);
             if (building) {
@@ -152,13 +156,19 @@ export const Hud = {
                     Viewport.height - TRAY_HEIGHT + 3,
                     Viewport.width
                 );
+            } else {
+                let tile = World.tileAt(World.selected);
+                Viewport.ctx.drawImage(Sprite.tile_background[1].img, 3, Viewport.height - TRAY_HEIGHT + 6);
+                Viewport.ctx.drawImage(Sprite.tiles[tile - 1].img, 2, Viewport.height - TRAY_HEIGHT + 5);
+                Text.drawParagraph(
+                    Viewport.ctx,
+                    'EMPTY SPACE',
+                    13,
+                    Viewport.height - TRAY_HEIGHT + 3,
+                    Viewport.width
+                );
             }
         }
-
-        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, -2, Viewport.height - TRAY_HEIGHT + 1);
-        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, 64, Viewport.height - TRAY_HEIGHT + 1);
-        Viewport.ctx.drawImage(Sprite.hud_tray_divider[0].img, Viewport.width - 3, Viewport.height - TRAY_HEIGHT + 1);
-
 
         let selectedActionIndex;
 

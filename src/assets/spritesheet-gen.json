@@ -360,8 +360,17 @@
     "duration": 100
    },
    {
-    "filename": "tile_background.aseprite",
+    "filename": "tile_background 0.aseprite",
     "frame": { "x": 0, "y": 154, "w": 8, "h": 8 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 8 },
+    "sourceSize": { "w": 8, "h": 8 },
+    "duration": 100
+   },
+   {
+    "filename": "tile_background 1.aseprite",
+    "frame": { "x": 8, "y": 154, "w": 8, "h": 8 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 8 },
