@@ -115,6 +115,7 @@ export const World = {
                 this.buildings.push(new EarthBuilding({ q: b.x, r: b.y }));
             } else if (b.name === 'EXIT') {
                 this.buildings.push(new ExitBuilding({ q: b.x, r: b.y }));
+                this.exit = { q: b.x, r: b.y };
             }
         }
 

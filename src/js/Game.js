@@ -58,13 +58,15 @@ export class Game {
         this.screenshakes = [];
         this.monstersPending = [];
         this.waveNumber = 0;
-        Camera.pos = centerxy(qr2xy(World.spawn));
         this.earth = 250;
         this.blood = 0;
-        this.entities.push(new Moth(Camera.pos));
+        this.entities.push(new Moth(qr2xy(World.spawn)));
         this.screen = undefined;
         this.wave = undefined;
         World.reset();
+
+        Camera.pos = centerxy(qr2xy(World.exit));
+        Camera.forceTarget = centerxy(qr2xy(World.spawn));
     }
 
     start() {
