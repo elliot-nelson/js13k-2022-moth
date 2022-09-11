@@ -29,11 +29,11 @@ for (let i = 0; i < 20; i++) {
 
 export const SpawnMothAction = {
     buttonSprite() {
-        return Sprite.buttons2[0];
+        return Sprite.buttons[0];
     },
 
     buttonSelectedSprite() {
-        return Sprite.buttons2[1];
+        return Sprite.buttons[1];
     },
 
     drawSelectedText(u, v) {

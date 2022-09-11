@@ -25,11 +25,11 @@ import { Moth } from '../Moth';
  */
 export const BuildTowerAction = {
     buttonSprite() {
-        return Sprite.buttons2[6];
+        return Sprite.buttons[6];
     },
 
     buttonSelectedSprite() {
-        return Sprite.buttons2[7];
+        return Sprite.buttons[7];
     },
 
     drawSelectedText(u, v) {

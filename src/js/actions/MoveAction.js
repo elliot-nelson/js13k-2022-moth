@@ -31,11 +31,11 @@ export const MoveAction = {
     defaultTapAction: true,
 
     buttonSprite() {
-        return Sprite.buttons2[4];
+        return Sprite.buttons[4];
     },
 
     buttonSelectedSprite() {
-        return Sprite.buttons2[5];
+        return Sprite.buttons[5];
     },
 
     drawSelectedText(u, v) {

@@ -31,11 +31,11 @@ export const GatherEarthAction = {
     defaultTapAction: true,
 
     buttonSprite() {
-        return Sprite.buttons2[2];
+        return Sprite.buttons[2];
     },
 
     buttonSelectedSprite() {
-        return Sprite.buttons2[3];
+        return Sprite.buttons[3];
     },
 
     drawSelectedText(u, v) {
