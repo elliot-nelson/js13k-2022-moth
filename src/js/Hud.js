@@ -54,14 +54,14 @@ export const Hud = {
 
         let moths = game.entities.filter(x => x instanceof Moth);
         for (let i = 0; i < moths.length; i++) {
-            Viewport.ctx.drawImage(Sprite.moth[1].img, 1 + i * 4, 1);
+            Viewport.ctx.drawImage(Sprite.moth[1].img, 2 + i * 4, 2);
         }
 
-        let cornerText = 'e' + game.earth;
+        let cornerText = '' + game.earth + 'e';
         let cornerWidth = Text.measureWidth(cornerText, 1);
 
         Viewport.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-        Text.drawText(Viewport.ctx, cornerText, Viewport.width - cornerWidth - 4, 4);
+        Text.drawText(Viewport.ctx, cornerText, Viewport.width - cornerWidth - 2, 2);
 
         if (Input.pointer) {
             let u = Input.pointer.u;

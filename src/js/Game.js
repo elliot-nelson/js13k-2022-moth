@@ -189,7 +189,10 @@ export class Game {
         Viewport.ctx.setTransform(1, 0, 0, 1, 0, 0);
         Viewport.ctx.scale(Viewport.scale, Viewport.scale);
 
-        Viewport.ctx.fillStyle = rgba(13, 43, 69, 1);
+        //Viewport.ctx.fillStyle = rgba(13, 43, 69, 1);
+        //Viewport.ctx.fillStyle = rgba(84, 78, 104, 1);
+        //Viewport.ctx.fillStyle = rgba(32, 60, 86, 1);
+        Viewport.ctx.fillStyle = rgba(36, 26, 20, 1);
         Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
 
         // Render screenshakes (canvas translation)
@@ -201,9 +204,6 @@ export class Game {
         });
         Viewport.ctx.translate(shakeX, shakeY);
         */
-
-        //Maze.draw();
-
 
         /*
         Viewport.ctx.drawImage(
@@ -217,11 +217,6 @@ export class Game {
         */
 
         World.draw();
-
-
-        Viewport.ctx.fillStyle = 'rgba(200, 10, 10, 0.2)';
-        Viewport.ctx.fillRect(0, Viewport.height / 2, Viewport.width, 1);
-        Viewport.ctx.fillRect(Viewport.width / 2, 0, 1, Viewport.height);
 
         for (let entity of this.entities) {
             if (!entity.z || entity.z < 100) entity.draw();
