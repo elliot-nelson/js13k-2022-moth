@@ -8,6 +8,7 @@ import {
     vector2point,
     uv2xy,
     xy2uv,
+    xy2qr,
     qr2xy
 } from '../Util';
 import { Sprite } from '../Sprite';
@@ -16,6 +17,8 @@ import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
 import { GatherEarthAction } from '../actions/GatherEarthAction';
 import { MoveAction } from '../actions/MoveAction';
+import { Moth } from '../Moth';
+import { VictoryScreen } from '../VictoryScreen';
 
 /**
  * Monster
@@ -29,6 +32,15 @@ export class ExitBuilding {
     }
 
     think() {
+        let moths = Moth.sortMoths();
+        for (let moth of moths) {
+            let qr = xy2qr(moth.pos);
+            if (qr.q === this.qr.q && qr.r === this.qr.r) {
+                console.log('YOU WI!!!!!!!!!!!!!!!!N');
+                game.screen = new VictoryScreen();
+                return;
+            }
+        }
     }
 
     draw() {

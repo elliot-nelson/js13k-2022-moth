@@ -22,6 +22,7 @@ import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { Ghost } from './Ghost';
 import { Wave } from './Wave';
+import { VictoryScreen } from './VictoryScreen';
 
 
 /**
@@ -98,11 +99,15 @@ export class Game {
         // Pull in frame by frame button pushes / keypresses / mouse clicks
         Input.update();
 
-        Hud.update();
+        if (this.screen) {
+            if (this.screen.update()) return;
+        }
 
         if (Input.pressed[Input.Action.TAP]) {
             this.tap(Input.pointer);
         }
+
+        Hud.update();
 
         //if (Input.pressed[Input.Action.MENU]) {
         //    this.paused ? this.unpause() : this.pause();
@@ -282,6 +287,10 @@ export class Game {
                 Text.white,
                 Text.red
             );
+        }
+
+        if (this.screen) {
+            this.screen.draw();
         }
 
         /*
