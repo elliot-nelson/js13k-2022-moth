@@ -31,9 +31,7 @@
     "imagemin-advpng": "^6.0.0",
     "qrcode": "^1.5.1",
     "rollup": "^2.26.4",
-    "serve": "^14.0.1"
-  },
-  "dependencies": {
+    "serve": "^14.0.1",
     "xml2js": "^0.4.23"
   }
 }

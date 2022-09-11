@@ -27,6 +27,8 @@ export class TowerBuilding {
         this.qr = { ...qr };
         this.framesToNextShot = 10;
 
+        this.lightlevel = 7;
+
         this.state = WIP;
         this.buildFrames = 0;
         this.buildFramesTotal = 180;
