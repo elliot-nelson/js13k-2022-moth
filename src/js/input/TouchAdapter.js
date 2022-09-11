@@ -27,7 +27,6 @@ export const TouchAdapter = {
         });
 
         window.addEventListener('touchstart', event => {
-            console.log(event);
             let k = this.map[0];
             if (k) this.held[k] = true;
 
@@ -45,7 +44,6 @@ export const TouchAdapter = {
         });
 
         window.addEventListener('touchend', event => {
-            console.log(event);
             let k = this.map[0];
             if (k) this.held[k] = false;
             game.frogger = 'TOUCHEND';

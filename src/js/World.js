@@ -89,7 +89,6 @@ export const World = {
         this.buildings.push(new CoffinBuilding(this.spawn));
 
         for (let b of this.floors[0].objects) {
-            console.log(b);
             if (b.name === 'EARTH') {
                 this.buildings.push(new EarthBuilding({ q: b.x, r: b.y }));
             } else if (b.name === 'EXIT') {
@@ -124,16 +123,6 @@ export const World = {
         return false;
     },
 
-    colorForObject(object) {
-        if (object.finished) return Screen.DIM;
-        if (object.interacted) return Screen.YELLOW;
-        return Screen.BLUE;
-    },
-
-    colorForTile(tile) {
-        return tile === '.' ? Screen.DIM : Screen.WHITE;
-    },
-
     isSeeThrough(pos) {
         return this.SEE_THROUGH.includes(this.floors[pos.z].tiles[pos.y][pos.x]);
     },
@@ -148,9 +137,8 @@ export const World = {
         let qr = xy2qr(uv2xy(uv));
         let tile = this.tileAt(qr);
 
-        if (!tile || tile === TILE_WALL) {
+        if (!tile || tile >= 8) {
             this.selected = undefined;
-            console.log('nah, no good man');
         } else {
             if (this.selected && this.selected.q === qr.q && this.selected.r === qr.r) {
                 let building = this.buildingAt(this.selected);
@@ -163,7 +151,7 @@ export const World = {
                     MoveAction.tap();
                 }
             } else {
-                console.log('single tap, reselect!');
+                // single tap, reselect
                 this.selected = qr;
                 let building = this.buildingAt(this.selected);
                 /*if (building) {
@@ -186,16 +174,6 @@ export const World = {
         if (qr) {
             for (let building of this.buildings) {
                 if (building.qr.q === qr.q && building.qr.r === qr.r) return building;
-            }
-        }
-    },
-
-    assignJob(qr) {
-        console.log('i am assigning the moths a job');
-
-        for (let entity of game.entities) {
-            if (entity instanceof Moth) {
-                entity.gather(qr);
             }
         }
     },
@@ -262,7 +240,6 @@ export const World = {
         let qrTo = xy2qr(to);
 
         let dist = manhattan(qrFrom, qrTo);
-        console.log('manhattan', dist);
         if (dist <= 1) {
             return to;
         }

@@ -71,9 +71,6 @@ const WorldBuilder = {
 
         const floors = [];
 
-        console.log(1);
-        console.log(tiled.layers);
-
         for (let layer of tiled.layers.filter(layer => layer.type === 'group')) {
             let floor = {
                 name: layer.name,

@@ -36,7 +36,6 @@ export class ExitBuilding {
         for (let moth of moths) {
             let qr = xy2qr(moth.pos);
             if (qr.q === this.qr.q && qr.r === this.qr.r) {
-                console.log('YOU WI!!!!!!!!!!!!!!!!N');
                 game.screen = new VictoryScreen();
                 return;
             }

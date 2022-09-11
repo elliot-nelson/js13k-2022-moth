@@ -104,7 +104,6 @@ export const Input = {
                 this.dragging = true;
             }
 
-            console.log(pointerAdapter.pointerDragStart, pointerAdapter.pointer);
             let diffPixels = Math.abs(pointerAdapter.pointerDragStart.u - pointerAdapter.pointer.u) + Math.abs(pointerAdapter.pointerDragStart.v - pointerAdapter.pointer.v);
             if (diffPixels > 5) {
                 this.dragging = true;
@@ -124,8 +123,6 @@ export const Input = {
             } else {
                 this.pressed[Input.Action.TAP] = true;
                 this.framesHeld[Input.Action.TAP] = 1;
-                console.log('tap');
-                console.log('touch held: ' + this.framesHeld[Input.Action.RAW_TOUCH]);
             }
         }
     },
