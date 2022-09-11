@@ -226,6 +226,8 @@ export class Game {
             if (entity.z && entity.z > 100) entity.draw();
         }
 
+        World.drawLightmap();
+
         Hud.draw();
 
         if (game.frame < 120) {

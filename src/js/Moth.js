@@ -33,6 +33,8 @@ export class Moth {
         this.noClipEntity = true;
         this.noClipWall = true;
 
+        this.lightlevel = 7;
+
         this.tasks = [];
         this.carrying = 0;
 

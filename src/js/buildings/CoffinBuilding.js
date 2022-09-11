@@ -25,6 +25,7 @@ export class CoffinBuilding {
 
         this.title = 'YOUR CORPSE \nLAST CHANCE';
         this.portraitSprite = Sprite.buildings[1];
+        this.lightlevel = 9;
     }
 
     think() {

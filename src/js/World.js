@@ -7,7 +7,7 @@ import { game } from './Game';
 import { Viewport } from './Viewport';
 import { WorldData } from './WorldData-gen';
 import { Sprite } from './Sprite';
-import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy, manhattan, floodlight } from './Util';
+import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy, manhattan, floodlight, rgba } from './Util';
 import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { TowerBuilding } from './buildings/TowerBuilding';
@@ -31,12 +31,12 @@ export const World = {
 
         //console.log(offset);
 
-        for (let y = 0; y < tiles.length; y++) {
-            for (let x = 0; x < tiles[y].length; x++) {
-                Viewport.ctx.globalAlpha = clamp(this.lightmap[y][x] / 5, 0.1, 1);
-                if (tiles[y][x] > 0) {
+        for (let r = 0; r < tiles.length; r++) {
+            for (let q = 0; q < tiles[0].length; q++) {
+                //Viewport.ctx.globalAlpha = clamp(this.lightmap[y][x] / 5, 0.1, 1);
+                if (tiles[r][q] > 0) {
                     //console.log(x, y, tiles[y][x], Sprite.tiles[tiles[y][x] - 1]);
-                   Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
+                   Viewport.ctx.drawImage(Sprite.tiles[tiles[r][q] - 1].img, q * TILE_SIZE + offset.u, r * TILE_SIZE + offset.v);
 
 
                    //Text.drawText(Viewport.ctx, '' + this.lightmap[y][x], x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
@@ -44,7 +44,7 @@ export const World = {
             }
         }
 
-        Viewport.ctx.globalAlpha = 1;
+        //Viewport.ctx.globalAlpha = 1;
 
         /*
         if (Game.frame % 133 === 0) {
@@ -67,6 +67,28 @@ export const World = {
         for (let building of this.buildings) {
             building.draw();
         }
+    },
+
+    drawLightmap() {
+        let tiles = this.tiles;
+        let offset = xy2uv({ x: 0, y: 0 });
+
+        for (let r = 0; r < tiles.length; r++) {
+            for (let q = 0; q < tiles[0].length; q++) {
+                if (tiles[r][q] > 0) {
+                    let lightlevel = 1 - clamp(this.lightmap[r][q] / 5, 0.1, 1);
+                    if (this.fogofwar[r][q] === 0) lightlevel = 1;
+
+                    Viewport.ctx.globalAlpha = lightlevel;
+                    Viewport.ctx.drawImage(Sprite.tile_background[0].img, q * TILE_SIZE + offset.u, r * TILE_SIZE + offset.v);
+
+                    //Viewport.ctx.fillStyle = rgba(36, 26, 20, lightlevel);
+                    //Viewport.ctx.fillRect(q * TILE_SIZE + offset.u, r * TILE_SIZE + offset.v, TILE_SIZE, TILE_SIZE);
+                }
+            }
+        }
+
+        Viewport.ctx.globalAlpha = 1;
     },
 
     reset() {
@@ -103,6 +125,7 @@ export const World = {
         this.height = this.tiles.length;
 
         this.lightmap = array2d(this.width, this.height, () => 0);
+        this.fogofwar = array2d(this.width, this.height, () => 0);
 
         this.cachedFields = {};
 
@@ -223,16 +246,25 @@ export const World = {
         let lights = [];
 
         for (let building of this.buildings) {
-            lights.push({ ...building.qr, light: 9 });
+            if (building.lightlevel) {
+                lights.push({ ...building.qr, light: building.lightlevel });
+            }
         }
 
         for (let entity of game.entities) {
-            if (entity instanceof Moth) {
-                lights.push({ ...xy2qr(entity.pos), light: 7 });
+            if (entity.lightlevel) {
+                lights.push({ ...xy2qr(entity.pos), light: entity.lightlevel });
             }
         }
 
         this.lightmap = floodlight(this.tiles, lights);
+        for (let r = 0; r < this.lightmap.length; r++) {
+            for (let q = 0; q < this.lightmap[0].length; q++) {
+                if (this.lightmap[r][q] > this.fogofwar[r][q]) {
+                    this.fogofwar[r][q] = 1;
+                }
+            }
+        }
     },
 
     pathToTarget(from, to) {

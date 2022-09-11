@@ -35,7 +35,8 @@ export class VictoryScreen {
     }
 
     draw() {
-        Viewport.ctx.fillStyle = rgba(13, 43, 69, clamp(this.frames / 200, 0, 1));
+        //Viewport.ctx.fillStyle = rgba(13, 43, 69, clamp(this.frames / 200, 0, 1));
+        Viewport.ctx.fillStyle = rgba(36, 26, 20, clamp(this.frames / 200, 0, 1));
         Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
 
         let width = Viewport.width - 32;

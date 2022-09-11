@@ -29,6 +29,7 @@ export class ExitBuilding {
 
         this.title = 'REACH THE EXIT \nTO SURVIVE';
         this.portraitSprite = Sprite.buildings[3];
+        this.lightlevel = 4;
     }
 
     think() {
