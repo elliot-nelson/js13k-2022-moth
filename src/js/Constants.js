@@ -25,33 +25,14 @@ export const TILE_WALL_BOTTOM = 11;
 export const TILE_WALL_LEFT = 12;
 export const TILE_CORNER_OUTER = 13;
 export const TILE_CORNER_INNER = 14;
-
 export const TILE_DYNAMIC = 20;
 
-// Bitmasks used to represent wall sides on map
-export const WALL_TOP    = 0b0000_0001;
-export const WALL_RIGHT  = 0b0000_0010;
-export const WALL_BOTTOM = 0b0000_0100;
-export const WALL_LEFT   = 0b0000_1000;
+export const TILE_DESCRIPTIONS = [
+    'CAVE FLOOR',
+    'DOOM PIT',
+    'DOOM PIT'
+];
 
-// Bitmasks used to represent "doorways" on map (these doorways are blocked
-// during a brawl.)
-export const OPEN_TOP    = 0b0001_0000;
-export const OPEN_RIGHT  = 0b0010_0000;
-export const OPEN_BOTTOM = 0b0100_0000;
-export const OPEN_LEFT   = 0b1000_0000;
-
-// Special room numbers - other room numbers >4 are "brawl rooms" where enemies
-// spawn.
-export const ROOM_SPAWN  = 1;
-export const ROOM_TUNNEL = 2;
-export const ROOM_ENDING = 25;
-
-// Coordinates of the page count on the HUD (used by multiple modules since
-// there is a little "page collected" animation).
-export const HUD_PAGE_U  = 47;
-export const HUD_PAGE_V  = 2;
-export const HUD_PAGE_TEXT_U = 34;
 
 // Handy IDs to represent the different dialog boxes / speech bubbles that can
 // appear during the game.

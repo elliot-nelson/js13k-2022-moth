@@ -1,7 +1,7 @@
 // Hud
 
 import { game } from './Game';
-import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90 } from './Constants';
+import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90, TILE_DESCRIPTIONS } from './Constants';
 import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv, xy2qr, qr2xy } from './Util';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
@@ -25,11 +25,14 @@ const TRAY_HEIGHT = 18;
 export const Hud = {
     update() {
         if (World.selected) {
+            let tile = World.tileAt(World.selected);
             let building = World.buildingAt(World.selected);
             if (building) {
                 this.actions = building.hudActions();
-            } else {
+            } else if (tile === 1) {
                 this.actions = [MoveAction, BuildTowerAction];
+            } else {
+                this.actions = [];
             }
         } else {
             this.actions = [];
@@ -147,23 +150,24 @@ export const Hud = {
         if (World.selected) {
             let building = World.buildingAt(World.selected);
             if (building) {
-                Viewport.ctx.drawImage(building.portraitSprite.img, 2, Viewport.height - TRAY_HEIGHT - 1);
+                Viewport.ctx.drawImage(building.portraitSprite.img, 3, Viewport.height - TRAY_HEIGHT - 1);
 
                 Text.drawParagraph(
                     Viewport.ctx,
                     building.title,
-                    13,
+                    14,
                     Viewport.height - TRAY_HEIGHT + 3,
                     Viewport.width
                 );
             } else {
                 let tile = World.tileAt(World.selected);
-                Viewport.ctx.drawImage(Sprite.tile_background[1].img, 3, Viewport.height - TRAY_HEIGHT + 6);
-                Viewport.ctx.drawImage(Sprite.tiles[tile - 1].img, 2, Viewport.height - TRAY_HEIGHT + 5);
+                console.log(World.selected, tile, TILE_DESCRIPTIONS[tile - 1]);
+                Viewport.ctx.drawImage(Sprite.tile_background[1].img, 4, Viewport.height - TRAY_HEIGHT + 6);
+                Viewport.ctx.drawImage(Sprite.tiles[tile - 1].img, 3, Viewport.height - TRAY_HEIGHT + 5);
                 Text.drawParagraph(
                     Viewport.ctx,
-                    'EMPTY SPACE',
-                    13,
+                    TILE_DESCRIPTIONS[tile - 1],
+                    14,
                     Viewport.height - TRAY_HEIGHT + 3,
                     Viewport.width
                 );

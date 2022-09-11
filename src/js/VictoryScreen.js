@@ -14,7 +14,6 @@ import { DialogScheduling } from './systems/DialogScheduling';
 import { Victory } from './systems/Victory';
 import { Hud } from './Hud';
 import { ScreenShake } from './ScreenShake';
-import { Maze } from './Maze';
 
 import { World } from './World';
 import { Camera } from './Camera';

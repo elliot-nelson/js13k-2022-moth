@@ -27,7 +27,7 @@ export class ExitBuilding {
     constructor(qr) {
         this.qr = { ...qr };
 
-        this.title = 'REACH THE EXIT \nTO SURVIVE';
+        this.title = 'REACH EXIT \nTO ESCAPE';
         this.portraitSprite = Sprite.buildings[3];
         this.lightlevel = 4;
     }
