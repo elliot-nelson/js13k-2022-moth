@@ -56,7 +56,7 @@ export const Sprite = {
         Sprite.hud_wip = SpriteSheet.hud_wip.map(data => initBasicSprite(data, { x: -1, y: -1 }));
 
         // Tiles
-        Sprite.tiles = SpriteSheet.tiles2.map(initBasicSprite);
+        Sprite.tiles = SpriteSheet.tiles.map(initBasicSprite);
 
         // Ghost enemy
         Sprite.ghost = SpriteSheet.ghost.map(initBasicSprite);

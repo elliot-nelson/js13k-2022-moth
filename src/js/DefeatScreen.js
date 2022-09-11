@@ -50,7 +50,8 @@ export class DefeatScreen {
 
         let message = 'DEFEAT... \n' +
             '                    \n' +
-            'YOUR LAST MOTH GONE, THIS WORLD SLIPS FROM YOUR GRASP. YOU CURSE THE VILLAGE AND ITS INHABITANTS AS YOU TUMBLE TOWARDS THAT BLEAK BEYOND. YOUR REIGN OF TERROR IS AT AN END.\n \n' +
+            'YOUR LAST MOTH GONE, THIS WORLD SLIPS FROM YOUR GRASP. YOU CURSE THE VILLAGE AND ITS INHABITANTS AS YOU TUMBLE TOWARDS THAT BLEAK BEYOND. \n \n ' +
+            'YOUR REIGN OF TERROR HAS ENDED. \n \n' +
             'TAP TO TRY AGAIN!';
 
         message = message.slice(0, this.frames);
