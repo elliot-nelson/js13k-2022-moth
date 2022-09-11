@@ -70,11 +70,6 @@ export const Sprite = {
         Sprite.tilebg = initDynamicSprite(createTileBg(Sprite.tiles[0].img));
         Sprite.shadow = initDynamicSprite(createShadow());
 
-        // Walls/gates (gates are openings that close during brawls)
-        let w = SpriteSheet.walls.map(initBasicSprite);
-        Sprite.walls = initDynamicSprite(createWalls(w[0].img));
-        Sprite.gates = initDynamicSprite(createGates(w[0].img, w[1].img));
-
         // Dialog
         let dialog = SpriteSheet.dialog.map(initBasicSprite);
         Sprite.dialog_speech = initDynamicSprite(createDialogSpeech(dialog[0].img, dialog[2].img));
@@ -152,36 +147,6 @@ function loadCacheSlice(x, y, w, h) {
     const sliceCanvas = createCanvas(w, h);
     sliceCanvas.ctx.drawImage(source, x, y, w, h, 0, 0, w, h);
     return sliceCanvas.canvas;
-}
-
-// Create the 36x36 "walls" tile rendered between walls and flors
-function createWalls(source) {
-    let canvas = createCanvas(36, 36);
-    for (let i = 0; i < 36; i += 4) {
-        canvas.ctx.drawImage(source, i, 0);
-        canvas.ctx.drawImage(source, i, 32);
-        canvas.ctx.drawImage(source, 0, i);
-        canvas.ctx.drawImage(source, 32, i);
-    }
-    addNoise(canvas);
-    return canvas.canvas;
-}
-
-// Create the 36x36 "prison gates" tile for use during brawls
-function createGates(wallSource, spikeSource) {
-    let canvas = createCanvas(36, 36);
-    for (let i = 0; i < 36; i += 4) {
-        canvas.ctx.drawImage(spikeSource, i, 0);
-        canvas.ctx.drawImage(spikeSource, i, 32);
-        canvas.ctx.drawImage(spikeSource, 0, i);
-        canvas.ctx.drawImage(spikeSource, 32, i);
-    }
-    canvas.ctx.drawImage(wallSource, 0, 0);
-    canvas.ctx.drawImage(wallSource, 32, 0);
-    canvas.ctx.drawImage(wallSource, 0, 32);
-    canvas.ctx.drawImage(wallSource, 32, 32);
-    addNoise(canvas);
-    return canvas.canvas;
 }
 
 // Add some chunky noise pixels to a wip canvas

@@ -2,7 +2,7 @@
 
 import { game } from './Game';
 import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90 } from './Constants';
-import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv, xy2qr } from './Util';
+import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv, xy2qr, qr2xy } from './Util';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
@@ -105,15 +105,14 @@ export const Hud = {
         // Glyphs
         // Text.drawText(Viewport.ctx, 'stuvw', Viewport.width - HUD_PAGE_TEXT_U - 60, 4, 2, Text.blue, Text.blue_shadow);
 
-        Viewport.ctx.fillStyle = 'rgba(0, 0, 255, 0.5)';
-        Viewport.ctx.fillRect(0, Viewport.height - TRAY_HEIGHT, Viewport.width, TRAY_HEIGHT);
-
-        Viewport.ctx.drawImage(Sprite.tiles[1].img, 25, 110);
-
-
         if (World.selected) {
-            Viewport.ctx.fillStyle = rgba(255, 255, 0, 0.2);
+            /*Viewport.ctx.globalAlpha = 0.5;
+            let uv = xy2uv(qr2xy(World.selected));
+            Viewport.ctx.drawImage(Sprite.hud_tile_selected[Math.floor(game.frame / 30) % 2].img, uv.u, uv.v);
+            Viewport.ctx.globalAlpha = 1;*/
+
             let uv = xy2uv({ x: World.selected.q * 8, y: World.selected.r * 8 });
+            Viewport.ctx.fillStyle = rgba(255, 212, 163, 0.25);
             Viewport.ctx.fillRect(uv.u, uv.v, 9, 9);
         }
 
