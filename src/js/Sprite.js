@@ -5,6 +5,7 @@ import { rgba, createCanvas } from './Util';
 import { SpriteSheet } from './SpriteSheet-gen';
 import { Viewport } from './Viewport';
 import { Camera } from './Camera';
+import { TILE_SIZE, TILE_CORNER_OUTER, TILE_CORNER_INNER, TILE_DYNAMIC, TILE_WALL_LEFT, TILE_WALL_RIGHT, TILE_WALL_BOTTOM, TILE_WALL_TOP } from './Constants';
 
 /**
  * Sprite
@@ -115,6 +116,14 @@ export const Sprite = {
             u: pos.x - sprite.anchor.x - Camera.pos.x + Viewport.center.u,
             v: pos.y - sprite.anchor.y - Camera.pos.y + Viewport.center.v
         };
+    },
+
+    getDynamicTile(bitmask) {
+        if (!this.tiles[bitmask + TILE_DYNAMIC - 1]) {
+            this.tiles[bitmask + TILE_DYNAMIC - 1] = initDynamicSprite(createDynamicTile(this.tiles, bitmask), { x: 0, y: 0 });
+        }
+
+        return this.tiles[bitmask + TILE_DYNAMIC - 1];
     }
 };
 
@@ -261,5 +270,56 @@ function createHealthChunk(source) {
     canvas.ctx.globalCompositeOperation = 'source-atop';
     canvas.ctx.fillStyle = rgba(255, 255, 0, 0.6);
     canvas.ctx.fillRect(0, 0, source.width, source.height);
+    return canvas.canvas;
+}
+
+function createDynamicTile(tiles, bitmask) {
+    let canvas = createCanvas(TILE_SIZE, TILE_SIZE);
+
+    // First, we render outer corners
+
+    if (bitmask & 0b100_000_000) {
+        canvas.ctx.drawImage(tiles[TILE_CORNER_OUTER - 1].img, 0, 0, 4, 4, 0, 0, 4, 4);
+    }
+    if (bitmask & 0b001_000_000) {
+        canvas.ctx.drawImage(tiles[TILE_CORNER_OUTER - 1].img, 5, 0, 3, 3, 5, 0, 3, 3);
+    }
+    if (bitmask & 0b000_000_001) {
+        canvas.ctx.drawImage(tiles[TILE_CORNER_OUTER - 1].img, 6, 6, 2, 2, 6, 6, 2, 2);
+    }
+    if (bitmask & 0b000_000_100) {
+        canvas.ctx.drawImage(tiles[TILE_CORNER_OUTER - 1].img, 0, 5, 3, 3, 0, 5, 3, 3);
+    }
+
+    // Next we render standard walls (potentially overwriting outer corners above)
+
+    if (bitmask & 0b000_001_000) {
+        canvas.ctx.drawImage(tiles[TILE_WALL_LEFT - 1].img, 5, 0, 3, 8, 5, 0, 3, 8);
+    }
+    if (bitmask & 0b000_100_000) {
+        canvas.ctx.drawImage(tiles[TILE_WALL_RIGHT - 1].img, 0, 0, 4, 8, 0, 0, 4, 8);
+    }
+    if (bitmask & 0b000_000_010) {
+        canvas.ctx.drawImage(tiles[TILE_WALL_TOP - 1].img, 0, 5, 8, 3, 0, 5, 8, 3);
+    }
+    if (bitmask & 0b010_000_000) {
+        canvas.ctx.drawImage(tiles[TILE_WALL_BOTTOM - 1].img, 0, 0, 8, 4, 0, 0, 8, 4);
+    }
+
+    // Next we render inner corners (potentially overwriting parts of walls above)
+
+    if ((bitmask & 0b010_100_000) === 0b010_100_000) {
+        canvas.ctx.drawImage(tiles[TILE_CORNER_INNER - 1].img, 0, 0, 5, 5, 0, 0, 5, 5);
+    }
+    if ((bitmask & 0b010_001_000) === 0b010_001_000) {
+        canvas.ctx.drawImage(tiles[TILE_CORNER_INNER - 1].img, 4, 0, 4, 4, 4, 0, 4, 4);
+    }
+    if ((bitmask & 0b000_001_010) === 0b000_001_010) {
+        canvas.ctx.drawImage(tiles[TILE_CORNER_INNER - 1].img, 4, 4, 4, 4, 4, 4, 4, 4);
+    }
+    if ((bitmask & 0b000_100_010) === 0b000_100_010) {
+        canvas.ctx.drawImage(tiles[TILE_CORNER_INNER - 1].img, 0, 4, 5, 4, 0, 4, 5, 4);
+    }
+
     return canvas.canvas;
 }

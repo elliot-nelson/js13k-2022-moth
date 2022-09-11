@@ -18,7 +18,15 @@ export const INPUT_MODE_MOUSE = 2;
 
 // Tiles
 export const TILE_FLOOR = 1;
-export const TILE_WALL  = 2;
+export const TILE_WALL  = 8;
+export const TILE_WALL_TOP = 9;
+export const TILE_WALL_RIGHT = 10;
+export const TILE_WALL_BOTTOM = 11;
+export const TILE_WALL_LEFT = 12;
+export const TILE_CORNER_OUTER = 13;
+export const TILE_CORNER_INNER = 14;
+
+export const TILE_DYNAMIC = 20;
 
 // Bitmasks used to represent wall sides on map
 export const WALL_TOP    = 0b0000_0001;

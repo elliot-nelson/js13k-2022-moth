@@ -75,7 +75,9 @@ export const Hud = {
 
             Text.drawText(Viewport.ctx, '' + u + ',' + v + '. ' + xy.x + ',' + xy.y + '. ' + qr.q + ',' + qr.r + '.', Viewport.width - 100, 20);
             if (World.selected) {
-                Text.drawText(Viewport.ctx, '' + World.selected.q + ',' + World.selected.r + '.', Viewport.width - 100, 29);
+                let tile = World.tiles[World.selected.r][World.selected.q];
+                if (tile > 20) tile = tile - 20;
+                Text.drawText(Viewport.ctx, '' + World.selected.q + ',' + World.selected.r + '. ' + tile.toString(2).padStart(9, '0'), Viewport.width - 100, 29);
             }
         }
 

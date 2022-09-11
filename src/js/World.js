@@ -1,6 +1,6 @@
 // World
 
-import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN, TILE_SIZE, TILE_WALL } from './Constants';
+import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN, TILE_SIZE, TILE_WALL, TILE_CORNER_INNER, TILE_DYNAMIC } from './Constants';
 //import { FieldOfView } from './FieldOfView';
 import { Game } from './Game';
 import { game } from './Game';
@@ -35,8 +35,11 @@ export const World = {
             for (let x = 0; x < tiles[y].length; x++) {
                 Viewport.ctx.globalAlpha = clamp(this.lightmap[y][x] / 5, 0.1, 1);
                 if (tiles[y][x] > 0) {
+                    //console.log(x, y, tiles[y][x], Sprite.tiles[tiles[y][x] - 1]);
                    Viewport.ctx.drawImage(Sprite.tiles[tiles[y][x] - 1].img, x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
-                   Text.drawText(Viewport.ctx, '' + this.lightmap[y][x], x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
+
+
+                   //Text.drawText(Viewport.ctx, '' + this.lightmap[y][x], x * TILE_SIZE + offset.u, y * TILE_SIZE + offset.v);
                 }
             }
         }
@@ -103,6 +106,8 @@ export const World = {
         this.lightmap = array2d(this.width, this.height, () => 0);
 
         this.cachedFields = {};
+
+        this.makePrettyWalls();
     },
 
     update() {
@@ -286,5 +291,27 @@ export const World = {
         options.sort((a, b) => a[2] - b[2]);
 
         return centerxy(qr2xy({ q: options[0][0], r: options[0][1] }));
+    },
+
+    makePrettyWalls() {
+        for (let r = 0; r < this.tiles.length; r++) {
+            for (let q = 0; q < this.tiles[0].length; q++) {
+                if (this.tiles[r][q] === TILE_CORNER_INNER) {
+                    let bitmask = 0;
+
+                    if ((this.tiles[r - 1]?.[q - 1] || 99) < 8) bitmask |= 0b100_000_000;
+                    if ((this.tiles[r - 1]?.[q] || 99) < 8)     bitmask |= 0b010_000_000;
+                    if ((this.tiles[r - 1]?.[q + 1] || 99) < 8) bitmask |= 0b001_000_000;
+                    if ((this.tiles[r]?.[q - 1] || 99) < 8)     bitmask |= 0b000_100_000;
+                    if ((this.tiles[r]?.[q + 1] || 99) < 8)     bitmask |= 0b000_001_000;
+                    if ((this.tiles[r + 1]?.[q - 1] || 99) < 8) bitmask |= 0b000_000_100;
+                    if ((this.tiles[r + 1]?.[q] || 99) < 8)     bitmask |= 0b000_000_010;
+                    if ((this.tiles[r + 1]?.[q + 1] || 99) < 8) bitmask |= 0b000_000_001;
+
+                    Sprite.getDynamicTile(bitmask);
+                    this.tiles[r][q] = TILE_DYNAMIC + bitmask;
+                }
+            }
+        }
     }
 };

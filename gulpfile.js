@@ -160,7 +160,7 @@ async function exportTileSheet() {
     let png = 'src/assets/tiles-gen.png';
 
     try {
-        await AsepriteCli.exec(`--batch ${src} --sheet-type rows --sheet ${png}`);
+        await AsepriteCli.exec(`--batch ${src} --sheet-type rows --sheet-width 32 --sheet ${png}`);
     } catch (e) {
         log.error(e);
         log.warn(chalk.red('Failed to update tile sheet, but building anyway...'));
