@@ -57,15 +57,11 @@ export const Hud = {
             Viewport.ctx.drawImage(Sprite.moth[1].img, 1 + i * 4, 1);
         }
 
-        let cornerText = 'EARTH ' + game.earth;
+        let cornerText = 'e' + game.earth;
         let cornerWidth = Text.measureWidth(cornerText, 1);
 
         Viewport.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-        //Viewport.ctx.fillRect(
-
-        Text.drawText(Viewport.ctx, 'EARTH ' + game.earth, Viewport.width - 100, 10);
-
-        Text.drawText(Viewport.ctx, '' + game.fps, Viewport.width - 20, 3);
+        Text.drawText(Viewport.ctx, cornerText, Viewport.width - cornerWidth - 4, 4);
 
         if (Input.pointer) {
             let u = Input.pointer.u;

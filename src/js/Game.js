@@ -23,6 +23,7 @@ import { Moth } from './Moth';
 import { Ghost } from './Ghost';
 import { Wave } from './Wave';
 import { VictoryScreen } from './VictoryScreen';
+import { DefeatScreen } from './DefeatScreen';
 
 
 /**
@@ -40,29 +41,31 @@ export class Game {
             Camera.init();
             World.init();
 
-            this.maze = MapLoader.loadMap();
-            this.entities = [];
-            this.dialogPending = {};
-            this.dialogSeen = {};
-            this.roomsCleared = {};
-            this.shadowOffset = 0;
-            this.screenshakes = [];
-            this.monstersPending = [];
-
-            this.waveNumber = 0;
-
-            Camera.pos = centerxy(qr2xy(World.spawn));
-
-            this.entities.push(new Moth(Camera.pos));
-
             window.addEventListener('blur', () => this.pause());
             window.addEventListener('focus', () => this.unpause());
 
-            this.earth = 250;
-            this.blood = 0;
+            this.reset();
 
             this.start();
         });
+    }
+
+    reset() {
+        this.maze = MapLoader.loadMap();
+        this.entities = [];
+        this.dialogPending = {};
+        this.dialogSeen = {};
+        this.roomsCleared = {};
+        this.shadowOffset = 0;
+        this.screenshakes = [];
+        this.monstersPending = [];
+        this.waveNumber = 0;
+        Camera.pos = centerxy(qr2xy(World.spawn));
+        this.earth = 250;
+        this.blood = 0;
+        this.entities.push(new Moth(Camera.pos));
+        this.screen = undefined;
+        World.reset();
     }
 
     start() {
@@ -139,9 +142,6 @@ export class Game {
         // Movement (perform entity velocities to position)
         Movement.perform(this.entities);
 
-        console.log('entities', this.entities.length);
-        let moths = this.entities.filter(x => x instanceof Moth);
-        console.log(moths.map(x => x.hp));
         // Dialog scheduling
         //DialogScheduling.perform();
 
@@ -172,9 +172,8 @@ export class Game {
 
         World.update();
 
-
         if (this.entities.filter(e => e instanceof Moth).length === 0) {
-            game.lost = true;
+            game.screen = new DefeatScreen();
         }
 
         // Flickering shadows
@@ -192,12 +191,8 @@ export class Game {
         Viewport.ctx.setTransform(1, 0, 0, 1, 0, 0);
         Viewport.ctx.scale(Viewport.scale, Viewport.scale);
 
-        Viewport.ctx.fillStyle = 'rgba(40, 30, 20)';
+        Viewport.ctx.fillStyle = rgba(13, 43, 69, 1);
         Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
-
-        if (game.lost) {
-
-        }
 
         // Render screenshakes (canvas translation)
         /*
@@ -225,7 +220,6 @@ export class Game {
 
         World.draw();
 
-        Hud.draw();
 
         Viewport.ctx.fillStyle = 'rgba(200, 10, 10, 0.2)';
         Viewport.ctx.fillRect(0, Viewport.height / 2, Viewport.width, 1);
@@ -238,6 +232,8 @@ export class Game {
         for (let entity of this.entities) {
             if (entity.z && entity.z > 100) entity.draw();
         }
+
+        Hud.draw();
 
         if (game.frame < 120) {
             Viewport.ctx.fillStyle = rgba(0, 0, 0, 1 - game.frame / 120);
@@ -254,40 +250,6 @@ export class Game {
             );
         }
         */
-
-        if (game.lost) {
-            Viewport.ctx.fillStyle = rgba(240, 0, 0, 0.5);
-            Viewport.fillViewportRect();
-
-            let text = 'YOU LOSE';
-            Text.drawParagraph(
-                Viewport.ctx,
-                text,
-                40, 40,
-                Viewport.width - 80,
-                Viewport.ctx.height - 80,
-                2,
-                Text.white,
-                Text.red
-            );
-        }
-
-        if (game.victory) {
-            Viewport.ctx.fillStyle = rgba(240, 0, 0, clamp(Victory.frame / 1800, 0, 0.7));
-            Viewport.fillViewportRect();
-
-            let text = 'WAIT! THE PORTAL HOME... \n \nIT STINKS LIKE ROTTEN MEAT, BUT IT LOOKS LIKE YOU ARE STUCK IN THE DUNGEONS. \n \nWELCOME HOME...';
-            Text.drawParagraph(
-                Viewport.ctx,
-                partialText(text, Victory.frame, 600),
-                40, 40,
-                Viewport.width - 80,
-                Viewport.ctx.height - 80,
-                2,
-                Text.white,
-                Text.red
-            );
-        }
 
         if (this.screen) {
             this.screen.draw();

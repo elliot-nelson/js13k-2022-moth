@@ -22,9 +22,10 @@ import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { Ghost } from './Ghost';
 import { Wave } from './Wave';
+import { game } from './Game';
 
 
-export class VictoryScreen {
+export class DefeatScreen {
     constructor() {
         this.frames = 0;
     }
@@ -32,7 +33,12 @@ export class VictoryScreen {
     update() {
         this.frames++;
 
-        return;
+        if (Input.pressed[Input.Action.TAP] && this.frames > 30) {
+            // Reset sequence
+            game.reset();
+        }
+
+        return true;
     }
 
     draw() {
@@ -43,11 +49,10 @@ export class VictoryScreen {
         let x = 16;
         let y = 16;
 
-        let message = 'ESCAPE! \n' +
+        let message = 'DEFEAT... \n' +
             '                    \n' +
-            'VILLAGERS STIR UNEASILY IN THEIR BEDS AS YOU EMERGE INTO MOONLIGHT. YOU SENSE WARM BODIES ALL AROUND YOU, RIPE FOR PICKING. IT IS ONLY A MATTER OF TIME NOW BEFORE YOU REGAIN YOUR FULL NECROMANTIC POWER. \n' +
-            '                    \n' +
-            'CONGRATULATIONS... AND THE END.';
+            'YOUR LAST MOTH GONE, THIS WORLD SLIPS FROM YOUR GRASP. YOU CURSE THE VILLAGE AND ITS INHABITANTS AS YOU TUMBLE TOWARDS THAT BLEAK BEYOND. YOUR REIGN OF TERROR IS AT AN END.\n \n' +
+            'TAP TO TRY AGAIN!';
 
         message = message.slice(0, this.frames);
 
@@ -58,7 +63,8 @@ export class VictoryScreen {
             y,
             width,
             1,
-            1
+            1,
+            Text.duotone_red
         );
     }
 }
