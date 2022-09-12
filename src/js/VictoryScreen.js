@@ -30,7 +30,7 @@ export class VictoryScreen {
     update() {
         this.frames++;
 
-        return;
+        return true;
     }
 
     draw() {

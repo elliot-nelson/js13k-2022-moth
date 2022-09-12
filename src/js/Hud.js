@@ -94,7 +94,6 @@ export const Hud = {
         Text.drawText(Viewport.ctx, cornerText, Viewport.width - cornerWidth - 2, 2);
 
 
-        /*
         // SHOW DEBUGGING INFO
 
         if (Input.pointer) {
@@ -110,7 +109,6 @@ export const Hud = {
                 Text.drawText(Viewport.ctx, '' + World.selected.q + ',' + World.selected.r + '. ' + tile.toString(2).padStart(9, '0'), Viewport.width - 100, 29);
             }
         }
-        */
 
         // Health
         /*
