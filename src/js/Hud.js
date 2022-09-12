@@ -93,6 +93,10 @@ export const Hud = {
         Viewport.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
         Text.drawText(Viewport.ctx, cornerText, Viewport.width - cornerWidth - 2, 2);
 
+
+        /*
+        // SHOW DEBUGGING INFO
+
         if (Input.pointer) {
             let u = Input.pointer.u;
             let v = Input.pointer.v;
@@ -106,6 +110,7 @@ export const Hud = {
                 Text.drawText(Viewport.ctx, '' + World.selected.q + ',' + World.selected.r + '. ' + tile.toString(2).padStart(9, '0'), Viewport.width - 100, 29);
             }
         }
+        */
 
         // Health
         /*

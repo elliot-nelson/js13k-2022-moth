@@ -160,8 +160,6 @@ export const World = {
     },
 
     tap(uv) {
-        game.entities.push(new AttackAnimation(uv2xy(uv)));
-
         let qr = xy2qr(uv2xy(uv));
         let tile = this.tileAt(qr);
 

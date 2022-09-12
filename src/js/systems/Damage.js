@@ -5,6 +5,7 @@ import { vectorAdd } from '../Util';
 import { game } from '../Game';
 import { Gore } from '../Gore';
 import { Audio } from '../Audio';
+import { AttackAnimation } from '../AttackAnimation';
 
 /**
  * Damage
@@ -30,6 +31,7 @@ export const Damage = {
                             entity.vel = vectorAdd(entity.vel, damage.vector);
                             entity.lastDamage = damage;
                             Gore.damage(entity);
+                            game.entities.push(new AttackAnimation(entity.pos));
                             hit = true;
                         }
                     }

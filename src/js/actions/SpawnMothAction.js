@@ -53,10 +53,10 @@ export const SpawnMothAction = {
     },
 
     tap() {
-        let cost = SPAWN_COST_EARTH[game.activeMoths()];
+        let costs = [SPAWN_COST_EARTH[game.activeMoths()], 0];
 
-        if (game.canAfford(cost)) {
-            game.payCost(cost);
+        if (game.canAfford(...costs)) {
+            game.payCost(...costs);
             game.entities.push(new Moth(centerxy(qr2xy(World.selected))));
             return true;
         }

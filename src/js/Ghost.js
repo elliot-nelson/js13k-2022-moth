@@ -11,7 +11,6 @@ import { Text } from './Text';
 
 import { Moth } from './Moth';
 import { Audio } from './Audio';
-import { AttackAnimation } from './AttackAnimation';
 
 /**
  * Monster
@@ -85,7 +84,6 @@ export class Ghost {
             this.attackFrames--;
             if (this.attackFrames === 5) {
                 this.attackTarget.damage.push({ amount: 10, vector: { x: 0, y: 0, m: 0 }, knockback: 0 });
-                game.entities.push(new AttackAnimation(this.attackTarget.pos));
             } else if (this.attackFrames === -30) {
                 this.state = CHASE;
             }
