@@ -2,7 +2,7 @@
 
 import { game } from './Game';
 import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90, TILE_DESCRIPTIONS } from './Constants';
-import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv, xy2qr, qr2xy } from './Util';
+import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv, xy2qr, qr2xy, createCanvas } from './Util';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
 import { Text } from './Text';
@@ -23,13 +23,17 @@ const TRAY_HEIGHT = 18;
  * Health bars, ammo, etc.
  */
 export const Hud = {
+    init() {
+        this.wipCanvas = createCanvas(7, 7);
+    },
+
     update() {
         if (World.selected) {
             let tile = World.tileAt(World.selected);
             let building = World.buildingAt(World.selected);
             if (building) {
                 this.actions = building.hudActions();
-            } else if (tile === 1) {
+            } else if (tile >= 1 && tile <= 4) {
                 this.actions = [MoveAction, BuildTowerAction];
             } else {
                 this.actions = [];
@@ -44,14 +48,37 @@ export const Hud = {
     },
 
     draw() {
+        Viewport.ctx.fillStyle = rgba(36, 26, 20, 0.4);
+        Viewport.ctx.fillRect(0, 0, Viewport.width, 9);
+        Viewport.ctx.fillRect(0, 9, Viewport.width, 1);
         // Glyphs
 
         if (game.wave) {
             if (game.wave.incoming) {
-                Text.drawText(Viewport.ctx, 'INCOMING', 40, 3);
+                let text = 'INCOMING';
+                let width = Text.measureWidth(text, 1);
+                let u = (Viewport.width - width) / 2;
+                let color = Math.floor(game.frame / 60) % 2 === 0 ? Text.duotone : Text.duotone_red;
+                Text.drawText(Viewport.ctx, text, u, 2, 1, color);
             } else {
                 let seconds = Math.ceil(game.wave.countdown / 60);
-                Text.drawText(Viewport.ctx, 'COUNTDOWN ' + seconds, 40, 3);
+
+                if (seconds <= 30) {
+                    let text = 'NEXT WAVE';
+                    let width = Text.measureWidth(text, 1) + 2;
+                    let u = (Viewport.width - width) / 2;
+                    Text.drawText(Viewport.ctx, 'NEXT WAVE ', u, 2);
+
+                    this.wipCanvas.ctx.clearRect(0, 0, 7, 7);
+                    this.wipCanvas.ctx.fillStyle = rgba(255, 212, 163, 1);
+                    this.wipCanvas.ctx.beginPath();
+                    this.wipCanvas.ctx.moveTo(3.5, 3.5);
+                    this.wipCanvas.ctx.lineTo(3.5, 0);
+                    this.wipCanvas.ctx.arc(3.5, 3.5, 3, Math.PI * 1.5, Math.PI * 1.5 + (seconds / 30 * Math.PI * 2));
+                    this.wipCanvas.ctx.fill();
+
+                    Viewport.ctx.drawImage(this.wipCanvas.canvas, u + width, 1);
+                }
             }
         }
 
@@ -203,7 +230,6 @@ export const Hud = {
             Sprite.drawViewportSprite(Sprite.hud_mouse, uv2xy(Input.pointer));
             Viewport.ctx.globalAlpha = 1;
         }
-
 
         /*
         Visual Effect Warning

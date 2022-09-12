@@ -35,6 +35,7 @@ export class Game {
             Text.init();
             Input.init();
             Audio.init();
+            Hud.init();
 
             Camera.init();
             World.init();
