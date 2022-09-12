@@ -1,6 +1,6 @@
 {
   "name": "js13k-2022-tbd",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "description": "My 2022 entry for the js13kgames compo, 'Moth'.",
   "main": "index.js",
   "scripts": {
