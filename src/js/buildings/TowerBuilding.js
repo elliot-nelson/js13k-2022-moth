@@ -41,7 +41,12 @@ export class TowerBuilding {
 
     think() {
         if (this.buildFrames >= this.buildFramesTotal) {
-            this.state = ONLINE;
+            if (this.state !== ONLINE) {
+                this.state = ONLINE;
+                Audio.play(Audio.buildingFinished);
+            }
+        } else {
+            return;
         }
 
         let xy = centerxy(qr2xy(this.qr));
