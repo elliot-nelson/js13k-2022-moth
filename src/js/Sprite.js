@@ -72,6 +72,7 @@ export const Sprite = {
         Sprite.shadow = initDynamicSprite(createShadow());
 
         Sprite.attack = SpriteSheet.attack.map(initBasicSprite);
+        Sprite.enemy_healthbar = SpriteSheet.enemy_healthbar.map(initBasicSprite);
 
         // Dialog
         //let dialog = SpriteSheet.dialog.map(initBasicSprite);

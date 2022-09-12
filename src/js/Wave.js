@@ -40,7 +40,7 @@ export class Wave {
 
             for (let i = 0; i < this.upcoming.length; i++) {
                 if (this.frame === this.upcoming[i][0] * 60) {
-                    game.monstersPending.push(Ghost);
+                    game.monstersPending.push(xy => new Ghost(xy, Math.floor(Math.random() * 3)));
                 }
             }
 

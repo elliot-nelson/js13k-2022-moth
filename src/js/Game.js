@@ -297,9 +297,9 @@ export class Game {
     }
 
     spawnMonsterIfPossible() {
-        let entityClass = this.monstersPending[0];
+        let spawnFn = this.monstersPending[0];
 
-        if (entityClass) {
+        if (spawnFn) {
             // A spawn is attempted up to 10 times
             for (let i = 0; i < 10; i++) {
                 let q = Math.floor(Math.random() * World.floors[0].tiles[0].length);
@@ -313,7 +313,7 @@ export class Game {
 
                 let xy = qr2xy({ q, r });
                 console.log('NEW monster' + xy.x + ',' + xy.y + ',' + World.lightmap[r][q]);
-                game.entities.push(new entityClass(xy));
+                game.entities.push(spawnFn(xy));
                 this.monstersPending.shift();
                 break;
             }
