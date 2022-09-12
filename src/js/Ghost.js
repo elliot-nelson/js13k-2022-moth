@@ -10,6 +10,7 @@ import { Viewport } from './Viewport';
 import { Text } from './Text';
 
 import { Moth } from './Moth';
+import { Audio } from './Audio';
 
 /**
  * Monster
@@ -61,6 +62,7 @@ export class Ghost {
                 };
             }
         } else if (this.state === DEAD) {
+            Audio.play(Audio.ghostDeath);
             this.cull = true;
             Gore.kill(this);
         }

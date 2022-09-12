@@ -19,6 +19,7 @@ import { Viewport } from '../Viewport';
 import { Camera } from '../Camera';
 import { TowerGunk } from '../TowerGunk';
 import { BuildTowerAction } from '../actions/BuildTowerAction';
+import { Audio } from '../Audio';
 
 /**
  * Monster
@@ -71,6 +72,7 @@ export class TowerBuilding {
             let v = vectorBetween(xy, this.target);
             game.entities.push(new TowerGunk(xy, this.target));
             this.framesToNextShot = 100;
+            Audio.play(Audio.towerShoot);
         }
     }
 

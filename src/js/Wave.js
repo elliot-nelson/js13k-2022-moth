@@ -2,6 +2,7 @@
 
 import { game } from './Game';
 import { Ghost } from './Ghost';
+import { Audio } from './Audio';
 
 const WAVES = [
     // Wave 1
@@ -21,7 +22,7 @@ export class Wave {
         waveNumber = waveNumber % WAVES.length;
 
         this.upcoming = [...WAVES[waveNumber]];
-        this.countdown = 45 * 60;
+        this.countdown = 4 * 60;
         this.incoming = false;
         this.frame = 0;
         this.lastFrame = this.upcoming[this.upcoming.length - 1][0] * 60;
@@ -29,6 +30,10 @@ export class Wave {
 
     update() {
         this.countdown--;
+
+        if (this.countdown >= 0 && this.countdown <= 2 * 60 && this.countdown % 60 === 0) {
+            Audio.play(Audio.waveCountdown);
+        }
 
         if (this.countdown <= 0) {
             this.incoming = true;

@@ -72,9 +72,9 @@ export const Sprite = {
         Sprite.shadow = initDynamicSprite(createShadow());
 
         // Dialog
-        let dialog = SpriteSheet.dialog.map(initBasicSprite);
-        Sprite.dialog_speech = initDynamicSprite(createDialogSpeech(dialog[0].img, dialog[2].img));
-        Sprite.dialog_hint = initDynamicSprite(createDialogHint(dialog[1].img));
+        //let dialog = SpriteSheet.dialog.map(initBasicSprite);
+        //Sprite.dialog_speech = initDynamicSprite(createDialogSpeech(dialog[0].img, dialog[2].img));
+        //Sprite.dialog_hint = initDynamicSprite(createDialogHint(dialog[1].img));
     },
 
     /**

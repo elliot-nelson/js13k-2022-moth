@@ -17,6 +17,7 @@ import { Sprite } from './Sprite';
 import { Gore } from './Gore';
 import { World } from './World';
 import { Viewport } from './Viewport';
+import { Audio } from './Audio';
 
 
 /**
@@ -64,6 +65,7 @@ export class Moth {
         this.frame = (Math.floor(game.frame / 8) % 2) + 1;
 
         if (this.state === DEAD) {
+            Audio.play(Audio.mothDeath);
             this.cull = true;
             return;
         }
