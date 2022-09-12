@@ -33,6 +33,7 @@ export const Text = {
 
         let icons = [
             [101, Sprite.buildings[2]],      // e = Earth
+            [102, Sprite.buildings[4]],      // f = Fervor
             //[108, Sprite.icon_mouse_lmb],  // l
             //[114, Sprite.icon_mouse_rmb],  // r
         ];

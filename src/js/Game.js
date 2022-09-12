@@ -59,6 +59,7 @@ export class Game {
         this.monstersPending = [];
         this.waveNumber = 0;
         this.earth = 250;
+        this.fervor = 25;
         this.blood = 0;
         this.entities.push(new Moth(qr2xy(World.spawn)));
         this.screen = undefined;
@@ -286,14 +287,17 @@ export class Game {
         return this.entities.filter(x => x instanceof Moth).length;
     }
 
-    canAfford(earth) {
-        if (this.earth >= earth) {
-            return true;
-        }
+    formatCost(earth, fervor) {
+        return (earth > this.earth ? 're' : 'we') + earth + (fervor > 0 ? (fervor > this.fervor ? ' rf' : ' wf') + fervor : '');
     }
 
-    payCost(earth) {
+    canAfford(earth, fervor) {
+        return (this.earth >= earth && this.fervor >= fervor);
+    }
+
+    payCost(earth, fervor) {
         this.earth -= earth;
+        this.fervor -= fervor;
     }
 
     spawnMonsterIfPossible() {

@@ -12,6 +12,7 @@ import { Victory } from './systems/Victory';
 import { World } from './World';
 import { TowerBuilding } from './buildings/TowerBuilding';
 import { BuildTowerAction } from './actions/BuildTowerAction';
+import { TeleportCoffinAction } from './actions/TeleportCoffinAction';
 import { MoveAction } from './actions/MoveAction';
 import { Moth } from './Moth';
 
@@ -34,7 +35,7 @@ export const Hud = {
             if (building) {
                 this.actions = building.hudActions();
             } else if (tile >= 1 && tile <= 4) {
-                this.actions = [MoveAction, BuildTowerAction];
+                this.actions = [MoveAction, BuildTowerAction, TeleportCoffinAction];
             } else {
                 this.actions = [];
             }
@@ -86,7 +87,7 @@ export const Hud = {
             Viewport.ctx.drawImage(Sprite.moth[1].img, 2 + i * 4, 2);
         }
 
-        let cornerText = '' + game.earth + 'e';
+        let cornerText = '' + game.earth + 'e ' + String(game.fervor).padStart(2) + 'f';
         let cornerWidth = Text.measureWidth(cornerText, 1);
 
         Viewport.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';

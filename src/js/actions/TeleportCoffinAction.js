@@ -18,29 +18,30 @@ import { World } from '../World';
 import { TowerBuilding } from '../buildings/TowerBuilding';
 import { Text } from '../Text';
 import { Moth } from '../Moth';
+import { CoffinBuilding } from '../buildings/CoffinBuilding';
 
 
 /**
  * Monster
  */
-export const BuildTowerAction = {
+export const TeleportCoffinAction = {
     defaultTapAction() {
         let building = World.buildingAt(World.selected);
         return !!building;
     },
 
     buttonSprite() {
-        return Sprite.buttons[6];
+        return Sprite.buttons[8];
     },
 
     buttonSelectedSprite() {
-        return Sprite.buttons[7];
+        return Sprite.buttons[9];
     },
 
     drawSelectedText(u, v) {
         let building = World.buildingAt(World.selected);
-        let costs = [15, 0];
-        let text = 'BUILD TOWER \n' + game.formatCost(...costs);
+        let costs = [60, 10];
+        let text = 'MOVE COFFIN \n' + game.formatCost(...costs);
 
         if (building) {
             text = 'FINISH BUILDING';
@@ -56,13 +57,13 @@ export const BuildTowerAction = {
 
     tap() {
         let building = World.buildingAt(World.selected);
-        let costs = [15, 0];
+        let costs = [60, 10];
 
         if (building) {
             Moth.assign(moth => moth.construct(World.selected));
         } else if (game.canAfford(...costs)) {
             game.payCost(...costs);
-            World.buildings.push(new TowerBuilding(World.selected));
+            World.buildings.push(new CoffinBuilding(World.selected));
             Moth.assign(moth => moth.construct(World.selected));
             return true;
         }

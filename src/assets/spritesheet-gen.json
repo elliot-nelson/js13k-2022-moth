@@ -54,6 +54,15 @@
     "duration": 100
    },
    {
+    "filename": "buildings 4.aseprite",
+    "frame": { "x": 32, "y": 10, "w": 8, "h": 16 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 16 },
+    "sourceSize": { "w": 8, "h": 16 },
+    "duration": 100
+   },
+   {
     "filename": "bullet1.aseprite",
     "frame": { "x": 0, "y": 26, "w": 3, "h": 3 },
     "rotated": false,
@@ -128,6 +137,24 @@
    {
     "filename": "buttons 7.aseprite",
     "frame": { "x": 84, "y": 29, "w": 12, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 12 },
+    "sourceSize": { "w": 12, "h": 12 },
+    "duration": 100
+   },
+   {
+    "filename": "buttons 8.aseprite",
+    "frame": { "x": 96, "y": 29, "w": 12, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 12 },
+    "sourceSize": { "w": 12, "h": 12 },
+    "duration": 100
+   },
+   {
+    "filename": "buttons 9.aseprite",
+    "frame": { "x": 108, "y": 29, "w": 12, "h": 12 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 12, "h": 12 },

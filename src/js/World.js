@@ -110,7 +110,7 @@ export const World = {
         this.spawn = { q: WorldData.spawn[0], r: WorldData.spawn[1] };
 
         this.buildings = [];
-        this.buildings.push(new CoffinBuilding(this.spawn));
+        this.buildings.push(new CoffinBuilding(this.spawn, true));
 
         for (let b of this.floors[0].objects) {
             if (b.name === 'EARTH') {

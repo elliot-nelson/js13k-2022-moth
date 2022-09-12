@@ -92,6 +92,7 @@ export class Ghost {
         } else if (this.state === DEAD) {
             Audio.play(Audio.ghostDeath);
             this.cull = true;
+            game.fervor += (this.variant + 1);
             Gore.kill(this);
         }
     }
