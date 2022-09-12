@@ -21,17 +21,26 @@ export class TowerGunk {
         };
 
         if (diff.m < 1) {
-            this.target.damage.push({ amount: this.damage, vector: diff, knockback: 0 });
+            this.target.damage.push({ amount: this.damage, vector: diff, knockback: 1 });
             this.cull = true;
-            console.log('HIT');
         }
+
+        this.lastpos = this.pos;
     }
 
     draw() {
+        if (this.lastpos) {
+            Viewport.ctx.globalAlpha = 0.7;
+            Sprite.drawViewportSprite(
+                Sprite.bullet1[0],
+                this.lastpos
+            );
+            Viewport.ctx.globalAlpha = 1;
+        }
+
         Sprite.drawViewportSprite(
             Sprite.bullet1[0],
-            this.pos,
-            this.r
+            this.pos
         );
     }
 }

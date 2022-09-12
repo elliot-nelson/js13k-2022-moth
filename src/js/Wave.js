@@ -66,7 +66,7 @@ export class Wave {
         waveNumber = waveNumber % WAVES.length;
 
         this.upcoming = [...WAVES[waveNumber]];
-        this.countdown = 60 * 60;
+        this.countdown = 6 * 60;
         this.incoming = false;
         this.frame = 0;
         this.lastFrame = this.upcoming[this.upcoming.length - 1][0] * 60;

@@ -10,7 +10,7 @@ export class Gore {
     constructor(pos, angle, f) {
         this.pos = { ...pos };
         this.angle = angle;
-        this.vel = vector2point(angle2vector(this.angle, f ? 8 : 5));
+        this.vel = vector2point(angle2vector(this.angle, f ? 3 : 2));
         this.a = R45;
         this.noClipEntity = true;
         this.f = f;
@@ -42,15 +42,13 @@ export class Gore {
 }
 
 Gore.damage = entity => Gore.spray(entity, 8, () => 0);
-Gore.kill = entity => Gore.spray(entity, 16, () => (Math.random() * 4) | 0);
+Gore.kill = entity => Gore.spray(entity, 16, () => (Math.random() * 2) | 0);
 Gore.spray = (entity, count, cb) => {
-    let angle = entity.lastDamage ? vector2angle(entity.lastDamage.vector) : Math.random() * R360;
-
     for (let i = 0; i < count * (game.victory ? 2 : 1); i++) {
         let r = Math.random() * entity.radius,
             p = vectorAdd(entity.pos, angle2vector(Math.random() * R360, r));
         game.entities.push(
-            new Gore(p, angle + Math.random() * R90 - R45, cb())
+            new Gore(p, Math.random() * R360, cb())
         );
     }
 };

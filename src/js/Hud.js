@@ -95,7 +95,7 @@ export const Hud = {
 
 
         // SHOW DEBUGGING INFO
-
+/*
         if (Input.pointer) {
             let u = Input.pointer.u;
             let v = Input.pointer.v;
@@ -109,6 +109,7 @@ export const Hud = {
                 Text.drawText(Viewport.ctx, '' + World.selected.q + ',' + World.selected.r + '. ' + tile.toString(2).padStart(9, '0'), Viewport.width - 100, 29);
             }
         }
+*/
 
         // Health
         /*
@@ -144,9 +145,8 @@ export const Hud = {
             Viewport.ctx.drawImage(Sprite.hud_tile_selected[Math.floor(game.frame / 30) % 2].img, uv.u, uv.v);
             Viewport.ctx.globalAlpha = 1;*/
 
-            let uv = xy2uv({ x: World.selected.q * 8, y: World.selected.r * 8 });
-            Viewport.ctx.fillStyle = rgba(255, 212, 163, 0.25);
-            Viewport.ctx.fillRect(uv.u, uv.v, 9, 9);
+            let uv = xy2uv(qr2xy(World.selected));
+            Viewport.ctx.drawImage(Sprite.hud_select[0].img, uv.u, uv.v);
         }
 
         // Debugging - viewport width/height
