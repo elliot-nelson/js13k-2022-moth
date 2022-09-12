@@ -50,12 +50,11 @@ export const Hud = {
     draw() {
         Viewport.ctx.fillStyle = rgba(36, 26, 20, 0.4);
         Viewport.ctx.fillRect(0, 0, Viewport.width, 9);
-        Viewport.ctx.fillRect(0, 9, Viewport.width, 1);
         // Glyphs
 
         if (game.wave) {
             if (game.wave.incoming) {
-                let text = 'INCOMING';
+                let text = 'WAVE ' + (game.wave.waveNumber + 1);
                 let width = Text.measureWidth(text, 1);
                 let u = (Viewport.width - width) / 2;
                 let color = Math.floor(game.frame / 60) % 2 === 0 ? Text.duotone : Text.duotone_red;

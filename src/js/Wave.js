@@ -61,6 +61,8 @@ const WAVES = [
 
 export class Wave {
     constructor(waveNumber) {
+        this.waveNumber = waveNumber;
+
         waveNumber = waveNumber % WAVES.length;
 
         this.upcoming = [...WAVES[waveNumber]];

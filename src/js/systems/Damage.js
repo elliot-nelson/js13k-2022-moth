@@ -40,7 +40,5 @@ export const Damage = {
                 }
             }
         }
-
-        if (hit) Audio.play(Audio.damage);
     }
 };
