@@ -22,7 +22,7 @@ import { GatherEarthAction } from '../actions/GatherEarthAction';
 export class EarthBuilding {
     constructor(qr) {
         this.qr = { ...qr };
-        this.resourcesLeft = 100_00;
+        this.resourcesLeft = 150_00;
 
         this.title = 'EARTH';
         this.portraitSprite = Sprite.buildings[2];

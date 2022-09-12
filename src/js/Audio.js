@@ -14,20 +14,23 @@ export const Audio = {
         Audio.gain_.connect(Audio.ctx.destination);
         zzfx.destination_ = Audio.gain_;
 
-        Audio.shellReload = [,,68,0.01,,0.14,1,1.53,7.5,0.1,50,0.02,-0.01,-0.2,0.1,0.2,,0.47,0.01];
         Audio.damage = [,,391,,.19,.01,2,.54,-4,20,,,,,,,.02,.9];
         Audio.alarm = [,,970,.12,.25,.35,,.39,8.1,,10,.1,.2,,.1,,,.6,.09,.13];
         // [,,961,.05,.06,1.17,1,4.67,.8,,,,,.8,-0.8,.1,.49,.62,.09];
         Audio.victory = [,,454,.06,.86,.71,2,.63,-0.7,1.7,-83,.09,.27,.3,.2,,.18,.95,.02,.02];
         //Audio.song = zzfxM(...ObliqueMystique);
 
+        //Audio.towerShoot = [1.56,,225,,.05,,3,.79,-7.6,.2,,,.08,,2.1,,.07,.99];
+        Audio.towerShoot = [,,1626,.01,.04,.13,1,.39,,,,,,,.9,,,.93,.04];
+
         Audio.mothDeath = [1.04,,363,.01,.08,.52,2,.31,.3,,,,,1.5,,.9,,.34,.07];
-        Audio.towerShoot = [1.56,,225,,.05,,3,.79,-7.6,.2,,,.08,,2.1,,.07,.99];
+
         Audio.ghostDeath = [1.35,,968,.01,.02,,2,.12,-0.7,.1,-105,.06,,.1,,,.01,.66,.04];
 
         Audio.buildingFinished = [2.03,0,65.40639,.03,.66,.18,2,.95,,,,,.3,.4,,,.19,.21,.1,.04];
 
         Audio.waveCountdown = [1.56,0,261.6256,,.13,.3,,.41,,,,,,.2,,,.05,.2,.19,.22];
+
         // Save our background music in os13k, for fun!
         //localStorage[`OS13kMusic,${TITLE} - Oblique Mystique`] = JSON.stringify(ObliqueMystique);
     },

@@ -135,10 +135,12 @@ export class Ghost {
 
         if (this.hp < this.maxhp) {
             let hp = Math.ceil(this.hp / this.maxhp * 7);
-            Sprite.drawViewportSprite(
-                Sprite.enemy_healthbar[hp],
-                this.pos
-            );
+            if (hp >= 0) {
+                Sprite.drawViewportSprite(
+                    Sprite.enemy_healthbar[hp],
+                    this.pos
+                );
+            }
         }
     }
 }
