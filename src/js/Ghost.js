@@ -1,7 +1,7 @@
 // ghost?
 
 import { game } from './Game';
-import { R90, DIALOG_HINT_E1, CHASE, DEAD } from './Constants';
+import { R90, DIALOG_HINT_E1, CHASE, DEAD, ATTACK } from './Constants';
 import { vectorBetween, clamp, vector2angle, xy2qr, floodTarget, qr2xy, xy2uv, rgba, centerxy } from './Util';
 import { Sprite } from './Sprite';
 import { Gore } from './Gore';
@@ -11,6 +11,7 @@ import { Text } from './Text';
 
 import { Moth } from './Moth';
 import { Audio } from './Audio';
+import { AttackAnimation } from './AttackAnimation';
 
 /**
  * Monster
@@ -32,8 +33,6 @@ export class Ghost {
         let targets = game.entities.filter(x => x instanceof Moth);
         let bestTarget = targets[0];
 
-        console.log(targets.map(target => target.pos));
-
         if (!bestTarget) return;
 
         let bestDiff = vectorBetween(this.pos, bestTarget.pos);
@@ -51,15 +50,27 @@ export class Ghost {
 
         if (this.state === CHASE) {
             if (bestDiff.m < 8) {
-                console.log('KILL');
-                bestTarget.damage.push({ amount: 10, vector: diff, knockback: 0 });
-                this.cull = true;
+                this.state = ATTACK;
+                this.attackFrames = 10;
+                this.attackTarget = bestTarget;
             } else {
-                diff.m = clamp(diff.m, 0, 0.4);
+                diff.m = clamp(diff.m, 0, 0.3);
                 this.vel = {
                     x: (this.vel.x + diff.x * diff.m) / 2,
                     y: (this.vel.y + diff.y * diff.m) / 2
                 };
+            }
+        } else if (this.state === ATTACK) {
+            this.vel = {
+                x: this.vel.x * 0.9,
+                y: this.vel.y * 0.9
+            };
+            this.attackFrames--;
+            if (this.attackFrames === 5) {
+                this.attackTarget.damage.push({ amount: 10, vector: { x: 0, y: 0, m: 0 }, knockback: 0 });
+                game.entities.push(new AttackAnimation(this.attackTarget.pos));
+            } else if (this.attackFrames === -30) {
+                this.state = CHASE;
             }
         } else if (this.state === DEAD) {
             Audio.play(Audio.ghostDeath);
@@ -71,7 +82,7 @@ export class Ghost {
     draw() {
         //if (!this.lastQR) return;
 
-        let sprite = Sprite.ghost[0];
+        let sprite = this.state === ATTACK ? Sprite.ghost[1] : Sprite.ghost[0];
 
         /*for (let r = 0; r < this.targetField.length; r++) {
             for (let q = 0; q < this.targetField[0].length; q++) {

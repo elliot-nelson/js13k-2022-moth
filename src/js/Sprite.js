@@ -71,6 +71,8 @@ export const Sprite = {
         Sprite.tilebg = initDynamicSprite(createTileBg(Sprite.tiles[0].img));
         Sprite.shadow = initDynamicSprite(createShadow());
 
+        Sprite.attack = SpriteSheet.attack.map(initBasicSprite);
+
         // Dialog
         //let dialog = SpriteSheet.dialog.map(initBasicSprite);
         //Sprite.dialog_speech = initDynamicSprite(createDialogSpeech(dialog[0].img, dialog[2].img));

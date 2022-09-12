@@ -18,6 +18,8 @@ import { Hud } from './Hud';
 import { MoveAction } from './actions/MoveAction';
 import { Text } from './Text';
 
+import { AttackAnimation } from './AttackAnimation';
+
 export const World = {
     init() {
         this.reset();
@@ -158,6 +160,8 @@ export const World = {
     },
 
     tap(uv) {
+        game.entities.push(new AttackAnimation(uv2xy(uv)));
+
         let qr = xy2qr(uv2xy(uv));
         let tile = this.tileAt(qr);
 
