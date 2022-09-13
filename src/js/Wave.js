@@ -56,6 +56,36 @@ const WAVES = [
         [15,  0],
         [15,  1],
         [20,  2],
+    ],
+    // Wave 6
+    [
+        [0,   0],
+        [1,   0],
+        [2,   0],
+        [3,   0],
+        [4,   0],
+        [5,   2],
+        [6,   0],
+        [7,   0],
+        [8,   0],
+        [9,   0],
+        [10,  2],
+        [15,  1],
+        [19,  1],
+        [20,  1],
+    ],
+    // Wave 7
+    [
+        [0,   2],
+        [3,   2],
+        [6,   2],
+        [9,   2],
+        [12,  2],
+        [15,  0],
+        [15,  0],
+        [15,  0],
+        [15,  0],
+        [15,  0],
     ]
 ];
 
@@ -66,7 +96,7 @@ export class Wave {
         waveNumber = waveNumber % WAVES.length;
 
         this.upcoming = [...WAVES[waveNumber]];
-        this.countdown = 6 * 60;
+        this.countdown = 60 * 60;
         this.incoming = false;
         this.frame = 0;
         this.lastFrame = this.upcoming[this.upcoming.length - 1][0] * 60;

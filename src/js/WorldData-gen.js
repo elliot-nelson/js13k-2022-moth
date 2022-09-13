@@ -219,7 +219,7 @@ export const WorldData =
                     0,
                     0,
                     14,
-                    1,
+                    3,
                     1,
                     1,
                     1,
@@ -267,7 +267,7 @@ export const WorldData =
                     0,
                     0,
                     14,
-                    1,
+                    2,
                     1,
                     1,
                     1,
@@ -1602,6 +1602,11 @@ export const WorldData =
                     "name": "EARTH",
                     "x": 7,
                     "y": 13
+                },
+                {
+                    "name": "EARTH",
+                    "x": 28,
+                    "y": 21
                 }
             ],
             "triggers": [],
