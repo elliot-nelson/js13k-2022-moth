@@ -38,7 +38,7 @@ export class CoffinBuilding {
             this.state = ONLINE;
         }
 
-        this.title = 'YOUR COFFIN \nQARUL SOIL';
+        this.title = 'YOUR COFFIN \nIXNA VALRI';
         this.portraitSprite = Sprite.buildings[1];
         this.lightlevel = 9;
     }
