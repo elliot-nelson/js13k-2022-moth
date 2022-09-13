@@ -79,6 +79,7 @@ export const DEAD      = 9;
 
 // Additional behaviors (enemies)
 export const CHASE     = 11;
+export const ATTACK    = 12;
 
 // Additional behaviors (buildings)
 export const WIP       = 21;

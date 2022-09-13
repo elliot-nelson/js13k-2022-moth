@@ -12,6 +12,7 @@ import { Victory } from './systems/Victory';
 import { World } from './World';
 import { TowerBuilding } from './buildings/TowerBuilding';
 import { BuildTowerAction } from './actions/BuildTowerAction';
+import { TeleportCoffinAction } from './actions/TeleportCoffinAction';
 import { MoveAction } from './actions/MoveAction';
 import { Moth } from './Moth';
 
@@ -34,7 +35,7 @@ export const Hud = {
             if (building) {
                 this.actions = building.hudActions();
             } else if (tile >= 1 && tile <= 4) {
-                this.actions = [MoveAction, BuildTowerAction];
+                this.actions = [MoveAction, BuildTowerAction, TeleportCoffinAction];
             } else {
                 this.actions = [];
             }
@@ -50,12 +51,11 @@ export const Hud = {
     draw() {
         Viewport.ctx.fillStyle = rgba(36, 26, 20, 0.4);
         Viewport.ctx.fillRect(0, 0, Viewport.width, 9);
-        Viewport.ctx.fillRect(0, 9, Viewport.width, 1);
         // Glyphs
 
         if (game.wave) {
             if (game.wave.incoming) {
-                let text = 'INCOMING';
+                let text = 'WAVE ' + (game.wave.waveNumber + 1);
                 let width = Text.measureWidth(text, 1);
                 let u = (Viewport.width - width) / 2;
                 let color = Math.floor(game.frame / 60) % 2 === 0 ? Text.duotone : Text.duotone_red;
@@ -87,12 +87,15 @@ export const Hud = {
             Viewport.ctx.drawImage(Sprite.moth[1].img, 2 + i * 4, 2);
         }
 
-        let cornerText = '' + game.earth + 'e';
+        let cornerText = '' + game.earth + 'e ' + String(game.fervor).padStart(2) + 'f';
         let cornerWidth = Text.measureWidth(cornerText, 1);
 
         Viewport.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
         Text.drawText(Viewport.ctx, cornerText, Viewport.width - cornerWidth - 2, 2);
 
+
+        // SHOW DEBUGGING INFO
+/*
         if (Input.pointer) {
             let u = Input.pointer.u;
             let v = Input.pointer.v;
@@ -106,6 +109,7 @@ export const Hud = {
                 Text.drawText(Viewport.ctx, '' + World.selected.q + ',' + World.selected.r + '. ' + tile.toString(2).padStart(9, '0'), Viewport.width - 100, 29);
             }
         }
+*/
 
         // Health
         /*
@@ -141,9 +145,8 @@ export const Hud = {
             Viewport.ctx.drawImage(Sprite.hud_tile_selected[Math.floor(game.frame / 30) % 2].img, uv.u, uv.v);
             Viewport.ctx.globalAlpha = 1;*/
 
-            let uv = xy2uv({ x: World.selected.q * 8, y: World.selected.r * 8 });
-            Viewport.ctx.fillStyle = rgba(255, 212, 163, 0.25);
-            Viewport.ctx.fillRect(uv.u, uv.v, 9, 9);
+            let uv = xy2uv(qr2xy(World.selected));
+            Viewport.ctx.drawImage(Sprite.hud_select[0].img, uv.u, uv.v);
         }
 
         // Debugging - viewport width/height
@@ -188,7 +191,6 @@ export const Hud = {
                 );
             } else {
                 let tile = World.tileAt(World.selected);
-                console.log(World.selected, tile, TILE_DESCRIPTIONS[tile - 1]);
                 Viewport.ctx.drawImage(Sprite.tile_background[1].img, 4, Viewport.height - TRAY_HEIGHT + 6);
                 Viewport.ctx.drawImage(Sprite.tiles[tile - 1].img, 3, Viewport.height - TRAY_HEIGHT + 5);
                 Text.drawParagraph(

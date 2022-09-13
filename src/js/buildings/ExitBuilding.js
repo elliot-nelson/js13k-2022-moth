@@ -39,7 +39,7 @@ export class ExitBuilding {
 
         for (let moth of moths) {
             let dist = vectorBetween(moth.pos, pos);
-            if (dist.m < ACTION_DISTANCE) {
+            if (dist.m < 2) {
                 game.screen = new VictoryScreen();
                 return;
             }

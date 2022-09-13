@@ -65,7 +65,6 @@ export class TowerBuilding {
                 }
             }
 
-            console.log('ATTEMPTED to pick target for building', closestTarget);
             this.target = closestTarget;
         }
 
@@ -75,7 +74,7 @@ export class TowerBuilding {
 
         if (this.target && this.framesToNextShot === 0) {
             let v = vectorBetween(xy, this.target);
-            game.entities.push(new TowerGunk(xy, this.target));
+            game.entities.push(new TowerGunk({ x: xy.x, y: xy.y - 5 }, this.target));
             this.framesToNextShot = 100;
             Audio.play(Audio.towerShoot);
         }

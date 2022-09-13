@@ -41,8 +41,8 @@ export const SpawnMothAction = {
     },
 
     drawSelectedText(u, v) {
-        let cost = SPAWN_COST_EARTH[game.activeMoths()];
-        let text = game.canAfford(cost) ? 'LURE MOTH \ne' + cost : 'LURE MOTH \ner' + cost;
+        let costs = [SPAWN_COST_EARTH[game.activeMoths()], 0];
+        let text = 'LURE MOTH \n' + game.formatCost(...costs);
 
         Text.drawParagraph(
             Viewport.ctx,
@@ -53,10 +53,10 @@ export const SpawnMothAction = {
     },
 
     tap() {
-        let cost = SPAWN_COST_EARTH[game.activeMoths()];
+        let costs = [SPAWN_COST_EARTH[game.activeMoths()], 0];
 
-        if (game.canAfford(cost)) {
-            game.payCost(cost);
+        if (game.canAfford(...costs)) {
+            game.payCost(...costs);
             game.entities.push(new Moth(centerxy(qr2xy(World.selected))));
             return true;
         }

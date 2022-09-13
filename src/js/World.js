@@ -18,6 +18,8 @@ import { Hud } from './Hud';
 import { MoveAction } from './actions/MoveAction';
 import { Text } from './Text';
 
+import { AttackAnimation } from './AttackAnimation';
+
 export const World = {
     init() {
         this.reset();
@@ -108,7 +110,7 @@ export const World = {
         this.spawn = { q: WorldData.spawn[0], r: WorldData.spawn[1] };
 
         this.buildings = [];
-        this.buildings.push(new CoffinBuilding(this.spawn));
+        this.buildings.push(new CoffinBuilding(this.spawn, true));
 
         for (let b of this.floors[0].objects) {
             if (b.name === 'EARTH') {
@@ -286,7 +288,6 @@ export const World = {
         if (!field) {
             field = this.cachedFields[key] = flood(this.tiles, qrTo);
         }
-        console.log(Object.keys(this.cachedFields).length);
 
         let options = [
             [qrFrom.q + 1, qrFrom.r],

@@ -58,8 +58,8 @@ export class Game {
         this.screenshakes = [];
         this.monstersPending = [];
         this.waveNumber = 0;
-        this.earth = 250;
-        this.blood = 0;
+        this.earth = 100;
+        this.fervor = 10;
         this.entities.push(new Moth(qr2xy(World.spawn)));
         this.screen = undefined;
         this.wave = undefined;
@@ -132,7 +132,6 @@ export class Game {
 
         // Behavior (AI, player input, etc.)
         //perform(this.entities); <-- cut to save space
-        console.log(game.entities);
         for (let entity of game.entities) {
             if (entity.think) entity.think();
         }
@@ -286,20 +285,23 @@ export class Game {
         return this.entities.filter(x => x instanceof Moth).length;
     }
 
-    canAfford(earth) {
-        if (this.earth >= earth) {
-            return true;
-        }
+    formatCost(earth, fervor) {
+        return (earth > this.earth ? 're' : 'we') + earth + (fervor > 0 ? (fervor > this.fervor ? ' rf' : ' wf') + fervor : '');
     }
 
-    payCost(earth) {
+    canAfford(earth, fervor) {
+        return (this.earth >= earth && this.fervor >= fervor);
+    }
+
+    payCost(earth, fervor) {
         this.earth -= earth;
+        this.fervor -= fervor;
     }
 
     spawnMonsterIfPossible() {
-        let entityClass = this.monstersPending[0];
+        let spawnFn = this.monstersPending[0];
 
-        if (entityClass) {
+        if (spawnFn) {
             // A spawn is attempted up to 10 times
             for (let i = 0; i < 10; i++) {
                 let q = Math.floor(Math.random() * World.floors[0].tiles[0].length);
@@ -312,8 +314,7 @@ export class Game {
                 }
 
                 let xy = qr2xy({ q, r });
-                console.log('NEW monster' + xy.x + ',' + xy.y + ',' + World.lightmap[r][q]);
-                game.entities.push(new entityClass(xy));
+                game.entities.push(spawnFn(xy));
                 this.monstersPending.shift();
                 break;
             }

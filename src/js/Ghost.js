@@ -1,7 +1,7 @@
 // ghost?
 
 import { game } from './Game';
-import { R90, DIALOG_HINT_E1, CHASE, DEAD } from './Constants';
+import { R90, DIALOG_HINT_E1, CHASE, DEAD, ATTACK } from './Constants';
 import { vectorBetween, clamp, vector2angle, xy2qr, floodTarget, qr2xy, xy2uv, rgba, centerxy } from './Util';
 import { Sprite } from './Sprite';
 import { Gore } from './Gore';
@@ -16,9 +16,8 @@ import { Audio } from './Audio';
  * Monster
  */
 export class Ghost {
-    constructor(pos) {
+    constructor(pos, variant) {
         this.pos = { ...pos };
-        this.hp = 100;
         this.damage = [];
         this.vel = { x: 0, y: 0 };
         this.radius = 2;
@@ -26,13 +25,29 @@ export class Ghost {
         this.lastAttack = 0;
         this.state = CHASE;
         this.enemy = true;
+
+        this.variant = variant;
+
+        if (!variant) {
+            this.hp = 100;
+            this.attackDistance = 8;
+            this.moveSpeed = 0.3;
+        } else if (variant === 1) {
+            this.hp = 300;
+            this.attackDistance = 8;
+            this.moveSpeed = 0.3;
+        } else if (variant === 2) {
+            this.hp = 800;
+            this.attackDistance = 16;
+            this.moveSpeed = 0.1;
+        }
+
+        this.maxhp = this.hp;
     }
 
     think() {
         let targets = game.entities.filter(x => x instanceof Moth);
         let bestTarget = targets[0];
-
-        console.log(targets.map(target => target.pos));
 
         if (!bestTarget) return;
 
@@ -50,28 +65,41 @@ export class Ghost {
         let diff = vectorBetween(this.pos, pathToTarget);
 
         if (this.state === CHASE) {
-            if (bestDiff.m < 8) {
-                console.log('KILL');
-                bestTarget.damage.push({ amount: 10, vector: diff, knockback: 0 });
-                this.cull = true;
+            if (bestDiff.m < this.attackDistance) {
+                this.state = ATTACK;
+                this.attackFrames = 10;
+                this.attackTarget = bestTarget;
             } else {
-                diff.m = clamp(diff.m, 0, 0.4);
+                diff.m = clamp(diff.m, 0, this.moveSpeed);
                 this.vel = {
                     x: (this.vel.x + diff.x * diff.m) / 2,
                     y: (this.vel.y + diff.y * diff.m) / 2
                 };
             }
+        } else if (this.state === ATTACK) {
+            this.vel = {
+                x: this.vel.x * 0.9,
+                y: this.vel.y * 0.9
+            };
+            this.attackFrames--;
+            if (this.attackFrames === 5) {
+                this.attackTarget.damage.push({ amount: 10, vector: { x: 0, y: 0, m: 0 }, knockback: 0 });
+            } else if (this.attackFrames === -30) {
+                this.state = CHASE;
+            }
         } else if (this.state === DEAD) {
             Audio.play(Audio.ghostDeath);
             this.cull = true;
+            game.fervor += (this.variant + 1);
             Gore.kill(this);
         }
     }
 
     draw() {
         //if (!this.lastQR) return;
+        let frame = (this.variant * 2) + (this.state === ATTACK ? 1 : 0);
+        let sprite = Sprite.ghost[frame];
 
-        let sprite = Sprite.ghost[0];
 
         /*for (let r = 0; r < this.targetField.length; r++) {
             for (let q = 0; q < this.targetField[0].length; q++) {
@@ -103,5 +131,15 @@ export class Ghost {
             this.pos //,
             //this.facingAngle + R90
         );
+
+        if (this.hp < this.maxhp) {
+            let hp = Math.ceil(this.hp / this.maxhp * 7);
+            if (hp >= 0) {
+                Sprite.drawViewportSprite(
+                    Sprite.enemy_healthbar[hp],
+                    this.pos
+                );
+            }
+        }
     }
 }

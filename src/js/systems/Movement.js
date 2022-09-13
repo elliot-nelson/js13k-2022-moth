@@ -82,11 +82,6 @@ export const Movement = {
     clipVelocityAgainstWalls(entity) {
         if (entity.noClipWall) return;
 
-        if (entity.pos.y < -1000) {
-            console.log('FUUUUUUUUUUUUUUUU');
-        }
-
-
         for (let tile of tilesHitByCircle(
             entity.pos,
             entity.vel,

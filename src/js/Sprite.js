@@ -28,8 +28,8 @@ export const Sprite = {
     init() {
         // Base pixel font and icons (see `Text.init` for additional variations)
         Sprite.font = initBasicSprite(SpriteSheet.font[0]);
-        Sprite.icon_mouse_lmb = initBasicSprite(SpriteSheet.icon_mouse[0]);
-        Sprite.icon_mouse_rmb = initBasicSprite(SpriteSheet.icon_mouse[1]);
+        //Sprite.icon_mouse_lmb = initBasicSprite(SpriteSheet.icon_mouse[0]);
+        //Sprite.icon_mouse_rmb = initBasicSprite(SpriteSheet.icon_mouse[1]);
 
         // Enemies
         //Sprite.stabguts = SpriteSheet.stabguts.map(initBasicSprite);
@@ -43,7 +43,7 @@ export const Sprite = {
         // GUI
         //Sprite.hud_healthbar = SpriteSheet.hud_healthbar.map(initBasicSprite);
         //Sprite.hud_healthbar.push(initDynamicSprite(createHealthChunk(Sprite.hud_healthbar[1].img)));
-        Sprite.hud_crosshair = SpriteSheet.hud_crosshair.map(initBasicSprite);
+        //Sprite.hud_crosshair = SpriteSheet.hud_crosshair.map(initBasicSprite);
 
         Sprite.hud_mouse = SpriteSheet.cursor.map(data => initBasicSprite(data, { x: 0, y: 0 }))[0];
 
@@ -52,6 +52,7 @@ export const Sprite = {
         Sprite.hud_tray_building = SpriteSheet.hud_tray_building.map(initBasicSprite);
         Sprite.hud_tray_divider = SpriteSheet.hud_tray_divider.map(initBasicSprite);
         Sprite.hud_tray_popup = SpriteSheet.hud_tray_popup.map(initBasicSprite);
+        Sprite.hud_select = SpriteSheet.hud_select.map(initBasicSprite);
 
         Sprite.hud_wip = SpriteSheet.hud_wip.map(data => initBasicSprite(data, { x: -1, y: -1 }));
 
@@ -70,6 +71,9 @@ export const Sprite = {
 
         Sprite.tilebg = initDynamicSprite(createTileBg(Sprite.tiles[0].img));
         Sprite.shadow = initDynamicSprite(createShadow());
+
+        Sprite.attack = SpriteSheet.attack.map(initBasicSprite);
+        Sprite.enemy_healthbar = SpriteSheet.enemy_healthbar.map(initBasicSprite);
 
         // Dialog
         //let dialog = SpriteSheet.dialog.map(initBasicSprite);

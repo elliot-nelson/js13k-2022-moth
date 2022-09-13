@@ -8,6 +8,7 @@ const fs                = require('fs');
 const gulp              = require('gulp');
 const log               = require('fancy-log');
 const rollup            = require('rollup');
+const roadroller        = require('roadroller');
 
 const AsepriteCli       = require('./tools/aseprite-cli');
 const ImageDataParser   = require('./tools/image-data-parser');
@@ -108,7 +109,27 @@ function minifyBuild() {
         .pipe(gulp.dest('dist/temp'));
 }
 
-const buildJs = gulp.series(compileBuild, minifyBuild);
+async function packBuild() {
+    const packer = new roadroller.Packer([
+        {
+            data: fs.readFileSync('dist/temp/app.js', 'utf8'),
+            type: 'js',
+            action: 'eval'
+        }
+    ]);
+
+    await packer.optimize();
+
+    const { firstLine, secondLine } = packer.makeDecoder();
+
+    fs.writeFileSync('dist/temp/app.packed.js', firstLine + secondLine, 'utf8');
+}
+
+const buildJs = gulp.series(
+    compileBuild,
+    minifyBuild,
+    ...(dist ? [packBuild] : [async () => log.info('Skipping packBuild (not --dist).')])
+);
 
 // -----------------------------------------------------------------------------
 // CSS Build
@@ -219,12 +240,12 @@ const buildAssets = gulp.series(
 // -----------------------------------------------------------------------------
 function buildHtml() {
     const cssContent = fs.readFileSync('dist/temp/app.css');
-    const jsContent = fs.readFileSync('dist/temp/app.js');
+    const jsContent = fs.readFileSync(dist ? 'dist/temp/app.packed.js' : 'dist/temp/app.js');
 
     return gulp.src('src/index.html')
         .pipe(template({ css: cssContent, js: jsContent }))
         .pipe(htmlmin({ collapseWhitespace: true }))
-        .pipe(gulp.src('dist/temp/app.js.map'))
+        //.pipe(gulp.src('dist/temp/app.js.map'))
         .pipe(gulp.dest('dist/build'));
 }
 

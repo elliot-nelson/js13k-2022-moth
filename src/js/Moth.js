@@ -127,7 +127,6 @@ export class Moth {
         }
 
         let pathToTarget = World.pathToTarget(this.pos, this.target);
-        console.log([this.target, pathToTarget]);
         let dist = vectorBetween(this.pos, pathToTarget);
         dist.m = clamp(dist.m, 0, 0.5);
 

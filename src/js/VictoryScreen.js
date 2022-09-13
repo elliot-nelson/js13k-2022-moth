@@ -20,6 +20,7 @@ import { Camera } from './Camera';
 import { Moth } from './Moth';
 import { Ghost } from './Ghost';
 import { Wave } from './Wave';
+import { game } from './Game';
 
 
 export class VictoryScreen {
@@ -30,7 +31,7 @@ export class VictoryScreen {
     update() {
         this.frames++;
 
-        return;
+        return true;
     }
 
     draw() {
@@ -46,7 +47,7 @@ export class VictoryScreen {
             '                    \n' +
             'VILLAGERS STIR UNEASILY IN THEIR BEDS AS YOU EMERGE INTO MOONLIGHT. YOU SENSE WARM BODIES ALL AROUND YOU, RIPE FOR PICKING. IT IS ONLY A MATTER OF TIME NOW BEFORE YOU REGAIN YOUR FULL NECROMANTIC POWER. \n' +
             '                    \n' +
-            'CONGRATULATIONS... AND THE END.';
+            'CONGRATULATIONS... AND THE END.  ' + game.fervor + 'f';
 
         message = message.slice(0, this.frames);
 
