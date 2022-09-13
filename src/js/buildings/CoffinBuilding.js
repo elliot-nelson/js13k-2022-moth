@@ -54,6 +54,7 @@ export class CoffinBuilding {
                         building.cull = true;
                     }
                 }
+                World.spawn = { ...this.qr };
             }
         } else {
             return;

@@ -58,8 +58,8 @@ export class Game {
         this.screenshakes = [];
         this.monstersPending = [];
         this.waveNumber = 0;
-        this.earth = 0;
-        this.fervor = 0;
+        this.earth = 100;
+        this.fervor = 10;
         this.entities.push(new Moth(qr2xy(World.spawn)));
         this.screen = undefined;
         this.wave = undefined;

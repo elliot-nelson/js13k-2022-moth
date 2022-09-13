@@ -40,7 +40,7 @@ export const TeleportCoffinAction = {
 
     drawSelectedText(u, v) {
         let building = World.buildingAt(World.selected);
-        let costs = [60, 10];
+        let costs = [50, 10];
         let text = 'MOVE COFFIN \n' + game.formatCost(...costs);
 
         if (building) {
@@ -57,7 +57,7 @@ export const TeleportCoffinAction = {
 
     tap() {
         let building = World.buildingAt(World.selected);
-        let costs = [60, 10];
+        let costs = [50, 10];
 
         if (building) {
             Moth.assign(moth => moth.construct(World.selected));

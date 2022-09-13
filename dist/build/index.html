@@ -3030,7 +3030,7 @@
 
         drawSelectedText(u, v) {
             let building = World.buildingAt(World.selected);
-            let costs = [60, 10];
+            let costs = [50, 10];
             let text = 'MOVE COFFIN \n' + game.formatCost(...costs);
 
             if (building) {
@@ -3047,7 +3047,7 @@
 
         tap() {
             let building = World.buildingAt(World.selected);
-            let costs = [60, 10];
+            let costs = [50, 10];
 
             if (building) {
                 Moth.assign(moth => moth.construct(World.selected));
@@ -3112,6 +3112,7 @@
                             building.cull = true;
                         }
                     }
+                    World.spawn = { ...this.qr };
                 }
             } else {
                 return;
@@ -5141,8 +5142,8 @@
             this.screenshakes = [];
             this.monstersPending = [];
             this.waveNumber = 0;
-            this.earth = 0;
-            this.fervor = 0;
+            this.earth = 100;
+            this.fervor = 10;
             this.entities.push(new Moth(qr2xy(World.spawn)));
             this.screen = undefined;
             this.wave = undefined;
