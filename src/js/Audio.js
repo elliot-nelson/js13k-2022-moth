@@ -1,7 +1,7 @@
 'use strict';
 
 import { CPlayer } from './vendor/player-small';
-import { song } from './songs/Hey';
+import { song } from './songs/Hey3';
 import { ZZFX } from './lib/zzfx';
 
 export const Audio = {
@@ -31,18 +31,20 @@ export const Audio = {
 
         Audio.waveCountdown = [1.56,0,261.6256,,.13,.3,,.41,,,,,,.2,,,.05,.2,.19,.22];
 
+        Audio.tile = [1.68,,0,.01,.01,0,,1.83,-28,-7,,,,,,,.02,,.01];
         // Save our background music in os13k, for fun!
         //localStorage[`OS13kMusic,${TITLE} - Oblique Mystique`] = JSON.stringify(ObliqueMystique);
 
         this.player = new CPlayer();
         this.player.init(song);
         while (this.player.generate() !== 1) {
-            console.log('generating');
+            // generating inline for now
         }
 
         let buffer = this.player.createAudioBuffer(Audio.ctx);
         this.songSource = Audio.ctx.createBufferSource();
         this.songSource.buffer = buffer;
+        this.songSource.loop = true;
         this.songSource.connect(Audio.gain_);
     },
 

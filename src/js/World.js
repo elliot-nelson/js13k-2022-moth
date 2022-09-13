@@ -17,6 +17,7 @@ import { ExitBuilding } from './buildings/ExitBuilding';
 import { Hud } from './Hud';
 import { MoveAction } from './actions/MoveAction';
 import { Text } from './Text';
+import { Audio } from './Audio';
 
 import { AttackAnimation } from './AttackAnimation';
 
@@ -179,6 +180,7 @@ export const World = {
             } else {
                 // single tap, reselect
                 this.selected = qr;
+                Audio.play(Audio.tile);
                 let building = this.buildingAt(this.selected);
                 /*if (building) {
                     let actions = building.hudActions();
