@@ -288,7 +288,6 @@ export const World = {
         if (!field) {
             field = this.cachedFields[key] = flood(this.tiles, qrTo);
         }
-        console.log(Object.keys(this.cachedFields).length);
 
         let options = [
             [qrFrom.q + 1, qrFrom.r],

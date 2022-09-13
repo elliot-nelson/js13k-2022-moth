@@ -133,7 +133,6 @@ export class Game {
 
         // Behavior (AI, player input, etc.)
         //perform(this.entities); <-- cut to save space
-        console.log(game.entities);
         for (let entity of game.entities) {
             if (entity.think) entity.think();
         }
@@ -316,7 +315,6 @@ export class Game {
                 }
 
                 let xy = qr2xy({ q, r });
-                console.log('NEW monster' + xy.x + ',' + xy.y + ',' + World.lightmap[r][q]);
                 game.entities.push(spawnFn(xy));
                 this.monstersPending.shift();
                 break;

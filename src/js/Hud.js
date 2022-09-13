@@ -191,7 +191,6 @@ export const Hud = {
                 );
             } else {
                 let tile = World.tileAt(World.selected);
-                console.log(World.selected, tile, TILE_DESCRIPTIONS[tile - 1]);
                 Viewport.ctx.drawImage(Sprite.tile_background[1].img, 4, Viewport.height - TRAY_HEIGHT + 6);
                 Viewport.ctx.drawImage(Sprite.tiles[tile - 1].img, 3, Viewport.height - TRAY_HEIGHT + 5);
                 Text.drawParagraph(

@@ -65,7 +65,6 @@ export class TowerBuilding {
                 }
             }
 
-            console.log('ATTEMPTED to pick target for building', closestTarget);
             this.target = closestTarget;
         }
 

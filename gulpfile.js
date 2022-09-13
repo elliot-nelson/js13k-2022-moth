@@ -245,7 +245,7 @@ function buildHtml() {
     return gulp.src('src/index.html')
         .pipe(template({ css: cssContent, js: jsContent }))
         .pipe(htmlmin({ collapseWhitespace: true }))
-        .pipe(gulp.src('dist/temp/app.js.map'))
+        //.pipe(gulp.src('dist/temp/app.js.map'))
         .pipe(gulp.dest('dist/build'));
 }
 
