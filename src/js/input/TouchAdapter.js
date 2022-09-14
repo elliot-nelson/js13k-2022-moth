@@ -31,8 +31,7 @@ export const TouchAdapter = {
             if (k) this.held[k] = true;
 
             // Hack to ensure we initialize audio after user interacts with game
-            Audio.readyToPlay = true;
-            game.frogger = 'TOUCHSTART';
+            Audio.markReady();
             Input.mode = INPUT_MODE_TOUCH;
 
             let p = event.changedTouches[0];

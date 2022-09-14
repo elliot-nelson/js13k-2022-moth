@@ -8,11 +8,6 @@ export const Audio = {
     init() {
         Audio.readyToPlay = false;
 
-        Audio.ctx = ZZFX.x;
-        Audio.gain_ = Audio.ctx.createGain();
-        Audio.gain_.connect(Audio.ctx.destination);
-        ZZFX.destination = Audio.gain_;
-
         //Audio.damage = [,,391,,.19,.01,2,.54,-4,20,,,,,,,.02,.9];
         // [,,961,.05,.06,1.17,1,4.67,.8,,,,,.8,-0.8,.1,.49,.62,.09];
         //Audio.victory = [,,454,.06,.86,.71,2,.63,-0.7,1.7,-83,.09,.27,.3,.2,,.18,.95,.02,.02];
@@ -34,34 +29,48 @@ export const Audio = {
         Audio.tile = [1.68,,0,.01,.01,0,,1.83,-28,-7,,,,,,,.02,,.01];
         // Save our background music in os13k, for fun!
         //localStorage[`OS13kMusic,${TITLE} - Oblique Mystique`] = JSON.stringify(ObliqueMystique);
-
-        this.player = new CPlayer();
-        this.player.init(song);
-        while (this.player.generate() !== 1) {
-            // generating inline for now
-        }
-
-        let buffer = this.player.createAudioBuffer(Audio.ctx);
-        this.songSource = Audio.ctx.createBufferSource();
-        this.songSource.buffer = buffer;
-        this.songSource.loop = true;
-        this.songSource.connect(Audio.gain_);
     },
 
     update() {
         if (!Audio.readyToPlay) return;
 
         if (!Audio.musicPlaying) {
-            //Audio.bgmusicnode = zzfxP(...Audio.song);
-            //Audio.bgmusicnode.loop = true;
-            this.songSource.start();
-            Audio.musicPlaying = true;
+            if (!this.player) {
+                this.player = new CPlayer();
+                this.player.init(song);
+            }
+
+            if (this.player.generate() === 1) {
+                let buffer = this.player.createAudioBuffer(Audio.ctx);
+                this.songSource = Audio.ctx.createBufferSource();
+                this.songSource.buffer = buffer;
+                this.songSource.loop = true;
+                this.songSource.connect(Audio.gain_);
+                this.songSource.start();
+                Audio.musicPlaying = true;
+            }
         }
     },
 
     play(sound) {
         if (!Audio.readyToPlay) return;
         ZZFX.play(...sound);
+    },
+
+    markReady() {
+        if (Audio.readyToPlay) return;
+
+        // In Safari, ensure our target AudioContext is created inside a
+        // click or tap event (this ensures we don't interact with it until
+        // after user input).
+        //
+        // Chrome and Firefox are more relaxed, but this approach works for all 3.
+        ZZFX.x = Audio.ctx = new AudioContext();
+        Audio.gain_ = Audio.ctx.createGain();
+        Audio.gain_.connect(Audio.ctx.destination);
+        ZZFX.destination = Audio.gain_;
+
+        Audio.readyToPlay = true;
     },
 
     // It's important we do pausing and unpausing as specific events and not in general update(),

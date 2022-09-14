@@ -35,8 +35,7 @@ export const MouseAdapter = {
             if (k) this.held[k] = true;
 
             // Hack to ensure we initialize audio after user interacts with game
-            Audio.readyToPlay = true;
-            game.frogger = 'mousedown';
+            Audio.markReady();
             Input.mode = INPUT_MODE_MOUSE;
 
             this.pointerDragStart = {
@@ -48,7 +47,6 @@ export const MouseAdapter = {
         window.addEventListener('mouseup', event => {
             let k = this.map[event.button];
             if (k) this.held[k] = false;
-            game.frogger = 'mouseup';
             Input.mode = INPUT_MODE_MOUSE;
         });
 
