@@ -4,8 +4,6 @@
 
 ![Welcome Screenshot](dist/final/400x250.png)
 
-_This year I was in crunch mode trying to finish the game. Expect a nicer, shinier README a week or two after the competition ends!_
-
 ## PLAY THE GAME!
 
  - Play the final version submitted to game jam at: https://js13kgames.com/entries/moth
@@ -20,6 +18,10 @@ Ambushed, beheaded, burned, and trapped in a wrought iron coffin. Once an almost
 Escape your tomb, now full of vengeful ghosts, by possessing an army of restless moths. Gather resources, build defenses, and then strike out for the tomb's exit. Are you ready to reclaim your former glory?
 
 Playable on your phone, tablet, or any desktop browser.
+
+## POSTMORTEM
+
+Check out my postmortem / making-of at https://7tonshark.com/posts/making-of-js13k-2022-moth/
 
 ## CHANGELOG
 
