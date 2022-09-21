@@ -1,22 +1,15 @@
 // World
 
-import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN, TILE_SIZE, TILE_WALL, TILE_CORNER_INNER, TILE_DYNAMIC } from './Constants';
-//import { FieldOfView } from './FieldOfView';
+import { TILE_SIZE, TILE_CORNER_INNER, TILE_DYNAMIC } from './Constants';
 import { Game } from './Game';
 import { game } from './Game';
 import { Viewport } from './Viewport';
 import { WorldData } from './generated/WorldData-gen';
 import { Sprite } from './Sprite';
 import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy, manhattan, floodlight, rgba } from './Util';
-import { Camera } from './Camera';
-import { Moth } from './Moth';
-import { TowerBuilding } from './buildings/TowerBuilding';
 import { CoffinBuilding } from './buildings/CoffinBuilding';
 import { EarthBuilding } from './buildings/EarthBuilding';
 import { ExitBuilding } from './buildings/ExitBuilding';
-import { Hud } from './Hud';
-import { MoveAction } from './actions/MoveAction';
-import { Text } from './Text';
 import { Audio } from './Audio';
 
 import { AttackAnimation } from './AttackAnimation';

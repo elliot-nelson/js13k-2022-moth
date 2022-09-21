@@ -4,6 +4,11 @@
 // world the player plays in, and assemble it as a source file. The map data comes from
 // Tiled, and data like stats and messages and descriptions comes from a YAML file.
 
+// Note for future readers: I have a bunch of junk in here about rooms and floors, but
+// actually this game doesn't have "rooms" or "floors". I haven't deleted that code
+// because I'll probably be copying and pasting this file next time I create a game
+// that imports from Tiled.
+
 const fs = require('fs');
 const util = require('util');
 const yaml = require('js-yaml');
@@ -99,8 +104,6 @@ const WorldBuilder = {
                 floors.push(floor);
             }
         }
-
-        console.log(floors);
 
         const world = { floors, bounds: this._getBounds(floors) };
 
