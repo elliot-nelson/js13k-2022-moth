@@ -1,19 +1,14 @@
-'use strict';
+// Game
 
 import { Sprite } from './Sprite';
 import { Input } from './input/Input';
 import { Text } from './Text';
 import { Viewport } from './Viewport';
-import { TITLE } from './Constants';
 import { rgba, createCanvas, clamp, partialText, uv2xy, xy2qr, xy2uv, qr2xy, centerxy } from './Util';
 import { Audio } from './Audio';
-//import { Brawl } from './systems/Brawl';
 import { Movement } from './systems/Movement';
 import { Damage } from './systems/Damage';
-import { DialogScheduling } from './systems/DialogScheduling';
-import { Victory } from './systems/Victory';
 import { Hud } from './Hud';
-import { ScreenShake } from './ScreenShake';
 
 import { World } from './World';
 import { Camera } from './Camera';
@@ -22,7 +17,6 @@ import { Ghost } from './Ghost';
 import { Wave } from './Wave';
 import { VictoryScreen } from './VictoryScreen';
 import { DefeatScreen } from './DefeatScreen';
-
 
 /**
  * Game state.
@@ -142,33 +136,11 @@ export class Game {
         // Movement (perform entity velocities to position)
         Movement.perform(this.entities);
 
-        // Dialog scheduling
-        //DialogScheduling.perform();
-
-        // Brawl system (aka "room battles")
-        //Brawl.perform();
-
-        // Victory condtions
-        Victory.perform();
-
         Camera.update();
 
         // Culling (typically when an entity dies)
         this.entities = this.entities.filter(entity => !entity.cull);
         World.buildings = World.buildings.filter(building => !building.cull);
-
-        // Camera logic
-        /*let diff = {
-            x: this.player.pos.x - this.camera.pos.x,
-            y: this.player.pos.y - this.camera.pos.y
-        };
-        this.camera.pos.x += diff.x * 0.2;
-        this.camera.pos.y += diff.y * 0.2;*/
-
-        // Tick screenshakes and cull finished screenshakes
-        this.screenshakes = this.screenshakes.filter(screenshake =>
-            screenshake.update()
-        );
 
         World.update();
 
@@ -176,14 +148,8 @@ export class Game {
             game.screen = new DefeatScreen();
         }
 
-        // Flickering shadows
-        if (game.frame % 6 === 0) this.shadowOffset = (Math.random() * 10) | 0;
-
-        // Intro screenshake
-        if (game.frame === 30) game.screenshakes.push(new ScreenShake(20, 20, 20));
-
         // Initial "click" to get game started
-        if (Input.pressed[Input.Action.ATTACK] && !game.started) game.started = true;
+        // if (Input.pressed[Input.Action.ATTACK] && !game.started) game.started = true;
     }
 
     draw() {
@@ -196,27 +162,6 @@ export class Game {
         //Viewport.ctx.fillStyle = rgba(32, 60, 86, 1);
         Viewport.ctx.fillStyle = rgba(36, 26, 20, 1);
         Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
-
-        // Render screenshakes (canvas translation)
-        /*
-        let shakeX = 0, shakeY = 0;
-        this.screenshakes.forEach(shake => {
-            shakeX += shake.x;
-            shakeY += shake.y;
-        });
-        Viewport.ctx.translate(shakeX, shakeY);
-        */
-
-        /*
-        Viewport.ctx.drawImage(
-            Sprite.shadow.img,
-            0, 0,
-            500, 500,
-            -this.shadowOffset, -this.shadowOffset,
-            Viewport.width + this.shadowOffset * 2,
-            Viewport.height + this.shadowOffset * 2
-        );
-        */
 
         World.draw();
 
@@ -237,30 +182,9 @@ export class Game {
             Viewport.fillViewportRect();
         }
 
-        /*
-        if (game.frame >= 30 && !game.started) {
-            //let width = Text.measureWidth(TITLE, 3);
-            Text.drawText(
-                Viewport.ctx, TITLE, Viewport.center.u - Text.measureWidth(TITLE, 3) / 2, Viewport.center.v, 3,
-                Text.white,
-                Text.red
-            );
-        }
-        */
-
         if (this.screen) {
             this.screen.draw();
         }
-
-        /*
-        if (game.frame % 100 === 0) {
-            let pos = {
-                x: Math.random() * 100 - 50,
-                y: Math.random() * 100 - 50
-            };
-            game.entities.push(new Ghost(pos));
-        }
-        */
     }
 
     pause() {

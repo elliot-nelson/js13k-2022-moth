@@ -1,18 +1,19 @@
 // Constants
 
-export const TITLE = 'WIZARD WITH A SHOTGUN';
+export const TITLE = 'Moth';
 
 // Spritesheet URI (produced during gulp build)
 export const SPRITESHEET_URI = 'sprites.png';
 
 // The game's desired dimensions in pixels - the actual dimensions can be adjusted
 // slightly by the Viewport module.
-export const TARGET_GAME_WIDTH = 240; //320; //480;
-export const TARGET_GAME_HEIGHT = 135; //180; //270;
+export const TARGET_GAME_WIDTH = 240;
+export const TARGET_GAME_HEIGHT = 135;
 
 // Size in pixels of each map tile
 export const TILE_SIZE   = 8;
 
+// Modes (touch vs mouse cursor)
 export const INPUT_MODE_TOUCH = 1;
 export const INPUT_MODE_MOUSE = 2;
 
