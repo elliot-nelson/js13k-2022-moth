@@ -1,3 +1,9 @@
-node_modules
+# Output folders
+dist/build
 dist/temp
+
+# Node
+node_modules
+
+# Temp/swapfiles
 .DS_Store
