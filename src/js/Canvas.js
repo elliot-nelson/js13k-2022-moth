@@ -1,10 +1,5 @@
-'use strict';
+// Canvas
 
-/**
- * This helper class encapsulates creating temporary off-screen canvases. Off-screen
- * canvases are great tools for building patterns, image masks, and other components
- * that we'll use to draw things on the primary canvas.
- */
 export class Canvas {
     constructor(width, height) {
         this.canvas = document.createElement('canvas');

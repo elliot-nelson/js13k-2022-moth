@@ -1,4 +1,4 @@
-'use strict';
+// Movement
 
 import { game } from '../Game';
 import {
@@ -10,9 +10,6 @@ import {
     normalizeVector
 } from '../Util';
 
-/**
- * Movement
- */
 export const Movement = {
     perform(entities) {
         // Movement only applies to active entities with positions and velocities

@@ -1,4 +1,4 @@
-'use strict';
+// Gore
 
 import { game } from './Game';
 import { R45, R90, R360 } from './Constants';

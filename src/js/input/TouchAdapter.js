@@ -6,11 +6,6 @@ import { Viewport } from '../Viewport';
 import { Audio } from '../Audio';
 import { game } from '../Game';
 
-/**
- * TouchAdapter
- *
- * Maps touch inputs to game inputs.
- */
 export const TouchAdapter = {
     init() {
         this.map = [];

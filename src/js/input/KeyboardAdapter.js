@@ -1,14 +1,8 @@
-'use strict';
+// KeyboardAdapter
 
 import { Input } from './Input';
 import { R0, R45, R90 } from '../Constants';
 
-
-/**
- * KeyboardAdapter
- *
- * Maps keyboard inputs to game inputs.
- */
 export const KeyboardAdapter = {
     init() {
         KeyboardAdapter.map = {

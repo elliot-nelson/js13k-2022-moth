@@ -6,11 +6,6 @@ import { Viewport } from '../Viewport';
 import { Audio } from '../Audio';
 import { game } from '../Game';
 
-/**
- * MouseAdapter
- *
- * Maps mouse inputs to game inputs.
- */
 export const MouseAdapter = {
     init() {
         this.map = [];

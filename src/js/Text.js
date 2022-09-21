@@ -1,4 +1,4 @@
-'use strict';
+// Text
 
 import { Sprite } from './Sprite';
 import { rgba, createCanvas } from './Util';
@@ -22,11 +22,6 @@ const C_SHIFT = {
 
 const C_ICONS = {};
 
-/**
- * Text
- *
- * Utilities for drawing text using in-game pixel font.
- */
 export const Text = {
     init() {
         Text.white = Sprite.font.img;

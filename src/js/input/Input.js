@@ -5,17 +5,6 @@ import { KeyboardAdapter } from './KeyboardAdapter';
 import { MouseAdapter } from './MouseAdapter';
 import { TouchAdapter } from './TouchAdapter';
 
-/**
- * This is our abstract game input handler.
- *
- * Each frame, we'll collect input data from all of our supported input adapters,
- * and turn it into game input. This game input can then be used by the game
- * update for the frame.
- *
- * The input adapters give us data like "key X pressed", or "right mouse button
- * clicked", or "button B" pressed, and these are translated into a game input
- * like "dodge".
- */
 export const Input = {
     // Game Inputs
     //

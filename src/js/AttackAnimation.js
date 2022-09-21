@@ -1,4 +1,4 @@
-'use strict';
+// AttackAnimation
 
 import { game } from './Game';
 import { Sprite } from './Sprite';
