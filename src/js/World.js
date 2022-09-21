@@ -5,7 +5,7 @@ import { FLICKER_FRAME_1, STATUS_COL, TYPE_HIDDEN, TILE_SIZE, TILE_WALL, TILE_CO
 import { Game } from './Game';
 import { game } from './Game';
 import { Viewport } from './Viewport';
-import { WorldData } from './WorldData-gen';
+import { WorldData } from './generated/WorldData-gen';
 import { Sprite } from './Sprite';
 import { xy2uv, xy2qr, uv2xy, array2d, clamp, flood, centerxy, qr2xy, manhattan, floodlight, rgba } from './Util';
 import { Camera } from './Camera';

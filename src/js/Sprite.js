@@ -2,7 +2,7 @@
 
 import { game } from './Game';
 import { rgba, createCanvas } from './Util';
-import { SpriteSheet } from './SpriteSheet-gen';
+import { SpriteSheet } from './generated/SpriteSheet-gen';
 import { Viewport } from './Viewport';
 import { Camera } from './Camera';
 import { TILE_SIZE, TILE_CORNER_OUTER, TILE_CORNER_INNER, TILE_DYNAMIC, TILE_WALL_LEFT, TILE_WALL_RIGHT, TILE_WALL_BOTTOM, TILE_WALL_TOP } from './Constants';

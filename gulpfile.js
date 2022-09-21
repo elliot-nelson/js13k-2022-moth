@@ -150,8 +150,8 @@ async function exportSpriteSheet() {
     // file containing the x/y/w/h coordinates of the sprites in the spritesheet.
 
     let src = 'src/assets/*.aseprite';
-    let png = 'src/assets/spritesheet-gen.png';
-    let data = 'src/assets/spritesheet-gen.json';
+    let png = 'src/assets/generated/spritesheet-gen.png';
+    let data = 'src/assets/generated/spritesheet-gen.json';
 
     try {
         await AsepriteCli.exec(`--batch ${src} --sheet-type rows --sheet ${png} --data ${data} --format json-array`);
@@ -166,9 +166,9 @@ async function generateSpriteSheetData() {
     // our asset loader in the game. This way we can freely update images without ever
     // hand-edting any coordinate data or worrying about the composition of the spritesheet.
 
-    let data = 'src/assets/spritesheet-gen.json';
+    let data = 'src/assets/generated/spritesheet-gen.json';
     let image = 'dist/temp/sprites.png';
-    let output = 'src/js/SpriteSheet-gen.js';
+    let output = 'src/js/generated/SpriteSheet-gen.js';
 
     await ImageDataParser.parse(data, image, output);
 }
@@ -178,7 +178,7 @@ async function exportTileSheet() {
     // levels in Tiled. (TBD!)
 
     let src = 'src/assets/tiles.aseprite';
-    let png = 'src/assets/tiles-gen.png';
+    let png = 'src/assets/generated/tiles-gen.png';
 
     try {
         await AsepriteCli.exec(`--batch ${src} --sheet-type rows --sheet-width 32 --sheet ${png}`);
@@ -189,7 +189,7 @@ async function exportTileSheet() {
 }
 
 function copyAssets() {
-    let pipeline = gulp.src('src/assets/spritesheet-gen.png')
+    let pipeline = gulp.src('src/assets/generated/spritesheet-gen.png')
         .pipe(size({ title: 'spritesheet  pre' }));
 
     // Fast Mode Shortcut
@@ -215,7 +215,7 @@ async function pngoutAssets() {
 
 async function generateWorld() {
     const mapFile = 'src/assets/world.tmx';
-    const worldFile = 'src/js/WorldData-gen.js';
+    const worldFile = 'src/js/generated/WorldData-gen.js';
 
     await WorldBuilder.build(mapFile, worldFile);
 }
@@ -306,8 +306,8 @@ function watch() {
     watching = true;
 
     // The watch task watches for any file changes in the src/ folder, _except_ for
-    // edits to generated files (called blah-gen by convention).
-    gulp.watch(['src/**', '!src/**/*-gen*'], build);
+    // edits to generated files.
+    gulp.watch(['src/**', '!src/**/generated/**'], build);
 }
 
 // -----------------------------------------------------------------------------
