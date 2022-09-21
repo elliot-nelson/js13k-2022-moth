@@ -1,7 +1,7 @@
 // Hud
 
 import { game } from './Game';
-import { HUD_PAGE_U, HUD_PAGE_V, HUD_PAGE_TEXT_U, R90, TILE_DESCRIPTIONS } from './Constants';
+import { R90, TILE_DESCRIPTIONS } from './Constants';
 import { clamp, vectorBetween, vectorAdd, vector2angle, uv2xy, rgba, xy2uv, xy2qr, qr2xy, createCanvas } from './Util';
 import { Input } from './input/Input';
 import { Sprite } from './Sprite';
