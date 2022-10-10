@@ -11,8 +11,7 @@ import { CoffinBuilding } from './buildings/CoffinBuilding';
 import { EarthBuilding } from './buildings/EarthBuilding';
 import { ExitBuilding } from './buildings/ExitBuilding';
 import { Audio } from './Audio';
-
-import { AttackAnimation } from './AttackAnimation';
+import { MoveAction } from './actions/MoveAction';
 
 export const World = {
     init() {

@@ -20,7 +20,7 @@ export const Viewport = {
     //
     //     we start with a desired game dimension:   480x270px
     //          get the actual browser dimensions:  1309x468px
-    //          factor in the display's DPI ratio:  2618x936px
+    //          factor in the display's DPR ratio:  2618x936px
     //         now calculate the horizontal scale:       5.45x
     //                     and the vertical scale:       3.46x
     //            our new offical game scaling is:        5.4x
@@ -31,23 +31,23 @@ export const Viewport = {
     // If you use this approach, make sure your GUI can "float" (otherwise there may be whole
     // UI elements the player cannot see!).
     resize(force) {
-        let dpi = window.devicePixelRatio,
+        let dpr = window.devicePixelRatio,
             width = Viewport.canvas.clientWidth,
             height = Viewport.canvas.clientHeight,
-            dpiWidth = width * dpi,
-            dpiHeight = height * dpi;
+            dprWidth = width * dpr,
+            dprHeight = height * dpr;
 
         if (
             force ||
-            Viewport.canvas.width !== dpiWidth ||
-            Viewport.canvas.height !== dpiHeight
+            Viewport.canvas.width !== dprWidth ||
+            Viewport.canvas.height !== dprHeight
         ) {
-            Viewport.canvas.width = dpiWidth;
-            Viewport.canvas.height = dpiHeight;
+            Viewport.canvas.width = dprWidth;
+            Viewport.canvas.height = dprHeight;
 
-            Viewport.scale = ((Math.max(dpiWidth / TARGET_GAME_WIDTH, dpiHeight / TARGET_GAME_HEIGHT) * 10) | 0) / 10;
-            Viewport.width = Math.ceil(dpiWidth / Viewport.scale);
-            Viewport.height = Math.ceil(dpiHeight / Viewport.scale);
+            Viewport.scale = ((Math.min(dprWidth / TARGET_GAME_WIDTH, dprHeight / TARGET_GAME_HEIGHT) * 10) | 0) / 10;
+            Viewport.width = Math.ceil(dprWidth / Viewport.scale);
+            Viewport.height = Math.ceil(dprHeight / Viewport.scale);
             Viewport.center = {
                 u: (Viewport.width / 2) | 0,
                 v: (Viewport.height / 2) | 0
