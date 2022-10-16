@@ -143,7 +143,7 @@ export const CPlayer = function() {
     ];
 
     // Private variables set up by init()
-    var mSong, mLastRow, mCurrentCol, mNumWords, mMixBuf;
+    var mSong, mLastRow, mCurrentCol, mNumWords, mMixBuf, mChannelBufs;
 
 
     //--------------------------------------------------------------------------
@@ -163,6 +163,12 @@ export const CPlayer = function() {
 
         // Create work buffer (initially cleared)
         mMixBuf = new Int32Array(mNumWords);
+
+        mChannelBufs = [];
+
+        for (let i = 0; i < song.numChannels; i++) {
+            mChannelBufs.push(new Int32Array(mNumWords));
+        }
     };
 
 
@@ -296,6 +302,10 @@ export const CPlayer = function() {
                     // ...and add to stereo mix buffer
                     mMixBuf[k] += lsample | 0;
                     mMixBuf[k+1] += rsample | 0;
+
+                    // ...and channel
+                    mChannelBufs[mCurrentCol][k] += lsample | 0;
+                    mChannelBufs[mCurrentCol][k+1] += rsample | 0;
                 }
             }
         }
@@ -306,14 +316,17 @@ export const CPlayer = function() {
     };
 
     // Create a AudioBuffer from the generated audio data
-    this.createAudioBuffer = function(context) {
+    this.createAudioBuffer = function(context, channelNumber) {
+        let source = channelNumber === undefined ? mMixBuf : mChannelBufs[channelNumber];
+
         var buffer = context.createBuffer(2, mNumWords / 2, 44100);
         for (var i = 0; i < 2; i ++) {
             var data = buffer.getChannelData(i);
             for (var j = i; j < mNumWords; j += 2) {
-                data[j >> 1] = mMixBuf[j] / 65536;
+                data[j >> 1] = source[j] / 65536;
             }
         }
+
         return buffer;
     };
 
