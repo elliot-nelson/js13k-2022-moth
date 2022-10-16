@@ -12,6 +12,9 @@
 // Version 2
 // https://sb.bitsnbites.eu/?data=U0JveA4C7dm9ahRRFADgc-dnF0WIlZJusFIsVkghiOA2NoKF2KS0DGKZRhJkU23Y7FYLkiZBRPARLCziA1j7BqJdHmGd7I-aRVPYbNZ83-XcOefMMAx3ylPciliJqpn1NiPrdYqI1p23D7bz2CtS3n6TV8PiZZmy02srTtuJ5dKZq18FAAAAAAAAF9qXjXZ83oj21-Lm7bW6_tZI-YeVqL4XjxoR5djk6qxgZjj8mf3lidd_yAAAAAAAgHNn9LxdR7SjbL6btrJRZNXTcjU1piImO_AfGjgCAAAAAAAusv4kRoeHhyflWpaye8dRraeDLC8mK2Kys3hbS_79Hb8QAAAAAAA4V6bDsifF5dbdOv1YRjruRvWivDoejzVrsx1gYbr1mo2Lf-XjbNvpAAAAAADwj9KnTqSjzUsRjWs3ThoP85Suv4_qcWO1keYM-nu9WXR3u7vz9e8vHvQH_bNqAAAAAAAAWLhn-xHr-1cisrg_bWWjiKqVH2Tzw7Kd-uZZAQAAAAAAAMvkBw
 
+// Version 3
+// https://sb.bitsnbites.eu/?data=U0JveA4C7dm9ahRRFADgc-dvUYRYKekGK8UiQgpBELexEURECyuxDGKZRhJ0rTZsdqsFOxcRwUewsNAHsPYNRLs8wjrZHzWLWthsfr7vcO-cc7kMw5nyFJciVqJuZb3NyHqdImLtypsb23nsFilvv87rYfG0TNnB2IqDXsTR0lmonwUAAAAAAAAn2peNdnzeiPbX4uLl9ab-VqX8_UrU34tbVUQ5MX3qFcwNhz-zv9x4-YcMAAAAAAA4dMaP282KdpStt7OjbBxZfa9cTdVMxHQHjqGBFgAAAAAAcJL1p2s8Go32y_UsZdf2on6QXmV5MY2I6c7ybR3x7-_4hQAAAAAAwKEyG5bdLU6vXW3SD2WkvW7UT8qzk_FYqzHfAZam28R8XPwrn2TbugMAAAAAwH9KnzqRPm6eiqjOXdg_uJmndP5d1Ler1SotGPR3e_PV3enuLNa_v3jQH_T_VQMAAAAAAMCy5eNOxLgf8TzL1q43B4_ylD-8E_X97ExhWAYAAAAAAMBx9gM
+
 // Song data
 export const song = {
   songData: [
@@ -295,41 +298,41 @@ export const song = {
     },
     { // Instrument 6
       i: [
-      0, // OSC1_WAVEFORM
-      96, // OSC1_VOL
-      152, // OSC1_SEMI
+      3, // OSC1_WAVEFORM
+      255, // OSC1_VOL
+      128, // OSC1_SEMI
       0, // OSC1_XENV
       0, // OSC2_WAVEFORM
-      88, // OSC2_VOL
-      152, // OSC2_SEMI
-      12, // OSC2_DETUNE
+      255, // OSC2_VOL
+      140, // OSC2_SEMI
+      0, // OSC2_DETUNE
       0, // OSC2_XENV
-      0, // NOISE_VOL
+      127, // NOISE_VOL
       2, // ENV_ATTACK
-      0, // ENV_SUSTAIN
-      60, // ENV_RELEASE
-      0, // ENV_EXP_DECAY
+      2, // ENV_SUSTAIN
+      47, // ENV_RELEASE
+      61, // ENV_EXP_DECAY
       0, // ARP_CHORD
       0, // ARP_SPEED
       0, // LFO_WAVEFORM
-      0, // LFO_AMT
-      0, // LFO_FREQ
-      0, // LFO_FX_FREQ
-      2, // FX_FILTER
-      255, // FX_FREQ
-      0, // FX_RESONANCE
+      96, // LFO_AMT
+      3, // LFO_FREQ
+      1, // LFO_FX_FREQ
+      3, // FX_FILTER
+      94, // FX_FREQ
+      79, // FX_RESONANCE
       0, // FX_DIST
       32, // FX_DRIVE
-      47, // FX_PAN_AMT
-      3, // FX_PAN_FREQ
-      157, // FX_DELAY_AMT
-      2 // FX_DELAY_TIME
+      84, // FX_PAN_AMT
+      2, // FX_PAN_FREQ
+      12, // FX_DELAY_AMT
+      4 // FX_DELAY_TIME
       ],
       // Patterns
       p: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
       // Columns
       c: [
-        {n: [129,,,,129,,,,129,,,,129,,,,129,,,,129,,,,129,,,,129],
+        {n: [141,140,139,138,141,140,139,138,141,140,139,138,135,136,135,136,141,140,139,138,141,140,139,138,141,140,139,138,135,136,135,136,,,,,,,,,,,,,141,140,141,140,,,,,,,,,,,,,141,140,141,140],
           f: []}
       ]
     },

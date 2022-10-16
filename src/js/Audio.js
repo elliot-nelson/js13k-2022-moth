@@ -89,7 +89,12 @@ export const Audio = {
         if (!Audio.musicPlaying) return;
 
         if (!this.trackWavePlaying) {
-            this.musicGainNodes[TRACK_WAVE].gain.linearRampToValueAtTime(1, Audio.ctx.currentTime + 3);
+            let sequenceLength = song.rowLen * 4 / 44100;
+            let intoPattern = (Audio.ctx.currentTime - this.musicStartTime) % sequenceLength;
+            let startTime = Audio.ctx.currentTime - intoPattern + sequenceLength;
+
+            //this.musicGainNodes[TRACK_WAVE].gain.linearRampToValueAtTime(1, Audio.ctx.currentTime + 3);
+            this.musicGainNodes[TRACK_WAVE].gain.setValueAtTime(1, startTime);
             this.trackWavePlaying = true;
         }
     },
