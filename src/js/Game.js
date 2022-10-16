@@ -146,6 +146,8 @@ export class Game {
 
         if (this.entities.filter(e => e instanceof Moth).length === 0) {
             game.screen = new DefeatScreen();
+            Audio.stopWave();
+            Audio.stopCombat();
         }
 
         // Initial "click" to get game started

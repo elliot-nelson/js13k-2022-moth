@@ -66,5 +66,9 @@ export const Viewport = {
 
     fillViewportRect() {
         Viewport.ctx.fillRect(0, 0, Viewport.width, Viewport.height);
+    },
+
+    isOnScreen(uv) {
+        return uv.u >= 0 && uv.v >= 0 && uv.u < Viewport.width && uv.v < Viewport.height;
     }
 };

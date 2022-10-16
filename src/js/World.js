@@ -318,5 +318,16 @@ export const World = {
                 }
             }
         }
+    },
+
+    visibleEnemies() {
+        return game.entities.filter(e => {
+            if (!e.enemy) return false;
+
+            let qr = xy2qr(e.pos);
+            if (this.fogofwar[qr.r][qr.q] === 0) return false;
+
+            return Viewport.isOnScreen(xy2uv(e.pos));
+        });
     }
 };

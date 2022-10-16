@@ -3,6 +3,7 @@
 import { game } from './Game';
 import { Ghost } from './Ghost';
 import { Audio } from './Audio';
+import { World } from './World';
 
 const WAVES = [
     // Wave 1
@@ -112,6 +113,12 @@ export class Wave {
         if (this.countdown <= 0) {
             this.incoming = true;
 
+            // Handle music transitions
+            Audio.startWave();
+            if (World.visibleEnemies().length > 0) {
+                Audio.startCombat();
+            }
+
             for (let i = 0; i < this.upcoming.length; i++) {
                 if (this.frame === this.upcoming[i][0] * 60) {
                     game.monstersPending.push(xy => new Ghost(xy, this.upcoming[i][1]));
@@ -125,6 +132,8 @@ export class Wave {
             let enemies = game.entities.filter(e => e.enemy);
             if (enemies.length === 0) {
                 game.wave = undefined;
+                Audio.stopWave();
+                Audio.stopCombat();
             }
         }
     }

@@ -4,6 +4,9 @@ import { ZZFX } from './lib/zzfx';
 import { CPlayer } from './lib/player-small';
 import { song } from './songs/WindyCave';
 
+export const TRACK_COMBAT = 5;
+export const TRACK_WAVE = 6;
+
 export const Audio = {
     init() {
         Audio.readyToPlay = false;
@@ -29,12 +32,33 @@ export const Audio = {
             }
 
             if (this.player.generate() === 1) {
-                let buffer = this.player.createAudioBuffer(Audio.ctx);
-                this.songSource = Audio.ctx.createBufferSource();
-                this.songSource.buffer = buffer;
-                this.songSource.loop = true;
-                this.songSource.connect(Audio.gain_);
-                this.songSource.start();
+                this.musicGainNodes = [];
+                this.songSources = [];
+
+                for (let i = 0; i < song.numChannels; i++) {
+                    let buffer = this.player.createAudioBuffer(Audio.ctx, i);
+                    this.songSource = Audio.ctx.createBufferSource();
+
+                    let gainNode = Audio.ctx.createGain();
+                    gainNode.connect(Audio.gain_);
+                    this.musicGainNodes.push(gainNode);
+
+                    if (i === TRACK_COMBAT || i === TRACK_WAVE) {
+                        gainNode.gain.value = 0;
+                    }
+
+                    this.songSource.buffer = buffer;
+                    this.songSource.loop = true;
+                    this.songSource.connect(gainNode);
+                    this.songSources.push(this.songSource);
+                }
+
+                this.musicStartTime = Audio.ctx.currentTime + 0.1;
+
+                for (let i = 0; i < song.numChannels; i++) {
+                    this.songSources[i].start(this.musicStartTime);
+                }
+
                 Audio.musicPlaying = true;
             }
         }
@@ -59,6 +83,47 @@ export const Audio = {
         ZZFX.destination = Audio.gain_;
 
         Audio.readyToPlay = true;
+    },
+
+    startWave() {
+        if (!Audio.musicPlaying) return;
+
+        if (!this.trackWavePlaying) {
+            this.musicGainNodes[TRACK_WAVE].gain.linearRampToValueAtTime(1, Audio.ctx.currentTime + 3);
+            this.trackWavePlaying = true;
+        }
+    },
+
+    stopWave() {
+        if (!Audio.musicPlaying) return;
+
+        if (this.trackWavePlaying) {
+            this.musicGainNodes[TRACK_WAVE].gain.linearRampToValueAtTime(0, Audio.ctx.currentTime + 4);
+            this.trackWavePlaying = false;
+        }
+    },
+
+    startCombat() {
+        if (!Audio.musicPlaying) return;
+
+        if (!this.trackCombatPlaying) {
+            let sequenceLength = song.rowLen * 4 / 44100;
+            let intoPattern = (Audio.ctx.currentTime - this.musicStartTime) % sequenceLength;
+            let startTime = Audio.ctx.currentTime - intoPattern + sequenceLength;
+
+            //this.musicGainNodes[TRACK_COMBAT].gain.linearRampToValueAtTime(1, Audio.ctx.currentTime + 1);
+            this.musicGainNodes[TRACK_COMBAT].gain.setValueAtTime(1, startTime);
+            this.trackCombatPlaying = true;
+        }
+    },
+
+    stopCombat() {
+        if (!Audio.musicPlaying) return;
+
+        if (this.trackCombatPlaying) {
+            this.musicGainNodes[TRACK_COMBAT].gain.linearRampToValueAtTime(0, Audio.ctx.currentTime + 4);
+            this.trackCombatPlaying = false;
+        }
     },
 
     // It's important we do pausing and unpausing as specific events and not in general update(),
